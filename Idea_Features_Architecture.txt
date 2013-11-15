@@ -13,3 +13,8 @@ The list of features you will implement this semester. This could be a minimal v
 Describe the architecture of your application. This includes the technologies you will use for a database, a back-end server, and a front end. You may design a mobile application instead of or in addition to a web site.
 
 Submit the URL of your web site where this report is located.
+
+
+Agile development teams use what is called a sprint board to organize the stories they commit to finish in the sprint. They also manage a backlog of stories to complete in future sprints. These sprint boards are often physical boards and backlogs are often just spreadsheets. This system can get unorganized and messy. The Agile Sprint Board seeks to fix these problems by creating a simple, aesthetic web based sprint board. Teams can easily create their boards and add stories to them. Team members can get assigned to tasks within those stories. In addition, the Agile Sprint Board application will be able to generate a burn down chart to show the team's progress towards meeting its goals.
+
+This project will use a backend built on the Python Flask framework using MySQL. The frontend will be a browser app build with Javascript and Twitter Bootstrap. 
