@@ -1,20 +1,88 @@
-Describe the idea for your application. This can be the same text in your proposal. This should include:
+1) Describe the idea for your application. This should include:
+ - Your pitch. Explain what need this application meets. Why will anyone want to use it?
 
-Your pitch. Explain what need this application meets. Why will anyone want to use it?
+Agile development teams use what is called a sprint board to organize the stories they commit to finish in the sprint.
+They also manage a backlog of stories to complete in future sprints. These sprint boards are often physical boards and 
+backlogs are often just spreadsheets. This system can get unorganized and messy.
 
-A brief description of what your application will do to meet this need.
+ - A brief description of what your application will do to meet this need.
 
-Describe the features of your application. This should include:
+The Agile Sprint Board seeks to fix these problems by creating a simple, aesthetic web based sprint board. 
+Teams can easily create their boards and add stories to them. Team members can get assigned to tasks within 
+those stories. In addition, the Agile Sprint Board application will be able to generate a burn down chart 
+to show the team's progress towards meeting its goals.
 
-All of the features you would ideally implement if you had the time to create your ideal application.
+2) Describe the features of your application. This should include:
 
-The list of features you will implement this semester. This could be a minimal viable product, if you were going to market. Larger teams should have more features.
+May we recommend Viewing as the original spreadsheet.
+Link To Original Spreadsheet: 
+https://docs.google.com/spreadsheet/ccc?key=0Al1dp71IzFnjdDRJV0hGSlpteHhsRS1YNGQ2WUdEZkE&usp=sharing
 
-Describe the architecture of your application. This includes the technologies you will use for a database, a back-end server, and a front end. You may design a mobile application instead of or in addition to a web site.
+- The list of features you will implement this semester.  * Denotes Optional Feature *
+Sprint Boards
+    Create Board
+    - Multiple Boards
+    Delete Board
+    Combine Board
+    Set Sprint Attributes
+    - Start Date of Sprint
+    - End Date of Sprint
+    User
+    - Add
+    - Modify
+    - Remove
+    Story
+    - Add
+    - Modify
+    - Delete
+    * View all Users and Tasks *
+Users
+    Create User
+    Delete User
+    Edit User
+    Leave Board
+    Google OpenID Login
+Stories
+    Create Story
+    Delete Story
+    Edit Story
+    Assign to User
+    Complete Story
+    * Estimate Story *
+    * Comment on Story *
+    * Add Tasks *
+    * Move Tasks Between Stories *
+Backlog
+    Story
+    - Add
+    - Delete
+    - Assign Story to Board
+    Stories: Category
+    - Add
+    - Remove
+    - Edit
+    Search
+Burndown Charts
+    Calculate Chart
+    Hide/Show Chart
+    Calculations
+    - Average Velocity for Team
+    - Team Statistics
+    - Comparison of Teams
+Tasks
+    Create
+    Delete
+    Edit
+    Set Estimate
+    Modify Estimate
+    Assign to:
+    - User
+    - Board
+    * Comment on task *
+    Completion Status
+    Actual Time to Complete
 
-Submit the URL of your web site where this report is located.
-
-
-Agile development teams use what is called a sprint board to organize the stories they commit to finish in the sprint. They also manage a backlog of stories to complete in future sprints. These sprint boards are often physical boards and backlogs are often just spreadsheets. This system can get unorganized and messy. The Agile Sprint Board seeks to fix these problems by creating a simple, aesthetic web based sprint board. Teams can easily create their boards and add stories to them. Team members can get assigned to tasks within those stories. In addition, the Agile Sprint Board application will be able to generate a burn down chart to show the team's progress towards meeting its goals.
+3) Describe the architecture of your application. This includes the technologies you will use for a database, 
+a back-end server, and a front end. You may design a mobile application instead of or in addition to a web site.
 
 This project will use a backend built on the Python Flask framework using MySQL. The frontend will be a browser app build with Javascript and Twitter Bootstrap. 
