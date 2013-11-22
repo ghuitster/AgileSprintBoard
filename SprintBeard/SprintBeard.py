@@ -1,5 +1,8 @@
 from flask import flash, Flask, render_template
+from controllers.UserController import users
+
 app = Flask(__name__)
+app.register_blueprint(users)
 app.secret_key = 'some_secret'
 
 @app.route('/')
