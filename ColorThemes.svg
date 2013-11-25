@@ -29,7 +29,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
      inkscape:cx="322.30721"
-     inkscape:cy="773.76974"
+     inkscape:cy="236.03376"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -114,11 +114,11 @@
            y="229.52863"
            x="165.46411"
            id="tspan3836"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            id="tspan3840"
            y="244.52863"
            x="165.46411"
-           sodipodi:role="line">6986FFFF</tspan></text>
+           sodipodi:role="line">6986FF</tspan></text>
     </g>
     <g
        id="g4047"
@@ -140,11 +140,11 @@
            y="229.5257"
            x="277.66476"
            id="tspan3836-4"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            id="tspan3840-8"
            y="244.5257"
            x="277.66476"
-           sodipodi:role="line">6A79B8FF</tspan></text>
+           sodipodi:role="line">6A79B8</tspan></text>
     </g>
     <g
        id="g4053"
@@ -166,11 +166,11 @@
            y="229.52863"
            x="390.70566"
            id="tspan3836-2"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.52863"
            x="390.70566"
            sodipodi:role="line"
-           id="tspan4081">1C359CFF</tspan></text>
+           id="tspan4081">1C359C</tspan></text>
     </g>
     <g
        id="g4064"
@@ -194,11 +194,11 @@
              sodipodi:role="line"
              id="tspan3836-5"
              x="507.04184"
-             y="229.52863">RGBa:</tspan><tspan
+             y="229.52863">RGB:</tspan><tspan
              sodipodi:role="line"
              x="507.04184"
              y="244.52863"
-             id="tspan4085">9EB1FFFF</tspan></text>
+             id="tspan4085">9EB1FF</tspan></text>
       </g>
     </g>
     <g
@@ -221,7 +221,7 @@
            y="229.60187"
            x="620.44244"
            id="tspan3836-1"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.60187"
            x="620.44244"
            sodipodi:role="line"
@@ -247,11 +247,11 @@
            y="229.52863"
            x="49.787678"
            id="tspan3836-14"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.52863"
            x="49.787678"
            sodipodi:role="line"
-           id="tspan4077">000000FF</tspan></text>
+           id="tspan4077">000000</tspan></text>
     </g>
     <text
        xml:space="preserve"
@@ -284,11 +284,11 @@
            y="229.52863"
            x="165.46411"
            id="tspan3836-6"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            id="tspan3840-85"
            y="244.52863"
            x="165.46411"
-           sodipodi:role="line">82FF54FF</tspan></text>
+           sodipodi:role="line">82FF54</tspan></text>
     </g>
     <g
        id="g4047-7"
@@ -310,11 +310,11 @@
            y="229.5257"
            x="277.66476"
            id="tspan3836-4-8"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            id="tspan3840-8-9"
            y="244.5257"
            x="277.66476"
-           sodipodi:role="line">77B85FFF</tspan></text>
+           sodipodi:role="line">77B85F</tspan></text>
     </g>
     <g
        id="g4053-2"
@@ -336,11 +336,11 @@
            y="229.52863"
            x="390.70566"
            id="tspan3836-2-4"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.52863"
            x="390.70566"
            sodipodi:role="line"
-           id="tspan4081-3">3B9C17FF</tspan></text>
+           id="tspan4081-3">3B9C17</tspan></text>
     </g>
     <g
        id="g4064-1"
@@ -364,11 +364,11 @@
              sodipodi:role="line"
              id="tspan3836-5-4"
              x="507.04184"
-             y="229.52863">RGBa:</tspan><tspan
+             y="229.52863">RGB:</tspan><tspan
              sodipodi:role="line"
              x="507.04184"
              y="244.52863"
-             id="tspan4085-1">AEFF90FF</tspan></text>
+             id="tspan4085-1">AEFF90</tspan></text>
       </g>
     </g>
     <g
@@ -391,11 +391,11 @@
            y="229.60187"
            x="620.44244"
            id="tspan3836-1-7"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.60187"
            x="620.44244"
            sodipodi:role="line"
-           id="tspan4089-4">D1FFC0FF</tspan></text>
+           id="tspan4089-4">D1FFC0</tspan></text>
     </g>
     <g
        id="g4035-2"
@@ -417,11 +417,11 @@
            y="229.52863"
            x="49.787678"
            id="tspan3836-14-9"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.52863"
            x="49.787678"
            sodipodi:role="line"
-           id="tspan4077-3">000000FF</tspan></text>
+           id="tspan4077-3">000000</tspan></text>
     </g>
     <text
        xml:space="preserve"
@@ -454,11 +454,11 @@
            y="229.52863"
            x="165.46411"
            id="tspan3836-6-0"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            id="tspan3840-85-2"
            y="244.52863"
            x="165.46411"
-           sodipodi:role="line">FF6F05FF</tspan></text>
+           sodipodi:role="line">FF6F05</tspan></text>
     </g>
     <g
        id="g4047-7-8"
@@ -480,11 +480,11 @@
            y="229.5257"
            x="277.66476"
            id="tspan3836-4-8-2"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            id="tspan3840-8-9-4"
            y="244.5257"
            x="277.66476"
-           sodipodi:role="line">8C5B37FF</tspan></text>
+           sodipodi:role="line">8C5B37</tspan></text>
     </g>
     <g
        id="g4053-2-8"
@@ -506,11 +506,11 @@
            y="229.52863"
            x="390.70566"
            id="tspan3836-2-4-0"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.52863"
            x="390.70566"
            sodipodi:role="line"
-           id="tspan4081-3-9">9C4F17FF</tspan></text>
+           id="tspan4081-3-9">9C4F17</tspan></text>
     </g>
     <g
        id="g4064-1-0"
@@ -534,11 +534,11 @@
              sodipodi:role="line"
              id="tspan3836-5-4-3"
              x="507.04184"
-             y="229.52863">RGBa:</tspan><tspan
+             y="229.52863">RGB:</tspan><tspan
              sodipodi:role="line"
              x="507.04184"
              y="244.52863"
-             id="tspan4085-1-8">FFA25DFF</tspan></text>
+             id="tspan4085-1-8">FFA25D</tspan></text>
       </g>
     </g>
     <g
@@ -561,11 +561,11 @@
            y="229.60187"
            x="620.44244"
            id="tspan3836-1-7-4"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.60187"
            x="620.44244"
            sodipodi:role="line"
-           id="tspan4089-4-6">FFCAA3FF</tspan></text>
+           id="tspan4089-4-6">FFCAA3</tspan></text>
     </g>
     <g
        id="g4035-2-0"
@@ -587,11 +587,11 @@
            y="229.52863"
            x="49.787678"
            id="tspan3836-14-9-1"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.52863"
            x="49.787678"
            sodipodi:role="line"
-           id="tspan4077-3-8">000000FF</tspan></text>
+           id="tspan4077-3-8">000000</tspan></text>
     </g>
     <text
        xml:space="preserve"
@@ -624,11 +624,11 @@
            y="229.52863"
            x="165.46411"
            id="tspan3836-8"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            id="tspan3840-2"
            y="244.52863"
            x="165.46411"
-           sodipodi:role="line">550000ff</tspan></text>
+           sodipodi:role="line">550000</tspan></text>
     </g>
     <g
        id="g4047-9"
@@ -650,11 +650,11 @@
            y="229.5257"
            x="277.66476"
            id="tspan3836-4-5"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            id="tspan3840-8-98"
            y="244.5257"
            x="277.66476"
-           sodipodi:role="line">aa0000ff</tspan></text>
+           sodipodi:role="line">AA0000</tspan></text>
     </g>
     <g
        id="g4053-4"
@@ -676,11 +676,11 @@
            y="229.52863"
            x="390.70566"
            id="tspan3836-2-3"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.52863"
            x="390.70566"
            sodipodi:role="line"
-           id="tspan4081-6">ff0000ff</tspan></text>
+           id="tspan4081-6">FF0000</tspan></text>
     </g>
     <g
        id="g4064-15"
@@ -704,11 +704,11 @@
              sodipodi:role="line"
              id="tspan3836-5-9"
              x="507.04184"
-             y="229.52863">RGBa:</tspan><tspan
+             y="229.52863">RGB:</tspan><tspan
              sodipodi:role="line"
              x="507.04184"
              y="244.52863"
-             id="tspan4085-7">ffd5d5ff</tspan></text>
+             id="tspan4085-7">FFD5D5</tspan></text>
       </g>
     </g>
     <g
@@ -731,11 +731,11 @@
            y="229.60187"
            x="620.44244"
            id="tspan3836-1-6"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.60187"
            x="620.44244"
            sodipodi:role="line"
-           id="tspan4089-0">ebeb9fff</tspan></text>
+           id="tspan4089-0">EBEB9F</tspan></text>
     </g>
     <g
        id="g4035-1"
@@ -757,11 +757,11 @@
            y="229.52863"
            x="49.787678"
            id="tspan3836-14-7"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.52863"
            x="49.787678"
            sodipodi:role="line"
-           id="tspan4077-5">2b0000ff</tspan></text>
+           id="tspan4077-5">2B0000</tspan></text>
     </g>
     <text
        xml:space="preserve"
@@ -794,11 +794,11 @@
            y="229.52863"
            x="165.46411"
            id="tspan3836-6-1"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            id="tspan3840-85-4"
            y="244.52863"
            x="165.46411"
-           sodipodi:role="line">006680ff</tspan></text>
+           sodipodi:role="line">006680</tspan></text>
     </g>
     <g
        id="g4047-7-6"
@@ -820,11 +820,11 @@
            y="229.5257"
            x="277.66476"
            id="tspan3836-4-8-1"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            id="tspan3840-8-9-7"
            y="244.5257"
            x="277.66476"
-           sodipodi:role="line">00aad4ff</tspan></text>
+           sodipodi:role="line">00AAD4</tspan></text>
     </g>
     <g
        id="g4053-2-7"
@@ -846,11 +846,11 @@
            y="229.52863"
            x="390.70566"
            id="tspan3836-2-4-3"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.52863"
            x="390.70566"
            sodipodi:role="line"
-           id="tspan4081-3-3">00ccffff</tspan></text>
+           id="tspan4081-3-3">00CCFF</tspan></text>
     </g>
     <g
        id="g4064-1-5"
@@ -874,11 +874,11 @@
              sodipodi:role="line"
              id="tspan3836-5-4-1"
              x="507.04184"
-             y="229.52863">RGBa:</tspan><tspan
+             y="229.52863">RGB:</tspan><tspan
              sodipodi:role="line"
              x="507.04184"
              y="244.52863"
-             id="tspan4085-1-82">80e5ffff</tspan></text>
+             id="tspan4085-1-82">80E5FF</tspan></text>
       </g>
     </g>
     <g
@@ -901,11 +901,11 @@
            y="229.60187"
            x="620.44244"
            id="tspan3836-1-7-3"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.60187"
            x="620.44244"
            sodipodi:role="line"
-           id="tspan4089-4-8">d5f6ffff</tspan></text>
+           id="tspan4089-4-8">D5F6FF</tspan></text>
     </g>
     <g
        id="g4035-2-01"
@@ -927,11 +927,11 @@
            y="229.52863"
            x="49.787678"
            id="tspan3836-14-9-0"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.52863"
            x="49.787678"
            sodipodi:role="line"
-           id="tspan4077-3-9">00222bff</tspan></text>
+           id="tspan4077-3-9">00222B</tspan></text>
     </g>
     <text
        xml:space="preserve"
@@ -964,11 +964,11 @@
            y="229.52863"
            x="165.46411"
            id="tspan3836-6-0-2"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            id="tspan3840-85-2-0"
            y="244.52863"
            x="165.46411"
-           sodipodi:role="line">73594BFF</tspan></text>
+           sodipodi:role="line">73594B</tspan></text>
     </g>
     <g
        id="g4047-7-8-1"
@@ -990,11 +990,11 @@
            y="229.5257"
            x="277.66476"
            id="tspan3836-4-8-2-0"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            id="tspan3840-8-9-4-6"
            y="244.5257"
            x="277.66476"
-           sodipodi:role="line">561E00FF</tspan></text>
+           sodipodi:role="line">561E00</tspan></text>
     </g>
     <g
        id="g4053-2-8-1"
@@ -1016,11 +1016,11 @@
            y="229.52863"
            x="390.70566"
            id="tspan3836-2-4-0-8"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.52863"
            x="390.70566"
            sodipodi:role="line"
-           id="tspan4081-3-9-4">2E2C2BFF</tspan></text>
+           id="tspan4081-3-9-4">2E2C2B</tspan></text>
     </g>
     <g
        id="g4064-1-0-1"
@@ -1044,11 +1044,11 @@
              sodipodi:role="line"
              id="tspan3836-5-4-3-8"
              x="507.04184"
-             y="229.52863">RGBa:</tspan><tspan
+             y="229.52863">RGB:</tspan><tspan
              sodipodi:role="line"
              x="507.04184"
              y="244.52863"
-             id="tspan4085-1-8-8">DECFC7FF</tspan></text>
+             id="tspan4085-1-8-8">DECFC7</tspan></text>
       </g>
     </g>
     <g
@@ -1071,11 +1071,11 @@
            y="229.60187"
            x="620.44244"
            id="tspan3836-1-7-4-7"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.60187"
            x="620.44244"
            sodipodi:role="line"
-           id="tspan4089-4-6-8">FFFAD0FF</tspan></text>
+           id="tspan4089-4-6-8">FFFAD0</tspan></text>
     </g>
     <g
        id="g4035-2-0-3"
@@ -1097,11 +1097,11 @@
            y="229.52863"
            x="49.787678"
            id="tspan3836-14-9-1-7"
-           sodipodi:role="line">RGBa:</tspan><tspan
+           sodipodi:role="line">RGB:</tspan><tspan
            y="244.52863"
            x="49.787678"
            sodipodi:role="line"
-           id="tspan4077-3-8-1">100804FF</tspan></text>
+           id="tspan4077-3-8-1">100804</tspan></text>
     </g>
     <text
        xml:space="preserve"
