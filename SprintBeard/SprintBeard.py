@@ -4,15 +4,12 @@ from flask.ext.openid import OpenID
 from models import Users
 
 app = Flask(__name__)
-app.register_blueprint(users)
 app.secret_key = 'some_secret'
 oid = OpenID(app)
+app.register_blueprint(users)
 
 @app.route('/')
 def index():
-	# uncomment this code if you want to force login for a page
-	# if 'user' not in session:
-	# return redirect(url_for('login'))
 	return render_template('index.html')
 
 @app.route('/login')
