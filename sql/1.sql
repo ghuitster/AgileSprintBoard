@@ -57,7 +57,7 @@ CREATE TABLE `tasks` (
 	`name` VARCHAR(100) NOT NULL,
 	`description` VARCHAR(300),
 	`estimate` DECIMAL(3, 1) NOT NULL,
-	`completed` BOOLEAN NOT NULL DEFAULT FALSE
+	`completed` BOOLEAN NOT NULL DEFAULT FALSE,
 	`completion_date` DATETIME,
 	`story_id` BINARY(16) NOT NULL,
 	PRIMARY KEY (`hiddenid`),
