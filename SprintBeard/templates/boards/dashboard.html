@@ -1,42 +1,50 @@
-{% extends "layout.html" %}
-{% block title %}Board Dashboard{% endblock %}
-{% block content %}
+    {% extends "layout.html" %}
+    {% block title %}Board Dashboard{% endblock %}
+    {% block content %}
 
-<script type="text/javascript">
-    $(function(){
-        $(".boardAccordion").click(function(){
-            $("#toggleDemo").collapse('toggle');
-        });
-    });
-</script>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 
-<div id="boardAccordion" class="accordion">
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a href="#collapseOne" data-parent="#boardAccordion" data-toggle="collapse" class="accordion-toggle">My Boards</a>
-        </div>
-        <div class="accordion-body collapse" id="collapseOne">
-            <div class="accordion-inner">
-                <p>- List of Boards Here -</p>
-                <p>- List of Boards Here -</p>
-                <p>- List of Boards Here -</p>
+
+
+
+    <div class="span12">
+        <img src="BeardLogo" class="img-rounded" alt="some_text"><button type="button" class="btn btn-success">Create Board</button>
+    </div>
+
+    <div class="span12">
+        <div class="span5"><p class="text-left"><i class="icon-tasks"></i>Board</p></div>
+        <div class="span2"><p class="text-center"><i class="icon-calendar"></i>Start Date:</p></div>
+        <div class="span2"><p class="text-center"><i class="icon-calendar"></i>Finish Date:</p></div>
+        <div class="span1"><p class="text-center"><i class="icon-align-left"></i>Shared</p></div>
+        <div class="span1"><p class="text-right"><i class="icon-align-left"></i>Delete</p></div>
+    </div>
+
+    <div class="row-fluid">
+        <div id="myAccordion" class="accordion">
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a href="#collapseOne" data-parent="#myAccordion" data-toggle="collapse" class="accordion-toggle">My Boards</a>
+                </div>
+                <div class="accordion-body collapse in" id="collapseOne">
+                    <div class="accordion-inner">
+                        <p>Insert Table of boards?</p>
+                    </div>
+                </div>
+            </div>    
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a href="#collapseTwo" data-parent="#myAccordion" data-toggle="collapse" class="accordion-toggle">Pending Boards</a>
+                </div>
+                <div class="accordion-body collapse in" id="collapseTwo">
+                    <div class="accordion-inner">
+                        <p>Insert Table of boards?</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-  
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a href="#collapseTwo" data-parent="#boardAccordion" data-toggle="collapse" class="accordion-toggle">Pending Requests</a>
-        </div>
-        <div class="accordion-body collapse" id="collapseTwo">
-            <div class="accordion-inner">
-                <p>- List of Boards Here -</p>
-                <p>- List of Boards Here -</p>
-                <p>- List of Boards Here -</p>
-            </div>
-        </div>
-    </div>
-</div>
 
-{% endblock %}
+    {% endblock %}
 
