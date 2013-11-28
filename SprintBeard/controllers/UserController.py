@@ -9,4 +9,4 @@ users = Blueprint('users', __name__)
 @Auth.authorized
 def view(user_id):
 	user = Users.get(UUID(user_id))
-	return render_template('boards/dashboard.html', user=user)
+	return render_template('users/view.html', user=user)
