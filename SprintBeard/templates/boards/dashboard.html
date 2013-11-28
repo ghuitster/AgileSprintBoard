@@ -2,15 +2,9 @@
     {% block title %}Board Dashboard{% endblock %}
     {% block content %}
 
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-
-
-
-
     <div class="span12">
-        <img src="BeardLogo" class="img-rounded" alt="some_text"><button type="button" class="btn btn-success">Create Board</button>
+        <img src="{{ url_for('static', filename='img/BeardLogo_flat_shaded_monocle.png') }}" class="img-rounded" alt="Sprint Beard" width="32" height="32" padding="10" ><button type="button" class="btn btn-success">Create Board</button>
+
     </div>
 
     <div class="span12">
