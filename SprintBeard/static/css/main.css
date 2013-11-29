@@ -9,3 +9,16 @@
 	height: 32;
 	text-align: middle;
 }
+
+#boardsDashboardAccordion {
+	text-align: left;
+	margin-left: 0;
+	margin-right: 0;
+
+}
+
+#icon {
+	margin-right: 5px;
+	margin-left: 5px;
+
+}
