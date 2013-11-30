@@ -15,3 +15,21 @@ def invite(board_id):
 	privileges = int(request.form['privileges'])
 	Invitations.invite(other_id, board_id, privileges)
 	return render_template('boards/dashboard.html', user='Beard')
+
+@invitations.route('/invitations/<invite_id>/accept', methods=['POST'])
+def accept(invite_id):
+	'''
+	Accept an invitation to collaborate on a board
+	arg: invite_id - the id of the invitation
+	'''
+	Invitations.respond_to_invite(invite_id, True)
+	return "done"
+
+@invitations.route('/invitations/<invite_id>/reject', methods=['POST'])
+def accept(invite_id):
+	'''
+	Reject an invitation to collaborate on a board
+	arg: invite_id - the id of the invitation
+	'''
+	Invitations.respond_to_invite(invite_id, False)
+	return "done"
