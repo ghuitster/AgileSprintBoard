@@ -1,14 +1,16 @@
 from flask import flash, Flask, render_template, redirect, session, url_for
+from controllers.BoardController import boards
+from controllers.InvitationController import invitations
 from controllers.UserController import users
 from flask.ext.openid import OpenID
 from models import Users
-from controllers.BoardController import boards
 
 app = Flask(__name__)
 app.secret_key = 'some_secret'
 oid = OpenID(app)
-app.register_blueprint(users)
 app.register_blueprint(boards)
+app.register_blueprint(invitations)
+app.register_blueprint(users)
 
 @app.route('/')
 def index():
