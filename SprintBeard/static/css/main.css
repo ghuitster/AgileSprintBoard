@@ -14,11 +14,24 @@
 	text-align: left;
 	margin-left: 0;
 	margin-right: 0;
-
 }
 
 #icon {
 	margin-right: 5px;
 	margin-left: 5px;
+}
 
+#boardsDashboardNewBoard {
+	margin-bottom: 5;
+	margin-top: 5;
+	margin-right: 5;
+	margin-left: 5;
+
+}
+
+#date {
+	width: 65pt;
+	margin-bottom: 5;
+	margin-top: 5;
+	margin-right: 5;
 }
