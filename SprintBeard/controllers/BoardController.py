@@ -9,7 +9,6 @@ boards = Blueprint('boards', __name__)
 
 #def view(user_id):
 #	user = Users.get(UUID(user_id))
-
 #	return render_template('boards/dashboard.html', user=user)
 
 def view():

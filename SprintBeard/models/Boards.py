@@ -29,4 +29,3 @@ def changeName(boardID, newName):	# Changes the Name of a Board in the DB
 		db.commit()
 	except:
 		db.rollback()
-
