@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = 'some_secret'
 oid = OpenID(app)
 app.register_blueprint(boards)
-app.register_blueprint(invitations)
+#app.register_blueprint(invitations)
 app.register_blueprint(users)
 
 @app.route('/')
@@ -22,7 +22,7 @@ def login():
 	'''
 	Log the user into the SprintBeard application. Results in the user being redirected to the Google OpenID process.
 	'''
-	#if we've already logged in, just redirect to the selected url
+	#if we've already logged in, just redirect to the selected url	
 	if 'openid' in session and 'user' not in session:
 		session['user'] = Users.get_by_openid(session['openid'])
 		return redirect(oid.get_next_url())
@@ -61,3 +61,4 @@ def logout():
 if __name__ == '__main__':
 	app.debug = True
 	app.run()
+
