@@ -1,7 +1,8 @@
 from flask import redirect, render_template, session, url_for
 
 '''
-This module provides decorator functions that enforce authentication. To use these functions, import the module, and then use the decorator above the method which handles the request. The authentication decorator MUST come after any other decorators for this to work. Ex:
+This module provides decorator functions that enforce authentication. To use these functions, import the module, and then use the decorator above the
+method which handles the request. The authentication decorator MUST come after any other decorators for this to work. Ex:
 
 	@users.route('/users/<user_id>', methods=['GET'])
 	@Auth.authenticated
