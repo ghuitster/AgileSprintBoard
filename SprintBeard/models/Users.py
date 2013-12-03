@@ -11,8 +11,8 @@ class User:
 		self.id = id
 		self.name = name
 		self.email = email
-
-	def to_JSON(self):
+	
+	def to_json(self):
 		'''
 		Convert to JSON
 		'''
