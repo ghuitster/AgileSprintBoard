@@ -35,3 +35,27 @@
 	margin-top: 5;
 	margin-right: 5;
 }
+
+#homeScreenButton {
+	text-align: center;
+	margin-right: 5%;
+	margin-left: 5%;
+}
+
+#homeScreenMain {
+	text-align: center;
+}
+
+#homeScreenLeftColumn {	
+	width: 35%;
+	text-align: center;
+}
+
+#homeScreenRightColumn {
+	width: 35%;
+	text-align: center;
+}
+#homeScreenLogo {	
+	margin-right: 3%;
+	margin-left: 3%;
+}

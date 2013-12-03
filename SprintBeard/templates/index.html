@@ -3,5 +3,23 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-	<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui</p>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="row"><p class="text-center">
+			<div class="span12">
+				<div class="span6" id="homeScreenLeftColumn">
+					<img src="{{ url_for('static', filename='img/logo.png') }}" class="text-left" id="homeScreenLogo" alt="Sprint Beard" align="right">
+				</div>
+				<div class="span6" id="rightColumnHomePage">
+					<h1><p class="text-center">Sprint Beard</p></h1>
+				</div>
+				<div class="span6" id="rightColumnHomePage">
+						<p class="text-center"><button type="button" id="homeScreenButton" class="btn btn-large btn-block btn-success" onclick="">Log In</button></p>
+						<p class="text-center"><button type="button" id="homeScreenButton" class="btn btn-large btn-block btn-primary" onclick="">Sign Up</button></p>
+				</div>
+			</div>
+		</div></p>
+	</div>
+</div>
+	
 {% endblock %}

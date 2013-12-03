@@ -23,6 +23,7 @@ def login():
 	Log the user into the SprintBeard application. Results in the user being redirected to the Google OpenID process.
 	'''
 	#if we've already logged in, just redirect to the selected url	
+
 	if 'openid' in session and 'user' not in session:
 		session['user'] = Users.get_by_openid(session['openid'])
 		return redirect(oid.get_next_url())
