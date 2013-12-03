@@ -1,4 +1,4 @@
-from flask import redirect, render_template, session, url_for
+from flask import redirect, render_template, request, session, url_for
 from models import AccessRules, Boards, Invitations
 
 '''
@@ -28,11 +28,11 @@ def authenticated(handler):
 	'''
 	def do_auth(*args, **kwargs):			
 		if 'user' not in session:
-			return redirect(url_for('login'))
+			return redirect(url_for('login', next=request.url))
 		else:
 			return handler(*args, **kwargs)
 
-	return (lambda *args, **kwargs: do_auth(*args, **kwargs))
+	return do_auth
 
 def authorized(resource_type):
 	'''
@@ -55,7 +55,7 @@ def authorized(resource_type):
 	def actual(handler):
 		def do_authorized(*args, **kwargs):
 			if 'user' not in session:
-				return redirect(url_for('login'))
+				return redirect(url_for('login', next=request.url))
 			
 			#get the userid of the user who owns the resource
 			user_id = None
@@ -77,5 +77,5 @@ def authorized(resource_type):
 			else:
 				return render_template('auth/unauthorized.html')
 
-		return (lambda *args, **kwargs: do_authorized(*args, **kwargs))
+		return do_authorized
 	return actual
