@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  
+  <center>
+  <div><img src="/static/img/blank_user_big.jpg" alt="Alternate Text" height="126" width="126"></div><br>
+  <div>Name: <input type="text" name="name"></div><br>
+  <div>Email: <input type="text" name="email"></div><br>
+  {% for board in boards %}
+  <div>Boards: 
+  <SELECT NAME="Morefruit" SIZE="4" MULTIPLE >
+    <OPTION SELECTED> Apples
+    <OPTION> Bananas
+    <OPTION> Oranges
+    <OPTION> Watermelon
+    <OPTION> Kiwi
+    <OPTION> Cantaloupe
+    <OPTION> Strawberries
+  </SELECT></div>
+  {% endfor %}
+  <br>
+
+  <button onclick={% User.update(user.id, user.name, user.email) %}>Update</button>
+  <button onclick="myFunction(name, email)">Cancel</button>
+  </center>
+
+{% endblock %}
