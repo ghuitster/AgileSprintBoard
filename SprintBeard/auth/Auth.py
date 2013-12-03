@@ -1,5 +1,6 @@
 from flask import redirect, render_template, request, session, url_for
 from models import AccessRules, Boards, Invitations
+from functools import wraps
 
 '''
 This module provides decorator functions that enforce authentication. To use these functions,
@@ -26,6 +27,7 @@ def authenticated(handler):
 
 		return: the handler augmented such that it requires authentication
 	'''
+	@wraps(handler)
 	def do_auth(*args, **kwargs):			
 		if 'user' not in session:
 			return redirect(url_for('login', next=request.url))
@@ -53,6 +55,7 @@ def authorized(resource_type):
 				INVITATION_AUTHORIZATION => invite_id
 	'''
 	def actual(handler):
+		@wraps(handler)
 		def do_authorized(*args, **kwargs):
 			if 'user' not in session:
 				return redirect(url_for('login', next=request.url))
