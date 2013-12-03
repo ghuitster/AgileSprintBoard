@@ -33,7 +33,7 @@ def authenticated(handler):
 			return redirect(url_for('login', next=request.url))
 		else:
 			return handler(*args, **kwargs)
-
+ 	do_authorized.__name__ = handler.__name__
 	return do_auth
 
 def authorized(resource_type):
@@ -79,6 +79,6 @@ def authorized(resource_type):
 				return handler(*args, **kwargs)
 			else:
 				return render_template('auth/unauthorized.html')
-
+		do_authorized.__name__ = handler.__name__
 		return do_authorized
 	return actual
