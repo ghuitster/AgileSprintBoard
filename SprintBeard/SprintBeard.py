@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = 'some_secret'
 oid = OpenID(app)
 app.register_blueprint(boards)
-#app.register_blueprint(invitations)
+app.register_blueprint(invitations)
 app.register_blueprint(users)
 
 @app.route('/')

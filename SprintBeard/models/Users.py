@@ -37,13 +37,14 @@ def create(name, email):
 	except:
 		db.rollback()
 
-def get(id):
+def get(user_id):
 	'''
 	Select a user from the database by id
-		arg: id - the id (as uuid) of the user to find
+		arg: user_id - the id of the user to find
 
 		return: an User object representing the found user or None if not found
 	'''
+	user_id = UUID(user_id)
 
 	cursor = db.cursor()
 	cursor.execute('''

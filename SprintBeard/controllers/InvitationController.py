@@ -1,9 +1,11 @@
 from flask import Blueprint, request, render_template
 from models import Invitations
+from auth import Auth
 
 invitations = Blueprint('invitations', __name__)
 
 @invitations.route('/boards/<board_id>/invite', methods=['POST'])
+@Auth.authorized(Auth.BOARD_AUTHORIZATION)
 def invite(board_id):
 	'''
 	Invite a user to use a board with the given privileges
@@ -17,6 +19,7 @@ def invite(board_id):
 	return render_template('boards/dashboard.html', user='Beard')
 
 @invitations.route('/invitations/<invite_id>/accept', methods=['POST'])
+@Auth.authorized(Auth.INVITATION_AUTHORIZATION)
 def accept(invite_id):
 	'''
 	Accept an invitation to collaborate on a board
@@ -26,6 +29,7 @@ def accept(invite_id):
 	return "done"
 
 @invitations.route('/invitations/<invite_id>/reject', methods=['POST'])
+@Auth.authorized(Auth.INVITATION_AUTHORIZATION)
 def accept(invite_id):
 	'''
 	Reject an invitation to collaborate on a board
