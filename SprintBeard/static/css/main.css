@@ -10,15 +10,16 @@
 	text-align: middle;
 }
 
+#icon {
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
 #boardsDashboardAccordion {
 	text-align: left;
 	margin-left: 0;
 	margin-right: 0;
-}
-
-#icon {
-	margin-right: 5px;
-	margin-left: 5px;
+	
 }
 
 #boardsDashboardNewBoard {
@@ -40,10 +41,12 @@
 	text-align: center;
 	margin-right: 5%;
 	margin-left: 5%;
+	width: 90%;
 }
 
 #homeScreenMain {
 	text-align: center;
+
 }
 
 #homeScreenLeftColumn {	
