@@ -1,7 +1,9 @@
 import binascii
+import json
 import MySQLdb
 import uuid
 from uuid import UUID
+
 
 class User:
 	'''This class just holds data about a user, namely its name and uuid.'''
@@ -9,6 +11,12 @@ class User:
 		self.id = id
 		self.name = name
 		self.email = email
+
+	def to_JSON(self):
+		'''
+		Convert to JSON
+		'''
+		return json.dumps(self, default= lambda o: o.__dict__, sort_keys=True)
 
 db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile')
 
