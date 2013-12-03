@@ -32,7 +32,7 @@ def authenticated(handler):
 		else:
 			return handler(*args, **kwargs)
 
-	return do_auth
+	return (lambda *args, **kwargs: do_auth(*args, **kwargs))
 
 def authorized(resource_type):
 	'''
@@ -77,5 +77,5 @@ def authorized(resource_type):
 			else:
 				return render_template('auth/unauthorized.html')
 
-		return do_authorized
+		return (lambda *args, **kwargs: do_authorized(*args, **kwargs))
 	return actual

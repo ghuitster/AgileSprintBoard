@@ -60,7 +60,7 @@ def get(user_id):
 			FROM `users`
 			WHERE `id`=%s
 		''',
-		(id.bytes)
+		(user_id.bytes)
 	)
 
 	user = None
@@ -109,5 +109,5 @@ def get_by_openid(openid):
 	user = None
 	row = cursor.fetchone()
 	if row is not None:
-		user = get(UUID(binascii.b2a_hex(row[0])))
+		user = get(binascii.b2a_hex(row[0]))
 	return user
