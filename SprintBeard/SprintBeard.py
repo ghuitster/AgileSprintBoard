@@ -4,8 +4,10 @@ from controllers.BoardController import boards
 from controllers.UserController import users
 from flask.ext.openid import OpenID
 from models import Users
+from flask_oldsessions.OldSessions import OldSecureCookieSessionInterface
 
 app = Flask(__name__)
+app.session_interface = OldSecureCookieSessionInterface()
 app.secret_key = 'some_secret'
 oid = OpenID(app)
 app.register_blueprint(boards)
