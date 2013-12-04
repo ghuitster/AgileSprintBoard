@@ -26,7 +26,7 @@ def accept(invite_id):
 	arg: invite_id - the id of the invitation
 	'''
 	Invitations.respond_to_invite(invite_id, True)
-	return "done"
+	return '{"status": "success"}'
 
 @invitations.route('/invitations/<invite_id>/reject', methods=['POST'])
 @Auth.authorized(Auth.INVITATION_AUTHORIZATION)
@@ -36,4 +36,4 @@ def reject(invite_id):
 	arg: invite_id - the id of the invitation
 	'''
 	Invitations.respond_to_invite(invite_id, False)
-	return "done"
+	return '{"status": "success"}'

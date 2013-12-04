@@ -18,4 +18,4 @@ def create(board_id):
 	privileges = int(request.form['privileges'])
 	AccessRules.create(use_id, board_id, privileges)
 
-	return "done"
+	return '{"status": "success"}'
