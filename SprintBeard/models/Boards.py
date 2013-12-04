@@ -43,17 +43,19 @@ def changeName(boardID, newName):
 	except:
 		db.rollback()
 
-def getUserBoards(userID):
+def get_user_boards(userID):
 	'''
-	Reurn a list of all Boards associated with a userID
+	Return a list of all Boards associated with a userID
 		arg: userID - the id of the user
+		
 		return: a List of Boards
 	'''
 	cursor = db.cursor()
-	userBoards = cursor.execute('''select user_id, board_id, privileges, name from users_boards inner join boards on boards.id = users_boards.board_id where users_boards.user_id="%s"''', (userID))
+	cursor.execute('''select user_id, board_id, privileges, name from users_boards inner join boards on boards.id = users_boards.board_id where users_boards.user_id="%s"''', (userID))
 	
 	boards = []
-	for board in userBoards:
+	user_boards = cursor.fetchall()
+	for board in user_boards:
 		b = Board(board[3], board[1])
 		boards.append(b)
 	return boards
