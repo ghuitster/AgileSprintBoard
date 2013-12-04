@@ -30,7 +30,7 @@ def accept(invite_id):
 
 @invitations.route('/invitations/<invite_id>/reject', methods=['POST'])
 @Auth.authorized(Auth.INVITATION_AUTHORIZATION)
-def accept(invite_id):
+def reject(invite_id):
 	'''
 	Reject an invitation to collaborate on a board
 	arg: invite_id - the id of the invitation
