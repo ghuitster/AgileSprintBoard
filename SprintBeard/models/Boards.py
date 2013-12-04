@@ -1,6 +1,8 @@
 import MySQLdb
 import uuid
 import flask
+from uuid import UUID
+import AccessRules
 
 db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile')
 
@@ -21,9 +23,10 @@ def createBoard(userID):
 		return: a Default Board
 	'''
 	board = Board("Default Board");
+	user_id = UUID(userID)
 	cursor = db.cursor()
-	cursor.execute('''INSERT INTO boards (id, name) VALUES (%s, '%s')''', (board.id.bytes, board.name) )
-	cursor.execute('''INSERT INTO users_boards (user_id, board_id) VALUES (%s, %s)''', (userID.id.bytes, board.id.bytes) )
+	cursor.execute('''INSERT INTO `boards` (`id`, `name`) VALUES (%s, %s)''', (board.id.bytes, board.name) )
+	cursor.execute('''INSERT INTO `users_boards` (`user_id`, `board_id`, `privileges`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `privileges`=%s''', (user_id.bytes, board.id.bytes, AccessRules.OWNER_PRIVILEGES, AccessRules.OWNER_PRIVILEGES))
 	try:
 		db.commit()
 		return board
@@ -43,7 +46,7 @@ def changeName(boardID, newName):
 	except:
 		db.rollback()
 
-def get_user_boards(userID):
+def getUserBoards(userID):
 	'''
 	Return a list of all Boards associated with a userID
 		arg: userID - the id of the user
@@ -51,7 +54,8 @@ def get_user_boards(userID):
 		return: a List of Boards
 	'''
 	cursor = db.cursor()
-	cursor.execute('''select user_id, board_id, privileges, name from users_boards inner join boards on boards.id = users_boards.board_id where users_boards.user_id="%s"''', (userID))
+	user_id = UUID(userID)
+	cursor.execute('''SELECT `user_id`, `board_id`, `privileges`, `name` FROM `users_boards` INNER JOIN `boards` ON boards.id = users_boards.board_id WHERE users_boards.user_id=%s''', (user_id.bytes))
 	
 	boards = []
 	user_boards = cursor.fetchall()
