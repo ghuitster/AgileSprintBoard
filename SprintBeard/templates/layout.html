@@ -3,8 +3,9 @@
 		{% block head %}
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}" />
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-		
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+		<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}" />
+
 		<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 		<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -12,31 +13,28 @@
   		<script> $(function() { $( ".datepicker" ).datepicker(); });</script>
 		
 		<title>Sprint Beard | {% block title %}{% endblock %}</title>
-
-		<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
-
 		{% endblock %}
 	</head>
 
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
-				
 				<h3 class="text-info">
 					<img src="{{ url_for('static', filename='img/logo.png') }}" id="logo" style= "background-color: white" alt="Sprint Beard">
 					Sprint Beard
 				</h3>
-				<div class="container"></div>
+				
 			</div>
 		</div>
 		
-		<div id="content" class="container">{% block content %}{% endblock %}</div>
+		<div id="content" class="container">
+			{% block content %}
+			{% endblock %}
+		</div>
 
 		<hr />
-
 		<footer>
 			<p class="muted pull-right"><small>&copy; Team Beard (2013)</small></p>
 		</footer>
 	</body>
-
 </html>
