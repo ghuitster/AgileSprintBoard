@@ -18,9 +18,9 @@ def view(user_id):
 	boardList = Boards.get_user_boards(user_id)
 	return render_template('boards/dashboard.html', user=user, boardList=boardList)
 
-'''@boards.route('user/<user_id>/boards/#create', method=['POST'])
-@Auth.authorized(Auth.USER_AUTHORIZATION)
-def create(user_id):
-	user = Users.get(UUID(user_id))
-	Boards.createBoard(user_id)
-	return render_template('boards/dashboard.html', user=user, boardList=boardList)'''
+#@boards.route('/user/<user_id>/boards/create', method=['POST'])
+#@Auth.authorized(Auth.USER_AUTHORIZATION)
+#def create(user_id):
+#	user = Users.get(UUID(user_id))
+#	Boards.createBoard(user_id)
+#	return render_template('boards/dashboard.html', user=user, boardList=boardList)
