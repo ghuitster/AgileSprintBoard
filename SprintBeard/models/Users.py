@@ -1,5 +1,4 @@
 import binascii
-import json
 import MySQLdb
 import uuid
 from uuid import UUID
@@ -16,7 +15,18 @@ class User:
 		'''
 		Convert to JSON
 		'''
-		return json.dumps(self, default= lambda o: o.__dict__, sort_keys=True)
+		attributes = self.__dict__
+		return (
+			'{"__class__": "User", "name": "%s", "email": "%s", "id": "%s"}' 
+			% (attributes['name'], attributes['email'], attributes['id'])
+		)
+
+def user_from_json(dictionary):
+	'''
+	Convert from JSON
+	'''
+	return User(dictionary['name'], dictionary['email'], dictionary['id'])
+
 
 db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile')
 
