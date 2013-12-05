@@ -1,0 +1,2 @@
+ALTER TABLE `stories`
+ADD COLUMN `board_id` BINARY(16) NOT NULL;
