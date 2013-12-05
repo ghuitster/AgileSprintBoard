@@ -13,30 +13,37 @@
 #icon {
 	margin-right: 5px;
 	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	background-image: rgb(255,255,255);
 	background-color: rgb(255,255,255);
+	vertical-align: middle;
 }
 
 #boardsDashboardAccordion {
 	text-align: left;
+	vertical-align: middle;
 	margin-left: 0;
 	margin-right: 0;
-	
 }
 
-#boardsDashboardNewBoard {
-	margin-bottom: 5;
-	margin-top: 5;
-	margin-right: 5;
-	margin-left: 5;
-
+#boardName {
+	margin: 5px;
+	vertical-align: middle;
+	text-align: left;
 }
 
-#date {
-	width: 65pt;
-	margin-bottom: 5;
-	margin-top: 5;
-	margin-right: 5;
+#boardDate {
+	margin: 5px;
+	width: 90px;
+}
+
+#boardShare {
+	margin: 2px;
+}
+
+#boardDelete {
+	margin: 2px;
 }
 
 #homeScreenButton {
@@ -48,7 +55,6 @@
 
 #homeScreenMain {
 	text-align: center;
-
 }
 
 #homeScreenLeftColumn {	

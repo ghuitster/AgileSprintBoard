@@ -4,75 +4,121 @@
 
 <div class="row-fluid">
     <div class="span12">
-        <div class="span5"> <p class="text-left"><button type="button" class="btn btn-success" onclick="location.href='create'">Create Board</button></p> </div>
-        <div class="span2"> <p class="text-center"><i class="icon-calendar" id="icon"></i>Start Date:</p> </div>
-        <div class="span2"> <p class="text-center"><i class="icon-calendar" id="icon"></i>End Date:</p> </div>
-        <div class="span1"> <p class="text-center">Share:</p> </div>
-        <div class="span1"> <p class="text-right">Remove:</p> </div>
+        <div class="span5">
+            <button type="button" class="btn btn-success" onclick="location.href='create'">Create Board</button>
+        </div>
     </div>
 </div>
 
 <div class="row-fluid">
-    <div id="boardsDashboardAccordion" class="accordion">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <a href="#boards" data-parent="#boardsDashboardAccordion" data-toggle="collapse" class="accordion-toggle">
-                    My Boards
-                </a>
-            </div>
-            <div class="accordion-body collapse in" id="boards">
-                <div class="accordion-inner">
-                    {% print boards %}
-                    {% for board in boards %}
-                    <div class="list-group">
-                        <div class="span12">
-                            <div class="span5"><i class="icon-tasks" id="icon"></i><input type="text" id="boardsDashboardNewBoard" placeholder={board.name}></div>
-                            <div class="span2"><p class="text-center"><i class="icon-calendar" id="icon"></i><input type="text" class="datepicker" id="date"></p></div>
-                            <div class="span2"><p class="text-center"><i class="icon-calendar" id="icon"></i><input type="text" class="datepicker" id="date"></p></div>
-                            <div class="span1"><p class="text-center"><button type="button" class="btn btn-info"><i class="icon-user"></i></button></p></div>
-                            <div class="span1"><p class="text-right"><button type="button" class="btn btn-danger"><i class="icon-trash"></i></button></p></div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    <div class="list-group">
-                        <div class="span12">
-                            <div class="span5"><i class="icon-tasks" id="icon"></i><input type="text" id="boardsDashboardNewBoard" placeholder="Second Board"></div>
-                            <div class="span2"><p class="text-center"><i class="icon-calendar" id="icon"></i><input type="text" class="datepicker" id="date"></p></div>
-                            <div class="span2"><p class="text-center"><i class="icon-calendar" id="icon"></i><input type="text" class="datepicker" id="date"></p></div>
-                            <div class="span1"><p class="text-center"><button type="button" class="btn btn-disable"><i class="icon-user"></i></button></p></div>
-                            <div class="span1"><p class="text-right"><button type="button" class="btn btn-danger"><i class="icon-trash"></i></button></p></div>
-                        </div>
-                    </div>
-
-                    <div class="list-group">
-                        <div class="span12">
-                            <div class="span5"><i class="icon-tasks" id="icon"></i><input type="text" id="boardsDashboardNewBoard" placeholder="Agile Sprint Board"></div>
-                            <div class="span2"><p class="text-center"><i class="icon-calendar" id="icon"></i><input type="text" class="datepicker" id="date"></p></div>
-                            <div class="span2"><p class="text-center"><i class="icon-calendar" id="icon"></i><input type="text" class="datepicker" id="date"></p></div>
-                            <div class="span1"><p class="text-center"><button type="button" class="btn btn-disable"><i class="icon-user"></i></button></p></div>
-                            <div class="span1"><p class="text-right"><button type="button" class="btn btn-danger"><i class="icon-trash"></i></button></p></div>
-                        </div>
-                    </div>
-
-                </div>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a href="#myBoards" data-parent="#myBoards" data-toggle="collapse" class="accordion-toggle">
+                <table class="table table-striped">
+                    <thead id="myBoardsHeader">
+                        <tr>
+                            <th><i class="icon-tasks" id="icon"></i></th>
+                            <th>Board</th>
+                            <th><i class="icon-calendar" id="icon" onclick=datepicker()></i>Start Date</th>
+                            <th><i class="icon-calendar" id="icon"></i>End Date</th>
+                            <th>Sharing</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                </table>
+            </a>
+        </div>
+        <div class="accordion-body collapse in" id="myBoards">
+            <div class="accordion-inner">
+                <table class="table table-striped">
+                    <tbody>
+                        {% for board in boardList %}
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-success" onclick="location.href=''">View</button>
+                            </td>
+                            <td>
+                                {{board.name}}
+                            </td>
+                            <td>
+                                <i class="icon-calendar" id="icon"></i>
+                                <input type="text" class="datepicker" id="boardDate"/>
+                            </td>
+                            <td>
+                                <i class="icon-calendar" id="icon"></i>
+                                <input type="text" class="datepicker" id="boardDate"/>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info" id="boardShare">
+                                    <i class="icon-user"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" id="boardDelete">
+                                    <i class="icon-trash" onclick=""></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <a href="#pending" data-parent="#boardsDashboardAccordion" data-toggle="collapse" class="accordion-toggle">Pending Boards</a>
-            </div>
-            <div class="accordion-body collapse in" id="pending">
-                <div class="accordion-inner">
-                    <div class="list-group">
-                        <div class="span12">
-                            <div class="span5"><p class="text-left"><i class="icon-tasks" id="icon"></i>Board Name</p></div>
-                            <div class="span2"><p class="text-center"><i class="icon-calendar" id="icon"></i>11/11/11</p></div>
-                            <div class="span2"><p class="text-center"><i class="icon-calendar" id="icon"></i>11/11/11</p></div>
-                            <div class="span1"><p class="text-center"><button type="button" class="btn btn-success"><i class="icon-plus"></i></button></p></div>
-                            <div class="span1"><p class="text-right"><button type="button" class="btn btn-danger"><i class="icon-remove-circle"></i></button></p></div>
-                        </div>
-                    </div>
-                </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a href="#pending" data-parent="#pendingBoards" data-toggle="collapse" class="accordion-toggle">
+                <table class="table table-striped">
+                    <thead id="myBoardsHeader">
+                        <tr>
+                            <th><i class="icon-tasks" id="icon"></i></th>
+                            <th>Board</th>
+                            <th><i class="icon-calendar" id="icon" onclick=datepicker()></i>Start Date</th>
+                            <th><i class="icon-calendar" id="icon"></i>End Date</th>
+                            <th>Sharing</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                </table>
+            </a>
+        </div>
+        <div class="accordion-body collapse in" id="pending">
+            <div class="accordion-inner">
+                <table class="table table-striped">
+                    <tbody>
+                        {% for board in boardList %}
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-success" onclick="location.href=''">View</button>
+                            </td>
+                            <td>
+                                {{board.name}}
+                            </td>
+                            <td>
+                                <i class="icon-calendar" id="icon"></i>
+                                <input type="text" class="datepicker" id="boardDate"/>
+                            </td>
+                            <td>
+                                <i class="icon-calendar" id="icon"></i>
+                                <input type="text" class="datepicker" id="boardDate"/>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info" id="boardShare">
+                                    <i class="icon-user"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" id="boardDelete">
+                                    <i class="icon-trash" onclick=""></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
