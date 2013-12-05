@@ -10,16 +10,6 @@
 	text-align: center;
 }
 
-#icon {
-	margin-right: 5px;
-	margin-left: 5px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	background-image: rgb(255,255,255);
-	background-color: rgb(255,255,255);
-	vertical-align: middle;
-}
-
 #boardsDashboardAccordion {
 	text-align: left;
 	vertical-align: middle;
@@ -27,15 +17,31 @@
 	margin-right: 0;
 }
 
-#boardName {
-	margin: 5px;
+#boardIcon {	
+	margin-left: 10px;
+	background-image: rgb(255,255,255);
+	background-color: rgb(255,255,255);
+	
+}
+
+.accordion-heading .accordion-toggle {
+	display: block;
+	padding: 0px 15px;
+}
+
+.table{
+	margin-bottom: 0;
+}
+
+#boardHead {
 	vertical-align: middle;
 	text-align: left;
 }
 
-#boardDate {
+#boardName {
 	margin: 5px;
-	width: 90px;
+	vertical-align: middle;
+	text-align: left;
 }
 
 #boardShare {

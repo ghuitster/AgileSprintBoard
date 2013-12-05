@@ -25,11 +25,25 @@ def createBoard(userID):
 	board = Board("Default Board");
 	user_id = UUID(userID)
 	cursor = db.cursor()
+
 	cursor.execute('''INSERT INTO `boards` (`id`, `name`) VALUES (%s, %s)''', (board.id.bytes, board.name) )
 	cursor.execute('''INSERT INTO `users_boards` (`user_id`, `board_id`, `privileges`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `privileges`=%s''', (user_id.bytes, board.id.bytes, AccessRules.OWNER_PRIVILEGES, AccessRules.OWNER_PRIVILEGES))
 	try:
 		db.commit()
 		return board
+	except:
+		db.rollback()
+
+def deleteBoard(boardID):
+	'''Deletes a board with id = boardID
+		arg: boardID - the id of the board to be deleteBoard
+	'''
+	board_id = UUID(boardID)
+	cursor = db.cursor()
+	cursor.execute('''DELETE FROM `boards` WHERE `id`=%s''', board_id)
+	cursor.execute('''DELETE FROM `users_boards` WHERE `board_id`=%s''', board_id)
+	try:
+		db.commit()
 	except:
 		db.rollback()
 
@@ -60,6 +74,12 @@ def getUserBoards(userID):
 	boards = []
 	user_boards = cursor.fetchall()
 	for board in user_boards:
-		b = Board(board[3], board[1])
+		# board[1] is a str
+		# need to be converted to a UUID
+		# due to internet as slow as butt
+		# and having wasted 5 hours already
+		# im pushing broken code. someone else
+		# hack it
+		b = Board(board[3], uuid.UUID(board[1]))
 		boards.append(b)
 	return boards
