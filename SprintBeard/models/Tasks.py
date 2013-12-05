@@ -4,6 +4,28 @@ from uuid import UUID
 
 db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile')
 
+class Task:
+	'''
+	A class that holds data about a Task.
+		field: string id - the id of the task
+		field: string story_id - the id of the story the task belongs to
+		field: string name - the name of the task
+		field: string description - description of the task
+		field: float estimate - the estimated number of hours to complete the task
+		field: bool completed - whether the task has been completed
+		field: datetime completion_date - the time when the task was completed
+	'''
+	def __init__(self, id, story_id, name, description, estimate, completed = False, \
+			completion_date = None):
+		self.id = id
+		self.story_id = story_id
+		self.name = name
+		self.description = description
+		self.estimate = estimate
+		self.completed = completed
+		self.completion_date = completion_date
+
+
 def create(story_id, name, description, estimate):
 	'''
 	Create a new task belonging to a story
@@ -28,3 +50,36 @@ def create(story_id, name, description, estimate):
 	except:
 		db.rollback()
 
+def get(task_id):
+	'''
+	Get a task by its id
+		arg: task_id - the id of the task to get
+
+		return: the task data in a Task object
+	'''
+	
+	task_id = UUID(task_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+			SELECT `id`, `story_id`, `name`, `description`, `estimate`, `completed`, `completion_date`
+			FROM `tasks`
+			WHERE `id`=%s
+		''',
+		(task_id.bytes)
+	)
+
+	task = None
+	row = cursor.fetchone()
+	if row is not None:
+		task = Task(
+			row[0],
+			row[1],
+			row[2],
+			row[3],
+			float(row[4]),
+			bool(row[5]),
+			row[6]
+		)
+
+	return task

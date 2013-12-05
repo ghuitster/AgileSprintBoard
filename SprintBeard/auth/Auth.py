@@ -18,6 +18,7 @@ The above code will require that a user is logged into the site to access the pa
 USER_AUTHORIZATION = 0
 BOARD_AUTHORIZATION = 1
 INVITATION_AUTHORIZATION = 2
+STORY_AUTHORIZATION = 3
 
 def authenticated(handler):
 	'''
@@ -53,6 +54,7 @@ def authorized(resource_type):
 				USER_AUTHORIZATION => user_id
 				BOARD_AUTHORIZATION => board_id
 				INVITATION_AUTHORIZATION => invite_id
+				STORY_AUTHORIZATION => story_id
 	'''
 	def actual(handler):
 		@wraps(handler)
@@ -73,7 +75,14 @@ def authorized(resource_type):
 			elif resource_type == INVITATION_AUTHORIZATION:
 				invite = Invitations.get(kwargs['invite_id'])
 				user_id = invite.user_id
+			elif resource_type == STORY_AUTHORIZATION:
+				story = Stories.get(kwargs['story_id'])
+				rules = AccessRules.get_by_board(story.board_id)
 
+				for rule in rules:
+					if rule.user_id == session['user'].id:
+						user_id = rule.user_id
+			
 			#make sure the userids match
 			if user_id is not None and session['user'].id == user_id:
 				return handler(*args, **kwargs)
