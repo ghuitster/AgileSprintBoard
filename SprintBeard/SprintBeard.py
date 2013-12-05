@@ -2,6 +2,7 @@ from flask import flash, Flask, render_template, redirect, session, url_for
 from controllers.AccessRuleController import access_rules
 from controllers.BoardController import boards
 from controllers.InvitationController import invitations
+from controllers.TaskController import tasks
 from controllers.UserController import users
 from flask.ext.openid import OpenID
 from models import Users
@@ -14,6 +15,7 @@ oid = OpenID(app)
 app.register_blueprint(access_rules)
 app.register_blueprint(boards)
 app.register_blueprint(invitations)
+app.register_blueprint(tasks)
 app.register_blueprint(users)
 
 @app.route('/')
