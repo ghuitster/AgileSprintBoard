@@ -16,7 +16,6 @@ def dash():
 def view(user_id):
 	user = Users.get(user_id)
 	boardList = Boards.get_user_boards(user_id)
-	print boardList[0].id
 	return render_template('boards/dashboard.html', user=user, boardList=boardList)
 
 @boards.route('/user/<user_id>/boards', methods=['POST'])
