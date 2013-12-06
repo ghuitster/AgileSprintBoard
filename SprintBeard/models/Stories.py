@@ -14,7 +14,7 @@ class Story:
 		field: string board_id - the id of the board the story belongs to
 		field: string sprint_id - the id of the sprint the story is on, or None if it's on the backlog
 	'''
-	def __init__(id, name, description, estimate, board_id, sprint_id = None):
+	def __init__(self, id, name, description, estimate, board_id, sprint_id = None):
 		self.id = id
 		self.name = name
 		self.description = description

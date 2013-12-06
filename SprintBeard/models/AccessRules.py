@@ -1,3 +1,4 @@
+import binascii
 import MySQLdb
 import uuid
 from uuid import UUID
@@ -18,7 +19,7 @@ class AccessRule:
 		field: int privileges - the level of privileges the user has. Use the constants defined in
 			this module.
 	'''
-	def __init__(user_id, board_id, privileges):
+	def __init__(self, user_id, board_id, privileges):
 		self.user_id = user_id
 		self.board_id = board_id
 		self.privileges = privileges
@@ -70,5 +71,5 @@ def get_by_board(board_id):
 	rows = cursor.fetchall()
 	access_rules = []
 	for row in rows:
-		access_rules.append(AccessRule(row[0], row[1], row[2]))
+		access_rules.append(AccessRule(binascii.b2a_hex(row[0]), binascii.b2a_hex(row[1]), row[2]))
 	return access_rules

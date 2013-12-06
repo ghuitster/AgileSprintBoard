@@ -37,7 +37,7 @@
                                 </button>
                             </td>
                             <td style="width: 50px;">
-                                <button type="button" class="btn btn-danger" id="boardDelete">
+                                <button type="button" class="btn btn-danger" id="board-delete-{{board.id}}">
                                     <i class="icon-trash"></i>
                                 </button>
                             </td>
@@ -119,11 +119,11 @@
 $(document).ready(function()
 {
     {% for board in boardList %}
-    $("#boardDelete").click(function()
+    $("#board-delete-{{board.id}}").click(function()
     {
         $.ajax(
         {
-            url: '/boards/{{board.id.hex}}',
+            url: '/boards/{{board.id}}',
             type: 'DELETE',
             success: function(result)
             {

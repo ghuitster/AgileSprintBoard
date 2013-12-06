@@ -23,11 +23,11 @@ def view(user_id):
 def create_board(user_id):
 	name = request.form['name']
 	Boards.create_board(user_id, name)
-	return redirect('/user/%s/boards' % user_id)
+	return '{"status":"success"}'
 
 @boards.route('/boards/<board_id>', methods=['DELETE'])
 @Auth.authorized(Auth.BOARD_AUTHORIZATION)
-def deleteBoard(board_id):
-	Boards.deleteBoard(board_id)
-	return redirect('/user/%s/boards' % session['user'].id)
+def delete_board(board_id):
+	Boards.delete_board(board_id)
+	return '{"status":"success"}'
 

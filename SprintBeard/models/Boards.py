@@ -1,4 +1,5 @@
 import AccessRules
+import binascii
 import flask
 import MySQLdb
 import uuid
@@ -49,14 +50,29 @@ def create_board(user_id, name):
 	except:
 		db.rollback()
 
-def deleteBoard(boardID):
-	'''Deletes a board with id = boardID
-		arg: boardID - the id of the board to be deleteBoard
+def delete_board(board_id):
+	'''Deletes a board with id = board_id
+		arg: board_id - the id of the board to be deleted
 	'''
-	board_id = UUID(boardID)
+	print 'here'
+	print board_id
+	board_id = UUID(board_id)
+	print board_id
+	
 	cursor = db.cursor()
-	cursor.execute('''DELETE FROM `boards` WHERE `id`=%s''', board_id)
-	cursor.execute('''DELETE FROM `users_boards` WHERE `board_id`=%s''', board_id)
+	cursor.execute('''
+			DELETE FROM `boards` 
+			WHERE `id`=%s
+		''', 
+		(board_id.bytes)
+	)
+	cursor.execute('''
+			DELETE FROM `users_boards` 
+			WHERE `board_id`=%s
+		''',
+		(board_id.bytes)
+	)
+	
 	try:
 		db.commit()
 	except:
@@ -104,6 +120,6 @@ def get_user_boards(user_id):
 		# and having wasted 5 hours already
 		# im pushing broken code. someone else
 		# hack it
-		b = Board(board[3], board[1])
+		b = Board(board[3], binascii.b2a_hex(board[1]))
 		boards.append(b)
 	return boards
