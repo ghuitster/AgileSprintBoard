@@ -6,7 +6,7 @@ from uuid import UUID
 
 class User:
 	'''This class just holds data about a user, namely its name and uuid.'''
-	def __init__(self, name, email, id = uuid.uuid4()):
+	def __init__(self, name, email, id):
 		self.id = id
 		self.name = name
 		self.email = email
@@ -39,7 +39,7 @@ def create(name, email):
 		return: the created User
 	'''
 
-	user = User(name, email)
+	user = User(name, email, uuid.uuid4())
 
 	cursor = db.cursor()
 	cursor.execute('''

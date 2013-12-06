@@ -18,7 +18,7 @@ class Board:
 		field: List[User] - a list of users that have access to the board
 		field: List[Story] - a list of stories that belong to the board
 	'''
-	def __init__(self, name, id = uuid.uuid4(), users=[], stories=[]):
+	def __init__(self, name, id, users=[], stories=[]):
 		self.name = name
 		self.id = id
 		self.users = users
@@ -33,7 +33,8 @@ def create(user_id, name):
 		return: the created board
 	'''
 
-	board = Board(name)
+	board = Board(name, uuid.uuid4())
+
 	user_id = UUID(user_id)
 
 	cursor = db.cursor()
