@@ -65,7 +65,7 @@ def logout():
 	'''
 	session.pop('openid', None)
 	session.pop('user', None)
-	return redirect(oid.get_next_url())
+	return redirect(url_for('index'))
 
 if __name__ == '__main__':
 	app.debug = True
