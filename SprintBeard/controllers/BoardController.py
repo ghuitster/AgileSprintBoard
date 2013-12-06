@@ -1,5 +1,5 @@
 from auth import Auth
-from flask import Blueprint, render_template, session, redirect
+from flask import Blueprint, render_template, request, session, redirect
 from models import Boards, Users
 from uuid import UUID
 
@@ -15,13 +15,15 @@ def dash():
 @Auth.authorized(Auth.USER_AUTHORIZATION)
 def view(user_id):
 	user = Users.get(user_id)
-	boardList = Boards.getUserBoards(user_id)
+	boardList = Boards.get_user_boards(user_id)
+	print boardList[0].id
 	return render_template('boards/dashboard.html', user=user, boardList=boardList)
 
 @boards.route('/user/<user_id>/boards', methods=['POST'])
 @Auth.authorized(Auth.USER_AUTHORIZATION)
-def createBoard(user_id):
-	Boards.createBoard(user_id)
+def create_board(user_id):
+	name = request.form['name']
+	Boards.create_board(user_id, name)
 	return redirect('/user/%s/boards' % user_id)
 
 @boards.route('/boards/<board_id>', methods=['DELETE'])

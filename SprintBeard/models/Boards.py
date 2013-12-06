@@ -1,8 +1,8 @@
+import AccessRules
+import flask
 import MySQLdb
 import uuid
-import flask
 from uuid import UUID
-import AccessRules
 
 db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile')
 
@@ -16,18 +16,33 @@ class Board:
 		self.name = name
 		self.id = id
 
-def createBoard(userID):
+def create_board(user_id, name):
 	'''
 	Create a Board for a certain userID
-		arg: userID - the id of the user creating the board
-		return: a Default Board
-	'''
-	board = Board("Default Board");
-	user_id = UUID(userID)
-	cursor = db.cursor()
+		arg: user_id - the id of the user creating the board
+		arg: name - the name of the new board
 
-	cursor.execute('''INSERT INTO `boards` (`id`, `name`) VALUES (%s, %s)''', (board.id.bytes, board.name) )
-	cursor.execute('''INSERT INTO `users_boards` (`user_id`, `board_id`, `privileges`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `privileges`=%s''', (user_id.bytes, board.id.bytes, AccessRules.OWNER_PRIVILEGES, AccessRules.OWNER_PRIVILEGES))
+		return: the created board
+	'''
+
+	board = Board(name)
+	user_id = UUID(user_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+			INSERT INTO `boards` (`id`, `name`) 
+			VALUES (%s, %s)
+		''',
+		(board.id.bytes, board.name)
+	)
+	cursor.execute('''
+			INSERT INTO `users_boards` (`user_id`, `board_id`, `privileges`)
+			VALUES (%s, %s, %s) 
+			ON DUPLICATE KEY UPDATE `privileges`=%s
+		''', 
+		(user_id.bytes, board.id.bytes, AccessRules.OWNER_PRIVILEGES, AccessRules.OWNER_PRIVILEGES)
+	)
+
 	try:
 		db.commit()
 		return board
@@ -60,16 +75,25 @@ def changeName(boardID, newName):
 	except:
 		db.rollback()
 
-def getUserBoards(userID):
+def get_user_boards(user_id):
 	'''
 	Return a list of all Boards associated with a userID
-		arg: userID - the id of the user
+		arg: user_id - the id of the user
 		
 		return: a List of Boards
 	'''
+
+	user_id = UUID(user_id)
+	
 	cursor = db.cursor()
-	user_id = UUID(userID)
-	cursor.execute('''SELECT `user_id`, `board_id`, `privileges`, `name` FROM `users_boards` INNER JOIN `boards` ON boards.id = users_boards.board_id WHERE users_boards.user_id=%s''', (user_id.bytes))
+	cursor.execute('''
+			SELECT `user_id`, `board_id`, `privileges`, `name` 
+			FROM `users_boards` INNER JOIN `boards` 
+			ON `boards`.`id` = `users_boards`.`board_id` 
+			WHERE users_boards.user_id=%s
+		''', 
+		(user_id.bytes)
+	)
 	
 	boards = []
 	user_boards = cursor.fetchall()
@@ -80,6 +104,6 @@ def getUserBoards(userID):
 		# and having wasted 5 hours already
 		# im pushing broken code. someone else
 		# hack it
-		b = Board(board[3], uuid.UUID(board[1]))
+		b = Board(board[3], board[1])
 		boards.append(b)
 	return boards

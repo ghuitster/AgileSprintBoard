@@ -101,14 +101,14 @@
             <div class="modal-body">
                 <form role="form">
                     <div class="form-group">
-                        <label for="boardNameInput">Enter Board Name:</label>
-                        <input type="text" class="form-control" id="boardNameInput" placeholder="Default Board Name">
+                        <label for="board-name-input">Enter Board Name:</label>
+                        <input type="text" class="form-control" id="board-name-input" placeholder="Default Board Name">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button id="submit-create" type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -133,12 +133,17 @@ $(document).ready(function()
     });
     {% endfor %}
 
-    $("#createBoard").click(function()
+    $("#submit-create").click(function()
     {
+        var name = $('#board-name-input').val();
+        console.log(name);
         $.ajax(
         {
             url: '/user/{{session['user'].id}}/boards',
             type: 'POST',
+            data: {
+                'name': name
+            },
             success: function(result)
             {
                 alert("createdBoard");
