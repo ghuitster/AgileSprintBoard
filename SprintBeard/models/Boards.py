@@ -157,3 +157,29 @@ def get_user_boards(user_id):
 		b = Board(board[3], binascii.b2a_hex(board[1]))
 		boards.append(b)
 	return boards
+
+def get(board_id):
+	'''
+	Get the basic information about a Board, ie, just its name and id.
+		arg: board_id - the id of the board to look up
+
+		return: a Board object with name and id.
+	'''
+
+	board_id = UUID(board_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+			SELECT `id`, `name`
+			FROM `boards`
+			WHERE `board_id`=%s
+		''',
+		(board_id.bytes)
+	)
+
+	row = cursor.fetchone()
+	board = None
+	if row is not None:
+		board = Board(row[1], binascii.b2a_hex(row[0]))
+
+	return board

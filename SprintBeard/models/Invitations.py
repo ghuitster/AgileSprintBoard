@@ -9,20 +9,22 @@ db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile')
 class Invitation:
 	'''
 	A class that holds data about an invitation.
-		field: id - the id of this invitation (string)
-		field: user_id - the id of the user this invitation was extended to (string)
-		field: board_id - the id of the board the user is invited to (string)
-		field: privileges - the privilege level accepting the invitation results in (constant defined
+		field: string id - the id of this invitation (string)
+		field: string user_id - the id of the user this invitation was extended to (string)
+		field: string board_id - the id of the board the user is invited to (string)
+		field: int privileges - the privilege level accepting the invitation results in (constant defined
 			in AccessRules module)
-		field: active - whether or not the invitation is active (bool)
+		field: bool active - whether or not the invitation is active (bool)
+		field: string board_name - the name of the board the user is invited to
 	'''
 
-	def __init__(self, id, user_id, board_id, privileges, active):
+	def __init__(self, id, user_id, board_id, privileges, active, board_name=None):
 		self.id = id
 		self.user_id = user_id
 		self.board_id = board_id
 		self.privileges = privileges
 		self.active = active
+		self.board_name = board_name
 
 def get(invite_id):
 	'''
@@ -109,3 +111,38 @@ def respond_to_invite(invite_id, accept):
 		db.commit()
 	except:
 		db.rollback()
+
+def get_by_user(user_id):
+	'''
+	Get all the active invitations for a given user
+		arg: user_id - the id of the user to get the invitations for
+
+		return: a List of Invitation objects that belong to the user
+	'''
+
+	user_id = UUID(user_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+			SELECT `id`, `user_id`, `board_id`, `privileges`, `active`
+			FROM `invitations`
+			WHERE `user_id`=%s AND `active`=TRUE
+		''',
+		(user_id.bytes)
+	)
+
+	rows = cursor.fetchall()
+	invites = []
+	for row in rows:
+		invites.append(
+			Invitation(
+				binascii.b2a_hex(row[0]),
+				binascii.b2a_hex(row[1]),
+				binascii.b2a_hex(row[2]),
+				int(row[3]),
+				bool(row[4]),
+				Boards.get(binascii.b2a_hex(row[2])).name
+			)
+		)
+
+	return invites
