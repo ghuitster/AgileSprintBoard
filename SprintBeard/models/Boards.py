@@ -153,12 +153,6 @@ def get_user_boards(user_id):
 	boards = []
 	user_boards = cursor.fetchall()
 	for board in user_boards:
-		# board[1] is a str
-		# need to be converted to a UUID
-		# due to internet as slow as butt
-		# and having wasted 5 hours already
-		# im pushing broken code. someone else
-		# hack it
 		b = Board(board[3], binascii.b2a_hex(board[1]))
 		boards.append(b)
 	return boards

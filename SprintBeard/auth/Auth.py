@@ -83,7 +83,7 @@ def authorized(resource_type):
 					for rule in rules:
 						if rule.user_id == session['user'].id:
 							user_id = rule.user_id
-			
+						
 			#make sure the userids match
 			if user_id is not None and session['user'].id == user_id:
 				return handler(*args, **kwargs)
