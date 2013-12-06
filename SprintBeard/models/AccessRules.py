@@ -73,3 +73,26 @@ def get_by_board(board_id):
 	for row in rows:
 		access_rules.append(AccessRule(binascii.b2a_hex(row[0]), binascii.b2a_hex(row[1]), row[2]))
 	return access_rules
+
+def delete(board_id, user_id):
+	'''
+	Delete the rule letting a user access a specific board
+		arg: board_id - the id of the board the user used to have access to
+		arg: user_id - the id of the user to remove access from
+	'''
+
+	board_id = UUID(board_id)
+	user_id = UUID(user_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+			DELETE FROM `users_boards`
+			WHERE `board_id`=%s AND `user_id`=%s
+		''',
+		(board_id.bytes, user_id.bytes)
+	)
+
+	try:
+		db.commit()
+	except:
+		db.rollback()

@@ -20,3 +20,15 @@ def create(board_id):
 	AccessRules.create(use_id, board_id, privileges)
 
 	return '{"status": "success"}'
+
+@access_rules.route('/boards/<board_id>/access_rules/<user_id>', methods=['DELETE'])
+@Auth.authorized(Auth.BOARD_AUTHORIZATION)
+def delete(board_id, user_id):
+	'''
+	Delete a user's rights to access a board.
+		arg: board_id - the id of the board the user had access to
+		arg: user_id - the id of the user from whom to remove access
+	'''
+	AccessRules.delete(board_id, user_id)
+
+	return '{"status": "success"}'
