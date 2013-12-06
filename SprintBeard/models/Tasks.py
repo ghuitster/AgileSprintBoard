@@ -1,3 +1,4 @@
+import binascii
 import MySQLdb
 import uuid
 from uuid import UUID
@@ -73,8 +74,8 @@ def get(task_id):
 	row = cursor.fetchone()
 	if row is not None:
 		task = Task(
-			row[0],
-			row[1],
+			binascii.b2a_hex(row[0]),
+			binascii.b2a_hex(row[1]),
 			row[2],
 			row[3],
 			float(row[4]),
@@ -83,3 +84,37 @@ def get(task_id):
 		)
 
 	return task
+
+def get_by_story(story_id):
+	'''
+	Get all tasks belonging to a particular story
+		arg: story_id = the id of the story to get tasks for
+
+		return: a List of Task objects containing all the task data
+	'''
+
+	story_id = UUID(story_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+			SELECT `id`, `story_id`, `name`, `description`, `estimate`, `completed`, `completion_date`
+			FROM `tasks`
+			WHERE `story_id`=%s
+		''',
+		(story_id.bytes)
+	)
+
+	rows = cursor.fetchall()
+	tasks = []
+	for row in rows:
+		tasks.append(Task(
+				binascii.b2a_hex(row[0]),
+				binascii.b2a_hex(row[1]),
+				row[2],
+				row[3],
+				float(row[4]),
+				bool(row[5]),
+				row[6]
+			)
+		)
+	return tasks

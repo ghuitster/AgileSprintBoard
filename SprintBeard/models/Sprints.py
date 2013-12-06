@@ -1,3 +1,4 @@
+import binascii
 import datetime
 import MySQLdb
 import uuid
@@ -68,11 +69,5 @@ def get_current_sprint(board_id):
 	row = cursor.fetchone()
 	sprint = None
 	if row is not None:
-		sprint = Sprint(row[0], row[1], row[2], row[3])
+		sprint = Sprint(binascii.b2a_hex(row[0]), row[1], row[2], row[3])
 	return sprint
-
-# create(datetime.datetime.now(), datetime.datetime(2013, 12, 10), 'ec1ad90d-5b85-4653-8225-1d27d7fc4f6a')
-# sprint = get_current_sprint('ec1ad90d-5b85-4653-8225-1d27d7fc4f6a')
-# print sprint.id
-# print sprint.start
-# print sprint.end

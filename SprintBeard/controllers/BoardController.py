@@ -13,21 +13,33 @@ def dash():
 
 @boards.route('/user/<user_id>/boards', methods=['GET'])
 @Auth.authorized(Auth.USER_AUTHORIZATION)
-def view(user_id):
+def view_for_user(user_id):
 	user = Users.get(user_id)
 	boardList = Boards.get_user_boards(user_id)
 	return render_template('boards/dashboard.html', user=user, boardList=boardList)
 
 @boards.route('/user/<user_id>/boards', methods=['POST'])
 @Auth.authorized(Auth.USER_AUTHORIZATION)
-def create_board(user_id):
+def create(user_id):
 	name = request.form['name']
-	Boards.create_board(user_id, name)
+	Boards.create(user_id, name)
 	return '{"status":"success"}'
+
+@boards.route('/boards/<board_id>', methods=['GET'])
+@Auth.authorized(Auth.BOARD_AUTHORIZATION)
+def view(board_id):
+	'''
+	Get a view of the requested board.
+		arg: board_id - the board to view
+
+		return: the view
+	'''
+	board = Boards.view(board_id)
+	return render_template('boards/view.html', board=board)
 
 @boards.route('/boards/<board_id>', methods=['DELETE'])
 @Auth.authorized(Auth.BOARD_AUTHORIZATION)
-def delete_board(board_id):
-	Boards.delete_board(board_id)
+def delete(board_id):
+	Boards.delete(board_id)
 	return '{"status":"success"}'
 

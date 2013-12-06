@@ -24,9 +24,7 @@
                         {% for board in boardList %}
                         <tr>
                             <td style="width: 50px;">
-                                <button type="button" class="btn btn-success">
-                                    View
-                                </button>
+                                <a type="submit" class="btn btn-success" href="/boards/{{board.id}}">View</a>
                             </td>
                             <td id="boardName" <td style="width: 435px;">
                                 {{board.name}}

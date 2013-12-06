@@ -121,3 +121,29 @@ def get_by_openid(openid):
 	if row is not None:
 		user = get(binascii.b2a_hex(row[0]))
 	return user
+
+def get_by_board(board_id):
+	'''
+	Get all the users that have access to a board.
+		arg: board_id - the id of the board to get users for
+
+		return: a List of User objects that have access to the board
+	'''
+
+	board_id = UUID(board_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+		SELECT `name`, `email`, `id`
+		FROM `users` INNER JOIN `users_boards`
+		ON `users`.`id` = `users_boards`.`user_id`
+		WHERE `board_id`=%s
+		''',
+		(board_id.bytes)
+	)
+
+	rows = cursor.fetchall()
+	users = []
+	for row in rows:
+		users.append(User(row[0], row[1], binascii.b2a_hex(row[2])))
+	return rows
