@@ -3,13 +3,12 @@
 		{% block head %}
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}" />
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery-ui.css') }}" />
 		<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}" />
 
-		<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 		<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  		<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
 		
 		<title>Sprint Beard | {% block title %}{% endblock %}</title>
 		{% endblock %}
