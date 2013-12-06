@@ -1,4 +1,5 @@
 from auth import Auth
+from custom_render.CustomRender import render_view
 from flask import Blueprint, render_template, request, session, redirect
 from models import Boards, Users
 from uuid import UUID
@@ -16,7 +17,7 @@ def dash():
 def view_for_user(user_id):
 	user = Users.get(user_id)
 	boardList = Boards.get_user_boards(user_id)
-	return render_template('boards/dashboard.html', user=user, boardList=boardList)
+	return render_view('boards/dashboard.html', boardList=boardList)
 
 @boards.route('/user/<user_id>/boards', methods=['POST'])
 @Auth.authorized(Auth.USER_AUTHORIZATION)
@@ -35,7 +36,7 @@ def view(board_id):
 		return: the view
 	'''
 	board = Boards.view(board_id)
-	return render_template('boards/view.html', board=board)
+	return render_view('boards/view.html', board=board)
 
 @boards.route('/boards/<board_id>', methods=['DELETE'])
 @Auth.authorized(Auth.BOARD_AUTHORIZATION)

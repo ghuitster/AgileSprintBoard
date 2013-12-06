@@ -1,6 +1,7 @@
-from flask import Blueprint, request, render_template
-from models import Invitations
 from auth import Auth
+from flask import Blueprint, request
+from custom_render.CustomRender import render_view
+from models import Invitations
 
 invitations = Blueprint('invitations', __name__)
 
@@ -16,7 +17,7 @@ def invite(board_id):
 	other_id = request.form['other_id']
 	privileges = int(request.form['privileges'])
 	Invitations.invite(other_id, board_id, privileges)
-	return render_template('boards/dashboard.html', user='Beard')
+	return render_view('boards/dashboard.html', user='Beard')
 
 @invitations.route('/invitations/<invite_id>/accept', methods=['POST'])
 @Auth.authorized(Auth.INVITATION_AUTHORIZATION)

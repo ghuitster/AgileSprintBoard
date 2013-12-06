@@ -1,4 +1,5 @@
 from auth import Auth
+from custom_render.CustomRender import render_view
 from flask import Blueprint, render_template, request
 from models import Tasks
 

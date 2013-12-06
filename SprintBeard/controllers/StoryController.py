@@ -1,5 +1,6 @@
 from auth import Auth
-from flask import Blueprint, render_template, request
+from custom_render.CustomRender import render_view
+from flask import Blueprint, request
 from models import Sprints, Stories
 
 stories = Blueprint('stories', __name__)
