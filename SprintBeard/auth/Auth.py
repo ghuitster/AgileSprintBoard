@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, session, url_for
-from models import AccessRules, Boards, Invitations
 from functools import wraps
+from models import AccessRules, Boards, Invitations, Stories
 
 '''
 This module provides decorator functions that enforce authentication. To use these functions,
@@ -77,11 +77,12 @@ def authorized(resource_type):
 				user_id = invite.user_id
 			elif resource_type == STORY_AUTHORIZATION:
 				story = Stories.get(kwargs['story_id'])
-				rules = AccessRules.get_by_board(story.board_id)
+				if story is not None:
+					rules = AccessRules.get_by_board(story.board_id)
 
-				for rule in rules:
-					if rule.user_id == session['user'].id:
-						user_id = rule.user_id
+					for rule in rules:
+						if rule.user_id == session['user'].id:
+							user_id = rule.user_id
 			
 			#make sure the userids match
 			if user_id is not None and session['user'].id == user_id:

@@ -22,6 +22,35 @@ class Story:
 		self.board_id = board_id
 		self.sprint_id = sprint_id
 
+def create(name, description, estimate, board_id, sprint_id):
+	'''
+	Create a new story in a board.
+		arg: name - the name of the new story
+		arg: description - a description for the new story
+		arg: estimate - an estimate for story points
+		arg: board_id - the id of the board to add to
+		arg: sprint_id - the id of the sprint to add to
+	'''
+
+	story_id = uuid.uuid4()
+	board_id = UUID(board_id)
+	if sprint_id is not None:
+		sprint_id = UUID(sprint_id).bytes
+
+	cursor = db.cursor()
+	cursor.execute('''
+			INSERT INTO `stories` (`id`, `name`, `description`, `estimate`, `board_id`, `sprint_id`)
+			VALUES (%s, %s, %s, %s, %s, %s)
+		''',
+		(story_id.bytes, name, description, estimate, board_id
+			.bytes, sprint_id)
+	)
+
+	try:
+		db.commit()
+	except:
+		db.rollback()
+
 def get(story_id):
 	'''
 	Get a story out of the database.

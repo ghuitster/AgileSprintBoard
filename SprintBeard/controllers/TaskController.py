@@ -5,7 +5,7 @@ from models import Tasks
 tasks = Blueprint('tasks', __name__)
 
 @tasks.route('/stories/<story_id>/tasks', methods=['POST'])
-#create auth for stories?
+@Auth.authorized(Auth.STORY_AUTHORIZATION)
 def create(story_id):
 	'''
 	Create a new task in the given story.
