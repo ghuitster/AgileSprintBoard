@@ -142,7 +142,8 @@ def get_user_boards(user_id):
 	user_id = UUID(user_id)
 	
 	cursor = db.cursor()
-	cursor.execute('''
+	cursor.execute(
+		'''
 			SELECT `user_id`, `board_id`, `privileges`, `name` 
 			FROM `users_boards` INNER JOIN `boards` 
 			ON `boards`.`id` = `users_boards`.`board_id` 

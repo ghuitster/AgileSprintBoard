@@ -26,7 +26,11 @@
 	margin-left: 10px;
 	background-image: rgb(255,255,255);
 	background-color: rgb(255,255,255);
-	
+}
+
+#createBoardButton {
+	margin: 5px;
+	margin-bottom: 10px;
 }
 
 .accordion-heading .accordion-toggle {
