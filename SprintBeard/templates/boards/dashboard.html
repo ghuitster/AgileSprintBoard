@@ -123,7 +123,7 @@ $(document).ready(function()
     {
         $.ajax(
         {
-            url: '/boards/{{board.id}}',
+            url: '/boards/{{board.id.hex}}',
             type: 'DELETE',
             success: function(result)
             {
