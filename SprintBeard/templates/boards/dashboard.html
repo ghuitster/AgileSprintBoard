@@ -177,6 +177,10 @@ $(document).ready(function()
     {
         var board_id = $('#submit-share').attr('board-id');
         var email = $('#email-input').val();
+        if (email == "")
+        {
+            email = "TheBeard@example.com";
+        }
         var permission = $('#permission-input').val();
         var urlBuild = "/boards/"+board_id+"/invite";
 
@@ -185,8 +189,8 @@ $(document).ready(function()
             url: urlBuild,
             type: 'POST',
             data: {
-                'email': email
-                'board' : board_id
+                'email': email,
+                'board_id' : board_id,
                 'permission' : permission
             },
             success: function(result)
