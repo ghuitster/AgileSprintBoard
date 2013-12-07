@@ -24,3 +24,9 @@ def create(story_id):
 	Tasks.create(story_id, name, description, estimate)
 
 	return '{"status": "success"}'
+
+@tasks.route('/tasks/<task_id>', methods=['DELETE'])
+@Auth.authorized(Auth.TASK_AUTHORIZATION)
+def delete(task_id):
+	Tasks.delete(task_id)
+	return '{"status": "success"}'

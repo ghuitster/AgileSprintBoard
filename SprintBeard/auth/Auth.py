@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, session, url_for
 from functools import wraps
-from models import AccessRules, Boards, Invitations, Stories
+from models import AccessRules, Boards, Invitations, Stories, Tasks
 
 '''
 This module provides decorator functions that enforce authentication. To use these functions,
@@ -19,6 +19,7 @@ USER_AUTHORIZATION = 0
 BOARD_AUTHORIZATION = 1
 INVITATION_AUTHORIZATION = 2
 STORY_AUTHORIZATION = 3
+TASK_AUTHORIZATION = 4
 
 def authenticated(handler):
 	'''
@@ -55,6 +56,7 @@ def authorized(resource_type):
 				BOARD_AUTHORIZATION => board_id
 				INVITATION_AUTHORIZATION => invite_id
 				STORY_AUTHORIZATION => story_id
+				TASK_AUTHORIZATION => task_id
 	'''
 	def actual(handler):
 		@wraps(handler)
@@ -67,22 +69,20 @@ def authorized(resource_type):
 			if resource_type == USER_AUTHORIZATION:
 				user_id = kwargs['user_id']
 			elif resource_type == BOARD_AUTHORIZATION:
-				rules = AccessRules.get_by_board(kwargs['board_id'])
-				
-				for rule in rules:
-					if rule.user_id == session['user'].id:
-						user_id = rule.user_id
+				user_id = has_board_access(kwargs['board_id'])
 			elif resource_type == INVITATION_AUTHORIZATION:
 				invite = Invitations.get(kwargs['invite_id'])
 				user_id = invite.user_id
 			elif resource_type == STORY_AUTHORIZATION:
 				story = Stories.get(kwargs['story_id'])
 				if story is not None:
-					rules = AccessRules.get_by_board(story.board_id)
-
-					for rule in rules:
-						if rule.user_id == session['user'].id:
-							user_id = rule.user_id
+					user_id = has_board_access(story.board_id)
+			elif resource_type == TASK_AUTHORIZATION:
+				task = Tasks.get(kwargs['task_id'])
+				if task is not None:
+					story = Stories.get(task.story_id)
+					if story is not None:
+						user_id = has_board_access(story.board_id)
 						
 			#make sure the userids match
 			if user_id is not None and session['user'].id == user_id:
@@ -92,3 +92,16 @@ def authorized(resource_type):
 		do_authorized.__name__ = handler.__name__
 		return do_authorized
 	return actual
+
+def has_board_access(board_id):
+	'''
+	Get the user_id of the user if the current user has access to the board.
+		arg: board_id - the id of the board to look up
+
+		return: the id of the user if found, or None if not found
+	'''
+	rules = AccessRules.get_by_board(board_id)
+
+	for rule in rules:
+		if rule.user_id == session['user'].id:
+			return rule.user_id

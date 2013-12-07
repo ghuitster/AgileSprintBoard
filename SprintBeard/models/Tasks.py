@@ -85,6 +85,27 @@ def get(task_id):
 
 	return task
 
+def delete(task_id):
+	'''
+	Delete a task.
+		arg: task_id - the id of the task to delete
+	'''
+
+	task_id - UUID(task_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+			DELETE FROM `tasks`
+			WHERE `task_id`=%s
+		''',
+		(task_id.bytes)
+	)
+
+	try:
+		db.commit()
+	except:
+		db.rollback()
+
 def get_by_story(story_id):
 	'''
 	Get all tasks belonging to a particular story
