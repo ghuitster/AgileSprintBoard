@@ -9,12 +9,19 @@ boards = Blueprint('boards', __name__)
 @boards.route('/dashboard', methods=['GET'])
 @Auth.authenticated
 def dash():
+	'''
+		Primary purpose is to act as the Authetication before redirecting to the Dashboard.
+	'''
 	user_id = session['user'].id
 	return redirect('/user/%s/boards' % user_id)
 
 @boards.route('/user/<user_id>/boards', methods=['GET'])
 @Auth.authorized(Auth.USER_AUTHORIZATION)
 def view_for_user(user_id):
+	'''
+		Generates the Board and Invite information for the Board Dashboard.
+		arg: user_id - The User who's Dashboard will be rendered.
+	'''
 	user = Users.get(user_id)
 	boardList = Boards.get_user_boards(user_id)
 	invite_list = Invitations.get_by_user(user_id)
@@ -32,7 +39,7 @@ def create(user_id):
 def view(board_id):
 	'''
 	Get a view of the requested board.
-		arg: board_id - the board to view
+		arg: board_id - The board to view
 
 		return: the view
 	'''

@@ -98,7 +98,6 @@ def delete(board_id):
 		arg: board_id - the id of the board to be deleted
 	'''
 	board_id = UUID(board_id)
-	
 	cursor = db.cursor()
 	cursor.execute('''
 			DELETE FROM `boards` 
@@ -112,7 +111,6 @@ def delete(board_id):
 		''',
 		(board_id.bytes)
 	)
-	
 	try:
 		db.commit()
 	except:

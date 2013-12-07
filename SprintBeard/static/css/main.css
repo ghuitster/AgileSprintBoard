@@ -35,6 +35,11 @@
 	margin-bottom: 10px;
 }
 
+#email-input {
+	height: 30px;
+	width: 220px;
+}
+
 .accordion-heading .accordion-toggle {
 	display: block;
 	padding: 0px 15px;
