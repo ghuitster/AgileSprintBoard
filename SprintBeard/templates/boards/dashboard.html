@@ -105,7 +105,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="close-create" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button id="submit-create" type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div><!-- /.modal-content -->
@@ -130,15 +130,16 @@
                         <label for="permission-level-input" class="col-sm-2 control-label">Permission: </label>
                         <div class="col-sm-10">
                             <select class="selectpicker" id="permission-input">
-                                <option>Collaborator</option>
-                                <option>Viewer</option>
+                                <option id="choice-owner">Owner</option>
+                                <option id="choice-collaborator">Collaborator</option>
+                                <option id="choice-viewer">Viewer</option>
                             </select>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="close-share" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button id="submit-share" type="button" class="btn btn-primary">Invite</button>
             </div>
         </div><!-- /.modal-content -->
@@ -179,9 +180,14 @@ $(document).ready(function()
         var email = $('#email-input').val();
         if (email == "")
         {
-            email = "TheBeard@example.com";
+            email = "nwatterson@gmail.com";
         }
         var permission = $('#permission-input').val();
+        var privileges = 0;
+        if (permission == "Collaborator"){ privileges = 3; }
+        if (permission == "Owner"){ privileges = 0; }
+        if (permission == "Viewer"){ privileges = 2; }
+        
         var urlBuild = "/boards/"+board_id+"/invite";
 
         $.ajax(
@@ -191,11 +197,11 @@ $(document).ready(function()
             data: {
                 'email': email,
                 'board_id' : board_id,
-                'permission' : permission
+                'privileges' : privileges
             },
             success: function(result)
             {
-                $('#close').trigger('click');
+                $('#close-share').trigger('click');
             }
         });
     });
@@ -217,7 +223,7 @@ $(document).ready(function()
             success: function(result)
             {
                 location.reload();
-                $('#close').trigger('click');
+                $('#close-create').trigger('click');
             }
         });
     });

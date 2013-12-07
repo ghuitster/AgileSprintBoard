@@ -55,12 +55,12 @@ def get(invite_id):
 	return invitation
 
 
-def invite(user_id, board_id, privileges):
+def invite(user_email, board_id, privileges):
 	'''
 	Invite a user to a board with a specific privilege level. Inviting a user to a board that 
 	they've already been invited to in the past will effectively generate a new 
 	invitation by resetting the invitation to active.
-		arg: user_id - the id of the user to create the invitation for
+		arg: user_email - the email of the user to create the invitation for
 		arg: board_id - the board to invite the user to
 		arg: privileges - the privilege level to give the user. use the constants defined in 
 			AccessRules module to define this parameter
@@ -68,18 +68,25 @@ def invite(user_id, board_id, privileges):
 	invite_id = uuid.uuid4()
 
 	cursor = db.cursor()
-	cursor.execute('''
-			INSERT INTO `invitations` (`id`, `user_id`, `board_id`, `privileges`)
-			VALUES (%s, %s, %s, %s)
-			ON DUPLICATE KEY UPDATE `privileges`=%s, `active`=TRUE
-		''',
-		(invite_id.bytes, user_id, board_id, privileges, privileges)
-	)
 
-	try:
-		db.commit()
-	except:
-		db.rollback()
+	cursor.execute('''SELECT `id` FROM `users` WHERE `email`=%s''', (user_email))
+	row = cursor.fetchone()
+	user_id = None
+	if row is not None:
+		user_id = binascii.b2a_hex(row[0])
+
+	if user_id != None:
+		cursor.execute('''
+				INSERT INTO `invitations` (`id`, `user_id`, `board_id`, `privileges`)
+				VALUES (%s, %s, %s, %s)
+				ON DUPLICATE KEY UPDATE `privileges`=%s, `active`=TRUE
+			''',
+			(invite_id.bytes, user_id, board_id, privileges, privileges)
+		)
+		try:
+			db.commit()
+		except:
+			db.rollback()
 
 def respond_to_invite(invite_id, accept):
 	'''

@@ -14,10 +14,10 @@ def invite(board_id):
 		arg: privileges - the privileges to give the user. Use the constants in Boards
 		arg: other - the id of the user to invite
 	'''
-	other_id = request.form['other_id']
+	other_email = request.form['email']
 	privileges = int(request.form['privileges'])
-	Invitations.invite(other_id, board_id, privileges)
-	return render_view('boards/dashboard.html', user='Beard')
+	Invitations.invite(other_email, board_id, privileges)
+	return '{"status": "success"}'
 
 @invitations.route('/invitations/<invite_id>/accept', methods=['POST'])
 @Auth.authorized(Auth.INVITATION_AUTHORIZATION)
@@ -27,7 +27,7 @@ def accept(invite_id):
 	arg: invite_id - the id of the invitation
 	'''
 	Invitations.respond_to_invite(invite_id, True)
-	return '{"status": "success"}'
+	return '{"status":"success"}'
 
 @invitations.route('/invitations/<invite_id>/reject', methods=['POST'])
 @Auth.authorized(Auth.INVITATION_AUTHORIZATION)
