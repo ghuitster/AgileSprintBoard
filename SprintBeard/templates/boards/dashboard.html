@@ -158,7 +158,6 @@ $(document).ready(function()
     $("#board-share-{{board.id}}").click(function()
     {
         $('#submit-share').attr('board-id', '{{board.id}}');
-        console.log("{{board.name}}");
         $('#shareName').text("{{board.name}}");
     });
 
@@ -168,9 +167,13 @@ $(document).ready(function()
     {
         var board_id = $('#submit-share').attr('board-id');
         var email = $('#email-input').val();
+        var urlBuild = "/boards/"+board_id+"/invite";
+        console.log(board_id);
+        console.log(email);
+
         $.ajax(
         {
-            url: '/boards/{{board_id}}/invite',
+            url: urlBuild,
             type: 'POST',
             data: {
                 'email': email
