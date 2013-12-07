@@ -147,3 +147,26 @@ def get_by_board(board_id):
 	for row in rows:
 		users.append(User(row[0], row[1], binascii.b2a_hex(row[2])))
 	return rows
+
+def update(id, name, email):
+	'''
+	Updates an existing user in the database.
+		arg: id - the id of the user to be updated
+		arg: name - the name of the user to be updated
+		arg: email - the email of the user to updated
+	'''
+
+	cursor = db.cursor()
+	cursor.execute('''
+			UPDATE `users`
+			SET `name`=%s,`email`=%s
+			WHERE `id`=%s
+		''',
+		(name, email, UUID(id).bytes)
+	)
+
+	try:
+		db.commit()
+		return User(name, email, id)
+	except:
+		db.rollback()

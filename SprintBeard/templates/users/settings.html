@@ -6,20 +6,16 @@
   
   <center>
   <div><img src="/static/img/blank_user_big.jpg" alt="Alternate Text" height="126" width="126"></div><br>
-  <div>Name: <input type="text" name="name"></div><br>
-  <div>Email: <input type="text" name="email"></div><br>
-  {% for board in boards %}
-  <div>Boards: 
-  <SELECT NAME="Morefruit" SIZE="4" MULTIPLE >
-    <OPTION SELECTED> Apples
-    <OPTION> Bananas
-    <OPTION> Oranges
-    <OPTION> Watermelon
-    <OPTION> Kiwi
-    <OPTION> Cantaloupe
-    <OPTION> Strawberries
-  </SELECT></div>
-  {% endfor %}
+  <div>Name: <input type="text" id="user-name-input" name="name"></div><br>
+  <div>Email: <input type="text" id="user-email-input" name="email"></div><br>
+  <div id="boards">
+    Boards: 
+    <SELECT NAME="Boards" SIZE="8" MULTIPLE >
+    {% for board in boards %}
+    <OPTION> <input type="text" placeholder={board.name}>
+    {% endfor %}
+    </SELECT>
+  </div>
   <br>
 
   <button onclick={% User.update(user.id, user.name, user.email) %}>Update</button>
