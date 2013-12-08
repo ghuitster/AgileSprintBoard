@@ -138,7 +138,6 @@ def get_user_boards(user_id):
 	'''
 
 	user_id = UUID(user_id)
-	
 	cursor = db.cursor()
 	cursor.execute(
 		'''
@@ -166,12 +165,11 @@ def get(board_id):
 	'''
 
 	board_id = UUID(board_id)
-
 	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `id`, `name`
 			FROM `boards`
-			WHERE `board_id`=%s
+			WHERE `id`=%s
 		''',
 		(board_id.bytes)
 	)

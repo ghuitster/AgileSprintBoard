@@ -54,8 +54,7 @@ def get(invite_id):
 		)
 	return invitation
 
-
-def invite(user_email, board_id, privileges):
+def invite(user_email, boardID, privileges):
 	'''
 	Invite a user to a board with a specific privilege level. Inviting a user to a board that 
 	they've already been invited to in the past will effectively generate a new 
@@ -66,14 +65,14 @@ def invite(user_email, board_id, privileges):
 			AccessRules module to define this parameter
 	'''
 	invite_id = uuid.uuid4()
-
+	board_id = UUID(boardID)
 	cursor = db.cursor()
 
 	cursor.execute('''SELECT `id` FROM `users` WHERE `email`=%s''', (user_email))
 	row = cursor.fetchone()
 	user_id = None
 	if row is not None:
-		user_id = binascii.b2a_hex(row[0])
+		user_id = row[0]
 
 	if user_id != None:
 		cursor.execute('''
@@ -81,7 +80,7 @@ def invite(user_email, board_id, privileges):
 				VALUES (%s, %s, %s, %s)
 				ON DUPLICATE KEY UPDATE `privileges`=%s, `active`=TRUE
 			''',
-			(invite_id.bytes, user_id, board_id, privileges, privileges)
+			(invite_id.bytes, user_id, board_id.bytes, privileges, privileges)
 		)
 		try:
 			db.commit()
@@ -131,8 +130,8 @@ def get_by_user(user_id):
 
 	cursor = db.cursor()
 	cursor.execute('''
-			SELECT `id`, `user_id`, `board_id`, `privileges`, `active`
-			FROM `invitations`
+			SELECT `invitations`.`id`, `user_id`, `board_id`, `privileges`, `active`, `name`
+			FROM `invitations` INNER JOIN `boards` ON `boards`.`id` = `invitations`.`board_id`
 			WHERE `user_id`=%s AND `active`=TRUE
 		''',
 		(user_id.bytes)
@@ -148,7 +147,7 @@ def get_by_user(user_id):
 				binascii.b2a_hex(row[2]),
 				int(row[3]),
 				bool(row[4]),
-				Boards.get(binascii.b2a_hex(row[2])).name
+				row[5]
 			)
 		)
 

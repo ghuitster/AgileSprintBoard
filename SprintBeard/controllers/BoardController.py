@@ -23,9 +23,14 @@ def view_for_user(user_id):
 		arg: user_id - The User who's Dashboard will be rendered.
 	'''
 	user = Users.get(user_id)
-	boardList = Boards.get_user_boards(user_id)
+	board_List = Boards.get_user_boards(user_id)
 	invite_list = Invitations.get_by_user(user_id)
-	return render_view('boards/dashboard.html', boardList=boardList, invite_list=invite_list)
+
+	for invite in invite_list:
+		print invite.board_name
+
+
+	return render_view('boards/dashboard.html', board_List=board_List, invite_list=invite_list)
 
 @boards.route('/user/<user_id>/boards', methods=['POST'])
 @Auth.authorized(Auth.USER_AUTHORIZATION)
@@ -43,7 +48,7 @@ def view(board_id):
 
 		return: the view
 	'''
-	board = Boards.view(board_id)
+	board = Boards.get(board_id)
 	return render_view('boards/view.html', board=board)
 
 @boards.route('/boards/<board_id>', methods=['DELETE'])
