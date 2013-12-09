@@ -34,7 +34,7 @@ def create(board_id):
 
 	return '{"status": "success"}'
 
-@stories.route('/stories/<story_id', methods=['DELETE'])
+@stories.route('/stories/<story_id>', methods=['DELETE'])
 @Auth.authorized(Auth.STORY_AUTHORIZATION)
 def delete(story_id):
 	'''
