@@ -17,10 +17,12 @@
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
-				<span class="text-info title-text">
-					<img src="{{ url_for('static', filename='img/logo_small.png') }}" id="logo" alt="Sprint Beard">
+				<a href="{{'/dashboard' if user is defined else '/'}}">
+					<span class="text-info title-text">
+						<img src="{{ url_for('static', filename='img/logo_small.png') }}" id="logo" alt="Sprint Beard">
 					Sprint Beard
-				</span>
+					</span>
+				</a>
 				<span class="pull-right">
 					<div class="nav-collapse collapse">
 						<ul class="nav">
