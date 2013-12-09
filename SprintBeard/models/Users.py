@@ -1,5 +1,5 @@
 import binascii
-import MySQLdb
+from Model import check_uuid, db
 import uuid
 from uuid import UUID
 
@@ -27,9 +27,6 @@ def user_from_json(dictionary):
 	'''
 	return User(dictionary['name'], dictionary['email'], dictionary['id'])
 
-
-db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile')
-
 def create(name, email):
 	'''
 	Add a new user to the database.
@@ -51,10 +48,11 @@ def create(name, email):
 
 	try:
 		db.commit()
-		return user
+		return User(user.name, user.email, user.id.hex)
 	except:
 		db.rollback()
 
+@check_uuid
 def get(user_id):
 	'''
 	Select a user from the database by id
@@ -79,6 +77,7 @@ def get(user_id):
 		user = User(row[1], row[2], binascii.b2a_hex(row[0]))
 	return user
 
+@check_uuid
 def create_openid_association(userid, openid):
 	'''
 	Create an association between a user and an openid
@@ -122,6 +121,7 @@ def get_by_openid(openid):
 		user = get(binascii.b2a_hex(row[0]))
 	return user
 
+@check_uuid
 def get_by_board(board_id):
 	'''
 	Get all the users that have access to a board.

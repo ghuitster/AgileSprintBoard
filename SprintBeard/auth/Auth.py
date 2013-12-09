@@ -1,6 +1,9 @@
-from flask import redirect, render_template, request, session, url_for
+from custom_render.CustomRender import render_view
+from flask import redirect, request, session, url_for
+import json
 from functools import wraps
 from models import AccessRules, Boards, Invitations, Stories, Tasks
+from uuid import UUID
 
 '''
 This module provides decorator functions that enforce authentication. To use these functions,
@@ -21,6 +24,9 @@ INVITATION_AUTHORIZATION = 2
 STORY_AUTHORIZATION = 3
 TASK_AUTHORIZATION = 4
 
+MALFORMED_UUID_HTML = 0
+MALFORMED_UUID_JSON = 1
+
 def authenticated(handler):
 	'''
 	A function decorator which requires that a user is authenticated before granting access to a
@@ -38,12 +44,14 @@ def authenticated(handler):
  	do_auth.__name__ = handler.__name__
 	return do_auth
 
-def authorized(resource_type):
+def authorized(resource_type, handle_uuid):
 	'''
 	A function decorator which requires that a user is authenticated, and that the user id passed
 	in matches the authenticated user's id.
 		arg: resource_type - a constant which determines which type of resource the user is trying 
 		to access
+		arg: handle_uuid - how to handle a malformed uuid - MALFORMED_UUID_HTML to send a page,
+			or MALFORMED_UUID_JSON to send back a JSON response
 
 		return: the handler augmented such that it requires authentication
 
@@ -65,30 +73,48 @@ def authorized(resource_type):
 				return redirect(url_for('login', next=request.url))
 			
 			#get the userid of the user who owns the resource
-			user_id = None
+			result = None
 			if resource_type == USER_AUTHORIZATION:
-				user_id = kwargs['user_id']
+				if valid_uuid(kwargs['user_id']):
+					result = kwargs['user_id']
+				else:
+					result = {
+						'status': 'success',
+						'error': 'malformed UUID'
+					}
 			elif resource_type == BOARD_AUTHORIZATION:
-				user_id = has_board_access(kwargs['board_id'])
+				result = has_board_access(kwargs['board_id'])
 			elif resource_type == INVITATION_AUTHORIZATION:
 				invite = Invitations.get(kwargs['invite_id'])
-				user_id = invite.user_id
+				if type(invite) != dict:
+					result = invite.result
+				else:
+					result = invite
 			elif resource_type == STORY_AUTHORIZATION:
 				story = Stories.get(kwargs['story_id'])
-				if story is not None:
-					user_id = has_board_access(story.board_id)
+				if story is not None and type(story) != dict:
+					result = has_board_access(story.board_id)
+				else:
+					result = story
 			elif resource_type == TASK_AUTHORIZATION:
 				task = Tasks.get(kwargs['task_id'])
-				if task is not None:
+				if task is not None and type(task) != dict:
 					story = Stories.get(task.story_id)
 					if story is not None:
-						user_id = has_board_access(story.board_id)
+						result = has_board_access(story.board_id)
+				else:
+					result = task
 						
 			#make sure the userids match
-			if user_id is not None and session['user'].id == user_id:
+			if result is not None and session['user'].id == result:
 				return handler(*args, **kwargs)
+			elif type(result) == dict and 'error' in result and 'UUID' in result['error']:
+				if handle_uuid == MALFORMED_UUID_HTML:
+					return render_view('error/bad_uuid.html')
+				else:
+					return json.dumps(result)
 			else:
-				return render_template('auth/unauthorized.html')
+				return render_view('error/unauthorized.html')
 		do_authorized.__name__ = handler.__name__
 		return do_authorized
 	return actual
@@ -102,6 +128,23 @@ def has_board_access(board_id):
 	'''
 	rules = AccessRules.get_by_board(board_id)
 
+	if type(rules) == dict:
+		return rules
+
 	for rule in rules:
 		if rule.user_id == session['user'].id:
 			return rule.user_id
+
+def valid_uuid(id):
+	'''
+	Determine if a string is valid UUID
+		arg: id - the id to check
+
+		result: whether or not the id is valid
+	'''
+	try:
+		UUID(id)
+		return True
+	except ValueError, e:
+		if 'UUID' in str(e):
+			return False

@@ -1,10 +1,8 @@
 import binascii
 import datetime
-import MySQLdb
+from Model import check_uuid, db
 import uuid
 from uuid import UUID
-
-db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile')
 
 class Sprint:
 	'''
@@ -20,6 +18,7 @@ class Sprint:
 		self.end = end
 		self.board_id = board_id
 
+@check_uuid
 def create(start, end, board_id):
 	'''
 	Create a new sprint belonging to a board
@@ -29,7 +28,6 @@ def create(start, end, board_id):
 	'''
 
 	id = uuid.uuid4()
-	print id
 	board_id = UUID(board_id)
 	#start = start.strftime('%Y-%m-%d')
 	#end = end.strftime('%Y-%m-%d')
@@ -47,6 +45,7 @@ def create(start, end, board_id):
 	except:
 		db.rollback()
 
+@check_uuid
 def get_current_sprint(board_id):
 	'''
 	Get the current sprint for a board.

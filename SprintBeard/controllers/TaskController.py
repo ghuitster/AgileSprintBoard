@@ -1,12 +1,13 @@
 from auth import Auth
 from custom_render.CustomRender import render_view
 from flask import Blueprint, render_template, request
+import json
 from models import Tasks
 
 tasks = Blueprint('tasks', __name__)
 
 @tasks.route('/stories/<story_id>/tasks', methods=['POST'])
-@Auth.authorized(Auth.STORY_AUTHORIZATION)
+@Auth.authorized(Auth.STORY_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
 def create(story_id):
 	'''
 	Create a new task in the given story.
@@ -21,12 +22,15 @@ def create(story_id):
 	if 'description' in request.form:
 		description = request.form['description']
 
-	Tasks.create(story_id, name, description, estimate)
+	result = Tasks.create(story_id, name, description, estimate)
 
-	return '{"status": "success"}'
+	if type(result) != dict:
+		return '{"status": "success"}'
+	else:
+		return json.dumps(result)
 
 @tasks.route('/tasks/<task_id>', methods=['DELETE'])
-@Auth.authorized(Auth.TASK_AUTHORIZATION)
+@Auth.authorized(Auth.TASK_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
 def delete(task_id):
 	Tasks.delete(task_id)
 	return '{"status": "success"}'

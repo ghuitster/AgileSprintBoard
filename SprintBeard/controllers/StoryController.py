@@ -1,12 +1,13 @@
 from auth import Auth
 from custom_render.CustomRender import render_view
 from flask import Blueprint, request
+import json
 from models import Sprints, Stories
 
 stories = Blueprint('stories', __name__)
 
 @stories.route('/boards/<board_id>/stories', methods=['POST'])
-@Auth.authorized(Auth.BOARD_AUTHORIZATION)
+@Auth.authorized(Auth.BOARD_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
 def create(board_id):
 	'''
 	Create a new story in the given board
@@ -30,12 +31,15 @@ def create(board_id):
 		if sprint is not None:
 			sprint_id = sprint.id
 
-	Stories.create(name, description, estimate, board_id, sprint_id)
+	result = Stories.create(name, description, estimate, board_id, sprint_id)
 
-	return '{"status": "success"}'
+	if type(result) != dict:
+		return '{"status": "success"}'
+	else:
+		return json.dumps(result)
 
 @stories.route('/stories/<story_id>', methods=['DELETE'])
-@Auth.authorized(Auth.STORY_AUTHORIZATION)
+@Auth.authorized(Auth.STORY_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
 def delete(story_id):
 	'''
 	Delete the given story

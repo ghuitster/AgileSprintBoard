@@ -1,9 +1,7 @@
 import binascii
-import MySQLdb
+from Model import check_uuid, db
 import uuid
 from uuid import UUID
-
-db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile')
 
 class Task:
 	'''
@@ -27,6 +25,7 @@ class Task:
 		self.completion_date = completion_date
 
 
+@check_uuid
 def create(story_id, name, description, estimate):
 	'''
 	Create a new task belonging to a story
@@ -51,6 +50,7 @@ def create(story_id, name, description, estimate):
 	except:
 		db.rollback()
 
+@check_uuid
 def get(task_id):
 	'''
 	Get a task by its id
@@ -85,6 +85,7 @@ def get(task_id):
 
 	return task
 
+@check_uuid
 def delete(task_id):
 	'''
 	Delete a task.
@@ -106,6 +107,7 @@ def delete(task_id):
 	except:
 		db.rollback()
 
+@check_uuid
 def get_by_story(story_id):
 	'''
 	Get all tasks belonging to a particular story

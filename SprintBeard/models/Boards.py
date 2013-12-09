@@ -1,14 +1,11 @@
 import AccessRules
 import binascii
-import flask
-import MySQLdb
+from Model import check_uuid, db
 import Sprints
 import Stories
 import Users
 import uuid
 from uuid import UUID
-
-db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile')
 
 class Board:
 	'''
@@ -24,6 +21,7 @@ class Board:
 		self.users = users
 		self.stories = stories
 
+@check_uuid
 def create(user_id, name):
 	'''
 	Create a Board for a certain userID
@@ -58,6 +56,7 @@ def create(user_id, name):
 	except:
 		db.rollback()
 
+@check_uuid
 def view(board_id, sprint_id='current'):
 	'''
 	Get the data for a board in a Board object
@@ -92,6 +91,7 @@ def view(board_id, sprint_id='current'):
 
 	return board
 
+@check_uuid
 def delete(board_id):
 	'''
 	Deletes a board with id = board_id
@@ -116,19 +116,28 @@ def delete(board_id):
 	except:
 		db.rollback()
 
-def changeName(boardID, newName):
+@check_uuid
+def changeName(board_id, new_name):
 	'''
-	Change the Name attribute of a Board for a certain boardID
-		arg: boardID - the id of the Board to be modified
-		arg: newName - the new Name of the Board
+	Change the Name attribute of a Board for a certain board_id
+		arg: board_id - the id of the Board to be modified
+		arg: new_name - the new Name of the Board
 	'''
+	board_id = UUID(board_id)
 	cursor = db.cursor()
-	cursor.execute('''UPDATE boards SET name=%s WHERE id=%s''', (newName, boardID))
+	cursor.execute('''
+			UPDATE `boards` 
+			SET `name`=%s 
+			WHERE `id`=%s
+		''', 
+		(new_name, board_id.bytes)
+	)
 	try:
 		db.commit()
 	except:
 		db.rollback()
 
+@check_uuid
 def get_user_boards(user_id):
 	'''
 	Return a list of all Boards associated with a userID
@@ -156,6 +165,7 @@ def get_user_boards(user_id):
 		boards.append(b)
 	return boards
 
+@check_uuid
 def get(board_id):
 	'''
 	Get the basic information about a Board, ie, just its name and id.

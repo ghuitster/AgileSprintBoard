@@ -1,10 +1,8 @@
 import binascii
 import Boards
-import MySQLdb
+from Model import check_uuid, db
 import uuid
 from uuid import UUID
-
-db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile')
 
 class Invitation:
 	'''
@@ -26,6 +24,7 @@ class Invitation:
 		self.active = active
 		self.board_name = board_name
 
+@check_uuid
 def get(invite_id):
 	'''
 	Get the record for a particular invitation
@@ -54,7 +53,8 @@ def get(invite_id):
 		)
 	return invitation
 
-def invite(user_email, boardID, privileges):
+@check_uuid
+def invite(user_email, board_id, privileges):
 	'''
 	Invite a user to a board with a specific privilege level. Inviting a user to a board that 
 	they've already been invited to in the past will effectively generate a new 
@@ -65,10 +65,17 @@ def invite(user_email, boardID, privileges):
 			AccessRules module to define this parameter
 	'''
 	invite_id = uuid.uuid4()
-	board_id = UUID(boardID)
+	board_id = UUID(board_id)
 	cursor = db.cursor()
 
-	cursor.execute('''SELECT `id` FROM `users` WHERE `email`=%s''', (user_email))
+	cursor.execute('''
+			SELECT `id` 
+			FROM `users` 
+			WHERE `email`=%s
+		''',
+		(user_email)
+	)
+	
 	row = cursor.fetchone()
 	user_id = None
 	if row is not None:
@@ -87,6 +94,7 @@ def invite(user_email, boardID, privileges):
 		except:
 			db.rollback()
 
+@check_uuid
 def respond_to_invite(invite_id, accept):
 	'''
 	Respond to an invitation to a board. If the user accepted the request, add an access rule to the
@@ -118,6 +126,7 @@ def respond_to_invite(invite_id, accept):
 	except:
 		db.rollback()
 
+@check_uuid
 def get_by_user(user_id):
 	'''
 	Get all the active invitations for a given user

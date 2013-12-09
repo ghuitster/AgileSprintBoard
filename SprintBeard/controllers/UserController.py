@@ -6,13 +6,13 @@ from models import Users
 users = Blueprint('users', __name__)
 
 @users.route('/users/<user_id>', methods=['GET'])
-@Auth.authorized(Auth.USER_AUTHORIZATION)
+@Auth.authorized(Auth.USER_AUTHORIZATION, Auth.MALFORMED_UUID_HTML)
 def view(user_id):
 	user = Users.get(user_id)
 	return render_view('users/view.html', user=user)
 
 @users.route('/users/<user_id>/settings', methods=['POST'])
-@Auth.authorized(Auth.USER_AUTHORIZATION)
+@Auth.authorized(Auth.USER_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
 def settings(user_id):
 	name = request.form['name']
 	email = request.form['email']

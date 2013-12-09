@@ -16,7 +16,7 @@ def dash():
 	return redirect('/user/%s/boards' % user_id)
 
 @boards.route('/user/<user_id>/boards', methods=['GET'])
-@Auth.authorized(Auth.USER_AUTHORIZATION)
+@Auth.authorized(Auth.USER_AUTHORIZATION, Auth.MALFORMED_UUID_HTML)
 def view_for_user(user_id):
 	'''
 		Generates the Board and Invite information for the Board Dashboard.
@@ -26,21 +26,17 @@ def view_for_user(user_id):
 	board_List = Boards.get_user_boards(user_id)
 	invite_list = Invitations.get_by_user(user_id)
 
-	for invite in invite_list:
-		print invite.board_name
-
-
 	return render_view('boards/dashboard.html', board_List=board_List, invite_list=invite_list)
 
 @boards.route('/user/<user_id>/boards', methods=['POST'])
-@Auth.authorized(Auth.USER_AUTHORIZATION)
+@Auth.authorized(Auth.USER_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
 def create(user_id):
 	name = request.form['name']
 	Boards.create(user_id, name)
 	return '{"status":"success"}'
 
 @boards.route('/boards/<board_id>', methods=['GET'])
-@Auth.authorized(Auth.BOARD_AUTHORIZATION)
+@Auth.authorized(Auth.BOARD_AUTHORIZATION, Auth.MALFORMED_UUID_HTML)
 def view(board_id):
 	'''
 	Get a view of the requested board.
@@ -52,7 +48,7 @@ def view(board_id):
 	return render_view('boards/view.html', board=board)
 
 @boards.route('/boards/<board_id>', methods=['DELETE'])
-@Auth.authorized(Auth.BOARD_AUTHORIZATION)
+@Auth.authorized(Auth.BOARD_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
 def delete(board_id):
 	Boards.delete(board_id)
 	return '{"status":"success"}'

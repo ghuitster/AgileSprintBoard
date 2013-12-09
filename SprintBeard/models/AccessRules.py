@@ -1,5 +1,5 @@
 import binascii
-import MySQLdb
+from Model import check_uuid, db
 import uuid
 from uuid import UUID
 
@@ -7,8 +7,6 @@ OWNER_PRIVILEGES = 0
 ADMIN_PRIVILEGES = 1
 EDITOR_PRIVILEGES = 2
 VIEWER_PRIVILEGES = 3
-
-db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile')
 
 class AccessRule:
 	'''
@@ -24,6 +22,7 @@ class AccessRule:
 		self.board_id = board_id
 		self.privileges = privileges
 
+@check_uuid
 def create(user_id, board_id, privileges):
 	'''
 	Create an access rule for a given user on a given board
@@ -49,6 +48,7 @@ def create(user_id, board_id, privileges):
 	except:
 		db.rollback()
 
+@check_uuid
 def get_by_board(board_id):
 	'''
 	Get all the access rules for a particular board
@@ -74,6 +74,7 @@ def get_by_board(board_id):
 		access_rules.append(AccessRule(binascii.b2a_hex(row[0]), binascii.b2a_hex(row[1]), row[2]))
 	return access_rules
 
+@check_uuid
 def delete(board_id, user_id):
 	'''
 	Delete the rule letting a user access a specific board
