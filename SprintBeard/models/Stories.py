@@ -87,6 +87,27 @@ def get(story_id):
 
 	return story
 
+def delete(story_id):
+	'''
+	Delete a story from the database.
+		arg: story_id - the id of the story to delete
+	'''
+
+	story_id = UUID(story_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+			DELETE FROM `stories`
+			WHERE `id`=%s
+		''',
+		(story_id.bytes)
+	)
+
+	try:
+		db.commit()
+	except:
+		db.rollback()
+
 def get_by_board(board_id, sprint_id = None):
 	'''
 	Get the stories for a board.

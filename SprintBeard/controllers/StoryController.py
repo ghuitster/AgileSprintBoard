@@ -33,3 +33,14 @@ def create(board_id):
 	Stories.create(name, description, estimate, board_id, sprint_id)
 
 	return '{"status": "success"}'
+
+@stories.route('/stories/<story_id', methods=['DELETE'])
+@Auth.authorized(Auth.STORY_AUTHORIZATION)
+def delete(story_id):
+	'''
+	Delete the given story
+		arg: story_id - the id of the story to delete
+	'''
+	Stories.delete(story_id)
+
+	return '{"status": "success"}'
