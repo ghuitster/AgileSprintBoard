@@ -179,7 +179,7 @@ $(document).ready(function()
         {
             url: '/invitations/{{invite.id}}}/reject',
             type: 'POST',
-            success: function()
+            success: function(result)
             {
                 location.reload();
             }
@@ -192,7 +192,7 @@ $(document).ready(function()
         {
             url: '/invitations/{{invite.id}}}/accept',
             type: 'POST',
-            success: function()
+            success: function(result)
             {
                 location.reload();
             }
