@@ -37,5 +37,5 @@ def reject(invite_id):
 	Reject an invitation to collaborate on a board
 	arg: invite_id - the id of the invitation
 	'''
-	Invitations.respond_to_invite(invite_id, False)
+	Invitations.respond_to_invite(invite_id, False)	
 	return '{"status": "success"}'

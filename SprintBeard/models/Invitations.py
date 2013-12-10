@@ -23,7 +23,6 @@ class Invitation:
 		self.privileges = privileges
 		self.active = active
 		self.board_name = board_name
-		self.result = "pending"
 
 @check_uuid
 def get(invite_id):
