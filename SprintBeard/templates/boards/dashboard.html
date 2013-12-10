@@ -176,10 +176,6 @@ $(document).ready(function()
     {
         var board_id = $('#submit-share').attr('board-id');
         var email = $('#email-input').val();
-        if (email == "")
-        {
-            email = "nwatterson@gmail.com";
-        }
         var permission = $('#permission-input').val();
         var privileges = 0;
         if (permission == "Collaborator"){ privileges = 3; }
