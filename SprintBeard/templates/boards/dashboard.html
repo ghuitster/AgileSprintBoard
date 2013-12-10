@@ -159,7 +159,6 @@ $(document).ready(function()
             success: function(result)
             {
                 location.reload();
-                console.log("hello");
             }
         });
     });
@@ -172,12 +171,44 @@ $(document).ready(function()
 
     {% endfor %}
 
+    {% for invite in invite_list %}
+
+    $("#reject-invite-{{invite.id}}").click(function()
+    {
+        $.ajax(
+        {
+            url: '/invitations/{{invite.id}}}/reject',
+            type: 'POST',
+            success: function()
+            {
+                location.reload();
+            }
+        });
+    });
+
+    $("#accept-invite-{{invite.id}}").click(function()
+    {
+        $.ajax(
+        {
+            url: '/invitations/{{invite.id}}}/accept',
+            type: 'POST',
+            success: function()
+            {
+                location.reload();
+            }
+        });
+    });
+
+    {% endfor %}
+
+
+
     $('#submit-share').click(function()
     {
         var board_id = $('#submit-share').attr('board-id');
         var email = $('#email-input').val();
         var permission = $('#permission-input').val();
-        var privileges = 0;
+        var privileges = 2;
         if (permission == "Collaborator"){ privileges = 3; }
         if (permission == "Owner"){ privileges = 0; }
         if (permission == "Viewer"){ privileges = 2; }
