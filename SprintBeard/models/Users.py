@@ -84,13 +84,13 @@ def create_openid_association(userid, openid):
 		arg: userid - the id (as uuid) of the user for whom to create an association
 		arg: openid - the openid to associate
 	'''
-
+	userid = UUID(userid)
 	cursor = db.cursor()
 	cursor.execute('''
 			INSERT INTO `users_openids` (`user_id`, `openid`)
 			VALUES(%s, %s)
 		''',
-		(userid.encode(), openid)
+		(userid.bytes, openid)
 	)
 
 	try:
