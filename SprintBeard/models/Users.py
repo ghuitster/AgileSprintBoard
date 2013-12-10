@@ -90,7 +90,7 @@ def create_openid_association(userid, openid):
 			INSERT INTO `users_openids` (`user_id`, `openid`)
 			VALUES(%s, %s)
 		''',
-		(userid.bytes, openid)
+		(userid.encode(), openid)
 	)
 
 	try:
