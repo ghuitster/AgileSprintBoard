@@ -27,7 +27,6 @@ def create(user_id, name):
 	Create a Board for a certain userID
 		arg: user_id - the id of the user creating the board
 		arg: name - the name of the new board
-
 		return: the created board
 	'''
 
@@ -65,7 +64,6 @@ def view(board_id, sprint_id='current'):
 			Passing in 'all' gets stories from all sprints, passing in 'current' gets
 			all stories in the current sprint, and passing in 'backlog' gets all stories in the 
 			backlog.
-
 		return: the data in a Board object
 	'''
 
