@@ -87,7 +87,7 @@ def authorized(resource_type, handle_uuid):
 			elif resource_type == INVITATION_AUTHORIZATION:
 				invite = Invitations.get(kwargs['invite_id'])
 				if type(invite) != dict:
-					result = invite.result
+					result = invite
 				else:
 					result = invite
 			elif resource_type == STORY_AUTHORIZATION:
