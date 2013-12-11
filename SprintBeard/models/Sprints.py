@@ -46,6 +46,34 @@ def create(start, end, board_id):
 		db.rollback()
 
 @check_uuid
+def get(sprint_id):
+	'''
+	Get the requested sprint
+		arg: sprint_id - the id of the sprint to get
+
+		return: the requested sprint as a Sprint object
+	'''
+	if sprint_id is None:
+		return None
+
+	sprint_id = UUID(sprint_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+			SELECT `id`, `start`, `end`, `board_id`
+			FROM `sprints`
+			WHERE `id`=%s	
+		''',
+		(sprint_id.bytes)
+	)
+
+	row = cursor.fetchone()
+	sprint = None
+	if row is not None:
+		sprint = Sprint(binascii.b2a_hex(row[0]), row[1], row[2], row[3])
+	return sprint
+
+@check_uuid
 def get_current_sprint(board_id):
 	'''
 	Get the current sprint for a board.

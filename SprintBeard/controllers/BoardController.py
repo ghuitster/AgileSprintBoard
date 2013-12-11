@@ -49,7 +49,7 @@ def view(board_id):
 		arg: board_id - The board to view.
 		return: render_view
 	'''
-	board = Boards.get(board_id)
+	board = Boards.view(board_id)
 	return render_view('boards/view.html', board=board)
 
 @boards.route('/boards/<board_id>', methods=['DELETE'])

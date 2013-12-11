@@ -14,8 +14,9 @@ class Board:
 		field: string id - the id of the Board (string)
 		field: List[User] - a list of users that have access to the board
 		field: List[Story] - a list of stories that belong to the board
+		field: Sprint sprint - the sprint to show
 	'''
-	def __init__(self, name, id, users=[], stories=[]):
+	def __init__(self, name, id, users=[], stories=[], sprint=None):
 		self.name = name
 		self.id = id
 		self.users = users
@@ -68,10 +69,14 @@ def view(board_id, sprint_id='current'):
 	'''
 
 	board_id_uuid = UUID(board_id)
+	sprint = None
 	if sprint_id == 'current':
-		sprint_id = Sprints.get_current_sprint(board_id).id
+		sprint = Sprints.get_current_sprint(board_id)
+		if sprint is not None:
+			sprint_id = sprint.id
 	elif sprint_id != 'all' and sprint_id != 'backlog':
 		sprint_id = UUID(sprint_id).hex
+		sprint = Sprints.get(sprint_id)
 
 	cursor = db.cursor()
 	cursor.execute('''
@@ -85,7 +90,7 @@ def view(board_id, sprint_id='current'):
 	row = cursor.fetchone()
 	board = None
 	if row is not None:
-		board = Board(row[0], binascii.b2a_hex(row[1]), Users.get_by_board(board_id), Stories.get_by_board(board_id, sprint_id))
+		board = Board(row[0], binascii.b2a_hex(row[1]), Users.get_by_board(board_id), Stories.get_by_board(board_id, sprint_id), sprint)
 
 	return board
 

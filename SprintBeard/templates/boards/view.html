@@ -2,7 +2,7 @@
 {% block title %}{{board.name}}{% endblock %}
 {% block content %}
 
-<p>Board</p>
+<h1>{{board.name}}</h1>
 
 <div class="row-fluid">
     <div class="accordion-group">
@@ -17,8 +17,14 @@
                 	<thead>
                 		<tr>
                 			<td><span> Sprint Title </span></td>
-                			<td><a type="submit" class="btn btn-success" href=""><i class="icon-plus"></i></a> <span>Tasks</span> 
-                				<a type="submit" class="btn" href="" style="float: right;" style="background-color:#19768e"><i class="icon-plus"></i></a> </td>
+                			<td>
+                                {% if board.sprint is defined %}
+                                    <span>Start: {{board.sprint.start}}</span>
+                                    <span>End: {{board.sprint.end}}</span>
+                                {% endif %}
+                                <a type="submit" class="btn btn-success" href=""><i class="icon-plus"></i></a> <span>Tasks</span> 
+                				<a type="submit" class="btn" href="" style="float: right;" style="background-color:#19768e"><i class="icon-plus"></i></a> 
+                            </td>
                 			<td bgcolor="#19768e"><span> UserA </span></td>
                 			<td bgcolor="#19768e"><span> UserA </span></td>
                 		</tr>
