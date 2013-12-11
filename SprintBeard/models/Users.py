@@ -146,7 +146,7 @@ def get_by_board(board_id):
 	users = []
 	for row in rows:
 		users.append(User(row[0], row[1], binascii.b2a_hex(row[2])))
-	return rows
+	return users
 
 def update(id, name, email):
 	'''

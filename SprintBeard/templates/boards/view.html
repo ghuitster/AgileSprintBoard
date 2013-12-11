@@ -40,31 +40,32 @@
                                 <a type="submit" class="btn btn-success" href=""><i class="icon-plus"></i></a> <span>Tasks</span> 
                 				<a type="submit" class="btn" href="" style="float: right;" style="background-color:#19768e"><i class="icon-plus"></i></a> 
                             </td>
-                			<td bgcolor="#19768e"><span> UserA </span></td>
-                			<td bgcolor="#19768e"><span> UserA </span></td>
+                			
+                            {% for user in board.users %}
+                            <td bgcolor="#19768e"><span> {{user.name.split(' ')[0]}} </span></td>
+                            {% endfor %}
                 		</tr>
                 	</thead>
                     <tbody>
                         
-
+                    {% for story in board.stories %}
                         <tr>
                             <td style="width: 50px;">
-                                <a type="submit" class="btn btn-success" href="/boards/{{board.id}}">View</a>
+                                <a type="submit" class="btn btn-success" href="/boards/{{board.id}}">{{story.name}}</a>
                             </td>
-                            <td id="boardName-{{board.id}}" <td style="width: 435px;">
+                            <td id="tasks-cell-{{story.id}}" <td style="width: 435px;">
                                 <a type="submit" class="btn btn-success" href="">Task</a>
                                 <a type="submit" class="btn btn-success" href="">Task</a>
                                 <a type="submit" class="btn btn-success" href="">Task</a>
                             </td>
+                            {% for user in board.users %}
                             <td style="width: 50px;">
                                 <a type="submit" class="btn btn-success" href="">Task</a>
                             </td>
-                            <td style="width: 50px;">
-                                <a type="submit" class="btn btn-success" href="">Task</a>
-                            </td>
+                            {% endfor %}
                         </tr>
                         
-
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
