@@ -63,8 +63,14 @@ def delete(board_id):
 	Boards.delete(board_id)
 	return '{"status":"success"}'
 
-
-
-
-
-
+@boards.route('/boards/<board_id>/rename', methods=['POST'])
+@Auth.authorized(Auth.BOARD_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
+def rename(board_id):
+	'''
+		Rename a Board.
+		arg: board_id - The board to be renamed.
+		return: JSON status
+	'''
+	name = request.form['name']
+	Boards.changeName(board_id, name)
+	return '{"status":"success"}'
