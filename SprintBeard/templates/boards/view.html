@@ -21,47 +21,53 @@
 
 <h1>{{board.name}}</h1>
 
-
-                <table class="table table-bordered">
-                	<thead>
-                		<tr>
-                			<td><span> Sprint Title </span></td>
-                			<td>
-                                {% if board.sprint is defined %}
-                                    <span>Start: {{board.sprint.start}}</span>
-                                    <span>End: {{board.sprint.end}}</span>
-                                {% endif %}
-                                <a type="submit" class="btn btn-success" href=""><i class="icon-plus"></i></a> <span>Tasks</span> 
-                				<a type="submit" class="btn" href="" style="float: right;" style="background-color:#19768e"><i class="icon-plus"></i></a> 
-                            </td>
-                			
-                            {% for user in board.users %}
-                            <td bgcolor="#19768e"><span> {{user.name.split(' ')[0]}} </span></td>
-                            {% endfor %}
-                		</tr>
-                	</thead>
-                    <tbody>
-                        
-                    {% for story in board.stories %}
-                        <tr>
-                            <td style="width: 50px;">
-                                <a type="submit" class="btn btn-success" href="/boards/{{board.id}}">{{story.name}}</a>
-                            </td>
-                            <td id="tasks-cell-{{story.id}}" style="width: 435px;">
-                                <a type="submit" class="btn btn-success" href="">Task</a>
-                                <a type="submit" class="btn btn-success" href="">Task</a>
-                                <a type="submit" class="btn btn-success" href="">Task</a>
-                            </td>
-                            {% for user in board.users %}
-                            <td style="width: 50px;">
-                                <a type="submit" class="btn btn-success" href="">Task</a>
-                            </td>
-                            {% endfor %}
-                        </tr>
-                        
-                    {% endfor %}
-                    </tbody>
-                </table>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td><span> Sprint Title </span></td>
+			<td>
+                {% if board.sprint is defined %}
+                    <span>
+                        Start: <i class="icon-calendar"></i>
+                    </span>
+                    <span>
+                        End: <i class="icon-calendar"></i>
+                    </span>
+                {% endif %}
+            </td>
+            <td>
+                <span>Tasks</span> 
+				<a type="submit" class="btn" href="" style="float: right;" style="background-color:#19768e"><i class="icon-plus"></i></a>
+            </td>
+            {% for user in board.users %}
+            <td bgcolor="#19768e">
+                <span> {{user.name.split(' ')[0]}} </span>
+            </td>
+            {% endfor %}
+		</tr>
+	</thead>
+    <tbody>
+        
+    {% for story in board.stories %}
+        <tr>
+            <td style="width: 50px;">
+                <a type="submit" class="btn btn-success" href="/boards/{{board.id}}">{{story.name}}</a>
+            </td>
+            <td id="tasks-cell-{{story.id}}" style="width: 435px;">
+                <a type="submit" class="btn btn-success" href="">Task</a>
+                <a type="submit" class="btn btn-success" href="">Task</a>
+                <a type="submit" class="btn btn-success" href="">Task</a>
+            </td>
+            {% for user in board.users %}
+            <td style="width: 50px;">
+                <a type="submit" class="btn btn-success" href="">Task</a>
+            </td>
+            {% endfor %}
+        </tr>
+        
+    {% endfor %}
+    </tbody>
+</table>
 
 <div class="modal fade" id="renameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
     <div class="modal-dialog">
