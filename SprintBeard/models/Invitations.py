@@ -3,6 +3,7 @@ import Boards
 from Model import check_uuid, db
 import uuid
 from uuid import UUID
+import AccessRules
 
 class Invitation:
 	'''
