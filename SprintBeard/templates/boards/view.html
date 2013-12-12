@@ -20,6 +20,7 @@
 {{ super() }}
 
 <h1>{{board.name}}</h1>
+<<<<<<< HEAD
 <div class="row-fluid">
     <div class="accordion-group">
         <div class="accordion-heading">
@@ -73,6 +74,52 @@
         </div>
     </div>
 </div>
+=======
+
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td><span> Sprint Title </span></td>
+			<td>
+                {% if board.sprint is defined %}
+                <span>Start: {{board.sprint.start}}</span>
+                <span>End: {{board.sprint.end}}</span>
+                {% endif %}
+                <a type="submit" class="btn btn-success" href=""><i class="icon-plus"></i></a> <span>Tasks</span> 
+                <a type="submit" class="btn" href="" style="float: right;" style="background-color:#19768e"><i class="icon-plus"></i></a> 
+            </td>
+
+            {% for user in board.users %}
+            <td bgcolor="#19768e"><span> {{user.name.split(' ')[0]}} </span></td>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for story in board.stories %}
+        <tr id="story-{{story.id}}-row">
+            <td style="width: 50px;">
+                <a type="submit" href="/boards/{{board.id}}">
+                    {{story.name}}
+                </a>
+            </td>
+            <td id="tasks-cell-{{story.id}}" style="width: 435px;">
+                <a type="submit" class="btn btn-success ui-widget-content ui-draggable" href="" id="draggable">Task</a>
+                <a type="submit" class="btn btn-success" href="">Task</a>
+                <a type="submit" class="btn btn-success" href="">Task</a>
+            </td>
+            {% for user in board.users %}
+            <td style="width: 50px;">
+                <a type="submit" class="btn btn-success" href="">Task</a>
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+>>>>>>> updated view.html
 
 <div class="modal fade" id="renameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
     <div class="modal-dialog">
@@ -102,6 +149,7 @@
 <script>
 $(document).ready(function()
 {
+<<<<<<< HEAD
     {% for board in board_List %}
 
     $("#board-share-{{board.id}}").click(function()
@@ -113,6 +161,8 @@ $(document).ready(function()
     {% endfor %}
 
 
+=======
+>>>>>>> updated view.html
     $("#change-name").click(function()
     {
         {% if user is defined %}
@@ -133,6 +183,23 @@ $(document).ready(function()
         });
         {% endif %}
     });
+<<<<<<< HEAD
+=======
+    </script>
+
+    <script>
+    $(function() {
+        $( "#draggable" ).draggable({ containment: "parent" });
+        $( "#droppable" ).droppable({
+            drop: function( event, ui ) {
+                $( this )
+                .addClass( "ui-state-highlight" )
+                .find( "p" )
+                .html( "Dropped!" );
+            }
+        });
+    });
+>>>>>>> updated view.html
 });
 </script>
 
