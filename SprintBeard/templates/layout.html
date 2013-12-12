@@ -85,6 +85,8 @@
 </div>
 
 <script>
+$(document).ready(function()
+{
     $("#submit-info").click(function()
     {
     	{% if user is defined %}
@@ -108,4 +110,5 @@
         });
         {% endif %}
     });
+});
 </script>
