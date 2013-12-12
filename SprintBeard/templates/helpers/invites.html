@@ -1,1 +1,70 @@
-blank
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="shareModalLabel">Share Board: <span id="shareName"></span></h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="board-name-input" class="col-sm-2 control-label">Enter Email: </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="email-input" placeholder="Beard@example.com" />
+                        </div>
+                        <label for="permission-level-input" class="col-sm-2 control-label">Permission: </label>
+                        <div class="col-sm-10">
+                            <select class="selectpicker" id="permission-input">
+                                <option id="choice-owner">Owner</option>
+                                <option id="choice-collaborator">Collaborator</option>
+                                <option id="choice-viewer">Viewer</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="close-share" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="submit-share" type="button" class="btn btn-primary">Invite</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function()
+{
+	$('#submit-share').click(function()
+    {
+        var board_id = $('#submit-share').attr('board-id');
+        var email = $('#email-input').val();
+        var permission = $('#permission-input').val();
+        var privileges = 2;
+        if (permission == "Collaborator"){ privileges = 3; }
+        if (permission == "Owner"){ privileges = 0; }
+        if (permission == "Viewer"){ privileges = 2; }
+        var urlBuild = "/boards/"+board_id+"/invite";
+
+        $.ajax(
+        {
+            url: urlBuild,
+            type: 'POST',
+            data: {
+                'email': email,
+                'board_id' : board_id,
+                'privileges' : privileges
+            },
+            success: function(result)
+            {
+                $('#email-input').val("");
+                $('#close-share').trigger('click');
+                location.reload();
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
