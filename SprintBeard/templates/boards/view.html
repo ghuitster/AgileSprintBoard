@@ -24,8 +24,11 @@
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<td><span> Sprint Title </span></td>
 			<td>
+                <span>Sprint Title </span>
+            </td>
+			<td>
+                <span>Tasks</span>
                 {% if board.sprint is defined %}
                     <span>
                         Start: <i class="icon-calendar"></i>
@@ -35,23 +38,18 @@
                     </span>
                 {% endif %}
             </td>
-            <td>
-                <span>Tasks</span> 
-				<a type="submit" class="btn" href="" style="float: right;" style="background-color:#19768e"><i class="icon-plus"></i></a>
-            </td>
             {% for user in board.users %}
-            <td bgcolor="#19768e">
+            <td bgcolor="#19768e" style="width: 50px;">
                 <span> {{user.name.split(' ')[0]}} </span>
             </td>
             {% endfor %}
 		</tr>
 	</thead>
     <tbody>
-        
     {% for story in board.stories %}
         <tr>
             <td style="width: 50px;">
-                <a type="submit" class="btn btn-success" href="/boards/{{board.id}}">{{story.name}}</a>
+                <span>{{story.name}} StoryName</span>
             </td>
             <td id="tasks-cell-{{story.id}}" style="width: 435px;">
                 <a type="submit" class="btn btn-success" href="">Task</a>
@@ -59,8 +57,7 @@
                 <a type="submit" class="btn btn-success" href="">Task</a>
             </td>
             {% for user in board.users %}
-            <td style="width: 50px;">
-                <a type="submit" class="btn btn-success" href="">Task</a>
+            <td>
             </td>
             {% endfor %}
         </tr>
