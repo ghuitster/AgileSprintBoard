@@ -47,7 +47,7 @@
     </thead>
     <tfoot>
         <tr>
-            <td colspan="3"><a type="submit" class="btn btn-success" href=""><i class="icon-plus"></i></a></td>
+            <td colspan="3"><a type="submit" class="btn btn-success" data-toggle="modal" data-target="#addStoryModal"><i class="icon-plus"></i></a></td>
         </tr>
     </tfoot>
     <tbody>
@@ -101,6 +101,47 @@
     </div>
 </div>
 
+<!-- Modal for adding a Story !-->
+<div class="modal fade" id="addStoryModal" tabindex="-1" role="dialog" aria-labelledby="addStoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="rename">Add Story</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        {% if user is defined %}
+                        <label for="add-story-title-input">New Story Title:</label>
+                        <input type="text" class="form-control" id="add-story-title-input" value="New Story">
+                        <label for="add-story-description-input">Description:</label>
+                        <input type="text" class="form-control" id="add-story-description-input" value="Default Description">
+                        <label for="add-story-estimate-input">Estimate:</label>
+                        <select id="add-story-estimate-input">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                        <label for="add-story-sprint-input">Sprint:</label>
+                        <select id="add-story-sprint-input">
+                            <option>Current</option>
+                            <option>Backlog</option>
+                        </select>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-add-story" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="add-story-button" type="button" class="btn btn-primary">Add Story</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 $(document).ready(function()
 {
@@ -126,6 +167,34 @@ $(document).ready(function()
             {
                 location.reload();
                 $('#close').trigger('click');
+            }
+        });
+        {% endif %}
+    });
+
+    $("#add-story-button").click(function()
+    {
+        {% if user is defined %}
+        var name = $('#add-story-title-input').val();
+        if (name == "") { name = "New Story";}
+        var description = $('#add-story-description-input').val();
+        var estimate = $('#add-story-estimate-input').val();
+        var sprint_id = $('#add-story-sprint-input').val();
+        $.ajax(
+        {
+            url: '/boards/{{board.id}}/stories',
+            type: 'POST',
+            data: {
+                'name': name,
+                'description': description,
+                'estimate': estimate,
+                'sprint_id': sprint_id,
+            },
+            success: function(result)
+            {
+                console.log(result);
+                //location.reload();
+                $('#cancel-add-story').trigger('click');
             }
         });
         {% endif %}
