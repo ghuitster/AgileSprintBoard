@@ -10,7 +10,7 @@
         <li><a href="" data-toggle="modal" data-target="#shareModal" id="board-share-{{board.id}}">Invite User</a></li>
         <li><a href="" id="remove-user">Remove User</a></li>
         <li class="divider"></li>
-        <li><a href="" id="add-story">Add Story</a></li>
+        <li><a href="" id="add-story" data-toggle="modal" data-target="#addStoryModal">Add Story</a></li>
         <li><a href="" id="remove-story">Remove Story</a></li>
     </ul>
 </li>
@@ -118,7 +118,7 @@
                         <label for="add-story-description-input">Description:</label>
                         <input type="text" class="form-control" id="add-story-description-input" value="Default Description">
                         <label for="add-story-estimate-input">Estimate:</label>
-                        <select id="add-story-estimate-input">
+                        <select id="add-story-estimate-input" class="span1">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
