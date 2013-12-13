@@ -25,7 +25,7 @@
 	<thead>
 		<tr>
 			<td>
-                <span>Sprint Title </span>
+                <span>Sprint</span>
             </td>
             <td>
                 <span>Tasks</span>
@@ -52,13 +52,15 @@
                 <span>{{story.name}} StoryName</span>
             </td>
             <td id="tasks-cell-{{story.id}}" style="width: 435px;">
-                <a type="submit" class="btn btn-success" id="task" href="">One</a>
-                <a type="submit" class="btn btn-success" href="">Two</a>
-                <a type="submit" class="btn btn-success" href="">Three</a>
+                <a type="submit" class="btn btn-success" href=""><i class="icon-plus" id="add-task-button"></i></a>
+                <a type="submit" class="btn btn-info" id="task" href="">One</a>
+                <a type="submit" class="btn btn-info" href="">Two</a>
+                <a type="submit" class="btn btn-info" href="">Three</a>
                 <i class="icon-trash" id="trash-task"></i>
             </td>
             {% for user in board.users %}
             <td>
+                User.Task
             </td>
             {% endfor %}
         </tr>
