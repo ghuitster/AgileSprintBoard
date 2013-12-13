@@ -25,18 +25,15 @@
 	<thead>
 		<tr>
 			<td>
-                <span>Sprint</span>
+                <span>Current Sprint</span>
             </td>
             <td>
-                <span>Tasks</span>
-                {% if board.sprint is defined %}
                 <span>
                     Start: <i class="icon-calendar"></i>
                 </span>
                 <span>
                     End: <i class="icon-calendar"></i>
                 </span>
-                {% endif %}
             </td>
             {% for user in board.users %}
             <td bgcolor="#19768e" style="width: 50px;">
@@ -54,7 +51,7 @@
         {% for story in board.stories %}
         <tr id="story-{{story.id}}-row">
             <td style="width: 50px;">
-                <span>{{story.name}} StoryName</span>
+                <span>{{story.name}}</span>
             </td>
             <td id="tasks-cell-{{story.id}}" style="width: 435px;">
                 <a type="submit" class="btn btn-success" href=""><i class="icon-plus" id="add-task-button"></i></a>
@@ -192,8 +189,7 @@ $(document).ready(function()
             },
             success: function(result)
             {
-                console.log(result);
-                //location.reload();
+                location.reload();
                 $('#cancel-add-story').trigger('click');
             }
         });
