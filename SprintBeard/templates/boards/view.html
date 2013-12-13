@@ -52,9 +52,10 @@
                 <span>{{story.name}} StoryName</span>
             </td>
             <td id="tasks-cell-{{story.id}}" style="width: 435px;">
-                <a type="submit" class="btn btn-success" id="task" href="">Task</a>
-                <a type="submit" class="btn btn-success" href="">Task</a>
-                <a type="submit" class="btn btn-success" href="">Task</a>
+                <a type="submit" class="btn btn-success" id="task" href="">One</a>
+                <a type="submit" class="btn btn-success" href="">Two</a>
+                <a type="submit" class="btn btn-success" href="">Three</a>
+                <i class="icon-trash" id="trash-task"></i>
             </td>
             {% for user in board.users %}
             <td>
@@ -123,16 +124,23 @@ $(document).ready(function()
 
     {% for story in board.stories %}
     $(function() {
-        $( "#task" ).draggable({ containment: "#story-{{story.id}}-row" });
-        $( "#droppable" ).droppable({
-            drop: function( event, ui ) {
-                $( this )
-                .addClass( "ui-state-highlight" )
-                .find( "p" )
-                .html( "Dropped!" );
+        $( "#task" ).draggable({
+            revert: "invalid",
+            containment: "#story-{{story.id}}-row",
+         });
+
+        $( "#trash-task" ).droppable({
+            accept: "#task",
+            activeClass: "#trash-task",
+            drop: function( event, ui ){
+                deleteTask( ui.draggable );
             }
-        });
+        });        
     });
+
+    function deleteTask( $item ){
+        $item.remove().end();
+    }
     {% endfor %}
 });
 </script>

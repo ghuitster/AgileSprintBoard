@@ -92,3 +92,10 @@
 	margin-right: 3%;
 	margin-left: 3%;
 }
+
+#trash-task{
+	margin: 2px;
+	margin-top: 9px;
+	vertical-align: middle;
+	float:right;
+}
