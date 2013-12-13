@@ -21,7 +21,7 @@ def create(board_id):
 	name = request.form['name']
 	description = request.form['description']
 	estimate = float(request.form['estimate'])
-	sprint_id = request.form['sprint_id']
+	sprint_id = (request.form['sprint_id']).lower()
 
 	#get the correct sprint id if one of the options is specified
 	if sprint_id == 'backlog':
