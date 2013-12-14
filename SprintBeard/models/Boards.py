@@ -1,5 +1,7 @@
 import AccessRules
 import binascii
+import datetime
+from dateutil.relativedelta import relativedelta
 from Model import check_uuid, db
 import Sprints
 import Stories
@@ -21,6 +23,7 @@ class Board:
 		self.id = id
 		self.users = users
 		self.stories = stories
+		self.sprint = sprint
 
 @check_uuid
 def create(user_id, name):
@@ -74,6 +77,11 @@ def view(board_id, sprint_id='current'):
 		sprint = Sprints.get_current_sprint(board_id)
 		if sprint is not None:
 			sprint_id = sprint.id
+		if sprint is None:
+			now = datetime.datetime.now()#.strftime('%Y-%m-%d')
+			later = now + relativedelta(weeks=2)#.strftime('%Y-%m-%d')
+			sprint = Sprints.create(now, later, board_id)
+
 	elif sprint_id != 'all' and sprint_id != 'backlog':
 		sprint_id = UUID(sprint_id).hex
 		sprint = Sprints.get(sprint_id)
