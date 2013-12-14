@@ -93,7 +93,7 @@ $('#check-rights')
                 </span>
             </td>
             <td id="tasks-cell-{{story.id}}" style="width: 435px;">
-                <a type="submit" class="btn btn-success" data-toggle="modal" data-target="#addTaskModal">
+                <a type="submit" class="btn btn-success" data-toggle="modal" data-target="#addTaskModal" id="add-Task-{{story.id}}">
                     <i class="icon-plus"></i>
                 </a>
                 
@@ -294,11 +294,17 @@ $(document).ready(function()
         $item.remove().end();
     }
     {% endfor %}
+
+    $("#add-Task-{{story.id}}").click(function()
+    {
+        $('#add-task-modal').attr('story_id', '{{story.id}}');
+    });
+
     {% endfor %}
 
     $( "#add-task-modal" ).click(function()
     {
-        var storyID = 2;
+        var storyID = add-task-modal.attr('story_id');
         var name = $('#add-task-title-input').val();
         if (name == "") { name = "Task";}
         var description = $('#add-task-description-input').val();
