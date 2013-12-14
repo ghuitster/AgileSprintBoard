@@ -112,3 +112,8 @@
 #end-Date{
 	float: right;
 }
+
+.clickable {
+	cursor: pointer;
+	cursor: hand;
+}

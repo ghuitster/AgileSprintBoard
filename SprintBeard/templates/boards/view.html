@@ -91,7 +91,7 @@ $('#check-rights')
                 <span>
                     {{story.name}}
                 </span>
-                <a type="submit" data-toggle="modal" data-target="#remove-story-modal" id="trash-story-{{story.id}}">
+                <a type="submit" class="clickable pull-right" data-toggle="modal" data-target="#remove-story-modal" id="trash-story-{{story.id}}">
                     <i class="icon-trash"></i>
                 </a>
             </td>
@@ -105,7 +105,10 @@ $('#check-rights')
                     {{task.name}}
                 </a>
                 {% endfor %}
-                <i class="icon-trash" id="trash-task"></i>
+                
+                <a type="submit" class="clickable pull-right">
+                    <i class="icon-trash" id="trash-task"></i>
+                </a>
             </td>
             
             {% for user in board.users %}
