@@ -103,3 +103,12 @@
 #add-task-button{
 	
 }
+
+
+#start-Date{
+	float: left;
+}
+
+#end-Date{
+	float: right;
+}

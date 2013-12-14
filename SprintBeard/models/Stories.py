@@ -22,6 +22,7 @@ class Story:
 		self.estimate = estimate
 		self.board_id = board_id
 		self.sprint_id = sprint_id
+		self.tasks = tasks
 
 @check_uuid
 def create(name, description, estimate, board_id, sprint_id):
