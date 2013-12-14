@@ -92,12 +92,12 @@ def delete(task_id):
 		arg: task_id - the id of the task to delete
 	'''
 
-	task_id - UUID(task_id)
+	task_id = UUID(task_id)
 
 	cursor = db.cursor()
 	cursor.execute('''
 			DELETE FROM `tasks`
-			WHERE `task_id`=%s
+			WHERE `id`=%s
 		''',
 		(task_id.bytes)
 	)

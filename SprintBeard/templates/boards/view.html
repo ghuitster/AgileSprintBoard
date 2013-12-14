@@ -106,9 +106,7 @@ $('#check-rights')
                 </a>
                 {% endfor %}
                 
-                <a type="submit" class="clickable pull-right">
-                    <i class="icon-trash" id="trash-task"></i>
-                </a>
+                <i class="icon-trash pull-right" id="trash-task-{{story.id}}"></i>
             </td>
             
             {% for user in board.users %}
@@ -218,7 +216,7 @@ $('#check-rights')
                 <form role="form">
                     <div class="form-group">
                         {% if user is defined %}
-                        <label for="add-task-title-input">New Story Title:</label>
+                        <label for="add-task-title-input">New Task Title:</label>
                         <input type="text" class="form-control" id="add-task-title-input" value="New Task">
                         <label for="add-story-description-input">Description:</label>
                         <input type="text" class="form-control" id="add-task-description-input" value="Default Description">
@@ -300,25 +298,45 @@ $(document).ready(function()
     });
 
     {% for story in board.stories %}
+    
+    var tasks = [];
     {% for task in story.tasks %}
+    
     $(function() {
         $( "#task-{{task.id}}" ).draggable({
             revert: "invalid",
-            containment: "#story-{{story.id}}-row"
+            containment: "tasks-cell-{{story.id}}"
         });
-        $( "#trash-task-{{story.id}}" ).droppable({
-            accept: "#task-{{task.id}}",
-            activeClass: "#trash-task-{{story.id}}",
-            drop: function( event, ui ){
-                deleteTask( ui.draggable );
-            }
-        });        
     });
+    tasks.push("task-{{task.id}}");
 
-    function deleteTask( $item ){
-        $item.remove().end();
-    }
     {% endfor %}
+    
+    $( "#trash-task-{{story.id}}" ).droppable({
+        accept: function(elem) {
+            var index = $.inArray(elem.attr("id"), tasks);
+            if (index != -1) {
+                return true;
+            }
+            return false;
+        },
+        activeClass: "trash-task-{{story.id}}",
+        drop: function( event, ui ){
+            var index = $.inArray(ui.draggable.attr("id"), tasks);
+            tasks.splice(index, 1);
+            deleteTask( ui.draggable );
+        }
+    });   
+
+    var deleteTask = function( item ) {
+        $.ajax({
+            url: "/tasks/" + item.attr("id").substring(5),
+            type: "DELETE",
+            success: function() {
+                item.remove().end();
+            }
+        })
+    }
 
     $("#add-task-{{story.id}}").click(function()
     {
