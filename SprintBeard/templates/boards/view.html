@@ -66,7 +66,9 @@ $('#check-rights')
             </td>
             <td>
                 <span id="start-Date">
-                    Start: {{board.sprint.start.strftime('%Y-%m-%d')}} <i class="icon-calendar"></i>
+                    Start:
+                    <input class="input-small" type="text" id="datepicker" placeholder="{{board.sprint.start.strftime('%m-%d-%Y')}}">
+                     <i class="icon-calendar"></i>
                 </span>
                 <span id="end-Date">
                     End: {{board.sprint.end.strftime('%Y-%m-%d')}}<i class="icon-calendar"></i>
@@ -249,6 +251,11 @@ $(document).ready(function()
         $('#shareName').text("{{board.name}}");
     });
     
+    $(function()
+    {
+        $( "#datepicker" ).datepicker();
+    });
+
     $("#change-name").click(function()
     {
         {% if user is defined %}
