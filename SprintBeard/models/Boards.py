@@ -201,3 +201,25 @@ def get(board_id):
 		board = Board(row[1], binascii.b2a_hex(row[0]))
 
 	return board
+	
+@check_uuid
+def getRights(board_id, user_id):
+	'''
+	Get the rights of a user for a board. This will be used to determine whether to 
+	display the Board Admin menu on screen.
+		arg: board_id - The board to check
+		arg: user_id - The user to be check
+		return: The right associated with the user id AND board id
+	'''
+	board_id = UUID(board_id)
+	cursor = db.cursor()
+	cursor.execute('''
+			SELECT `privileges`
+			FROM `users_boards`
+			WHERE 'board_id`=%s
+			AND `user_id`=%s
+		''',
+		(board_id.bytes, user_id.bytes)
+	)
+	rights = cursor.fetchall()
+	return rights[0]
