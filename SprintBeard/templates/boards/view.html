@@ -91,6 +91,9 @@ $('#check-rights')
                 <span>
                     {{story.name}}
                 </span>
+                <a type="submit" data-toggle="modal" data-target="#remove-story-modal" id="trash-story-{{story.id}}">
+                    <i class="icon-trash"></i>
+                </a>
             </td>
             <td id="tasks-cell-{{story.id}}" style="width: 435px;">
                 <a type="submit" class="btn btn-success" data-toggle="modal" data-target="#addTaskModal" id="add-task-{{story.id}}">
@@ -176,6 +179,24 @@ $('#check-rights')
             <div class="modal-footer">
                 <button id="cancel-add-story" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button id="add-story-button" type="button" class="btn btn-primary">Add Story</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal for confirming deleting a story -->
+<div class="modal fade" id="remove-story-modal" tabindex="-1" role="dialog" aria-labelledby="remove-story-modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="rename">Remove Story</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you really want to delete <span id="remove-story-modal-name"></span>?</p>
+            <div class="modal-footer">
+                <button id="cancel-remove-story" type="button" class="btn btn-default" data-dismiss="modal" onclick="console.log('clicked');">Cancel</button>
+                <button id="remove-story-button" type="button" class="btn btn-danger">Remove Story</button>
             </div>
         </div>
     </div>
@@ -300,7 +321,27 @@ $(document).ready(function()
         $('#add-task-modal').attr('story_id', '{{story.id}}');
     });
 
+    //remove the story
+    $("#trash-story-{{story.id}}").click(function() {
+        $("#remove-story-button").attr("story-id", "{{story.id}}");
+        $("#remove-story-modal-name").text("{{story.name}}");
+    });
+
     {% endfor %}
+
+    $("#remove-story-button").click(function() {
+        var storyID = $("#remove-story-button").attr("story-id");
+        var url = "/stories/" + storyID;
+        
+        $.ajax({
+            url: url,
+            type: "DELETE",
+            success: function(result) {
+                location.reload();
+                $("#cancel-remove-story").trigger("click");
+            }
+        });
+    });
 
     $( "#add-task-modal" ).click(function()
     {
