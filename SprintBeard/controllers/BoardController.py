@@ -74,3 +74,16 @@ def rename(board_id):
 	name = request.form['name']
 	Boards.changeName(board_id, name)
 	return '{"status":"success"}'
+
+@boards.route('/boards/<board_id>/rights', methods=['GET'])
+@Auth.authorized(Auth.BOARD_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
+def check_rights(board_id, user_id):
+	'''
+		Returns true if a user has board admin rights on a certain board.
+		arg: board_id - The board to check
+		arg: user_id - The user to be check
+		return: JSON status
+	'''
+	rights = Boards.getRights(board_id, user_id)
+	if (rights == 0):
+		return '{"status":"success"}'
