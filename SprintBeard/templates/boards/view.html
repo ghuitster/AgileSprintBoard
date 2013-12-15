@@ -312,7 +312,7 @@ $(document).ready(function()
     $(function() {
         $( "#task-{{task.id}}" ).draggable({
             revert: "invalid",
-            containment: "tasks-cell-{{story.id}}"
+            containment: "#story-{{story.id}}-row"
         });
     });
     tasks.push("task-{{task.id}}");
