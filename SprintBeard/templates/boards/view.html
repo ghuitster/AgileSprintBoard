@@ -67,11 +67,13 @@ $('#check-rights')
             <td>
                 <span id="start-Date">
                     Start:
-                    <input class="input-small" type="text" id="datepicker" placeholder="{{board.sprint.start.strftime('%m-%d-%Y')}}">
+                    <input class="input-small" type="text" id="start-datepicker" placeholder="{{board.sprint.start.strftime('%m-%d-%Y')}}">
                      <i class="icon-calendar"></i>
                 </span>
                 <span id="end-Date">
-                    End: {{board.sprint.end.strftime('%Y-%m-%d')}}<i class="icon-calendar"></i>
+                    End:
+                    <input class="input-small" type="text" id="end-datepicker" placeholder="{{board.sprint.end.strftime('%m-%d-%Y')}}">
+                    <i class="icon-calendar"></i>
                 </span>
             </td>
             {% for user in board.users %}
