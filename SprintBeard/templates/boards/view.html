@@ -108,7 +108,7 @@ $('#check-rights')
                 </a>
                 
                 {% for task in story.tasks %}
-                <a type="submit" class="btn btn-info" id="task-{{task.id}}" href="">
+                <a type="submit" class="btn btn-info" id="task-{{task.id}}" data-toggle="modal" data-target="#task-info-modal">
                     {{task.name}}
                 </a>
                 {% endfor %}
@@ -205,7 +205,7 @@ $('#check-rights')
                 <p><strong>Estimate: </strong><span id="story-info-estimate"></span> story points</p>
             </div>
             <div class="modal-footer">
-                <button id="cancel-remove-story" type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
             </div>
         </div>
     </div>
@@ -260,7 +260,26 @@ $('#check-rights')
             </div>
             <div class="modal-footer">
                 <button id="cancel-add-task" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="add-task-modal" type="button" class="btn btn-primary">Add Story</button>
+                <button id="add-task-modal" type="button" class="btn btn-primary">Add Task</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal to show info about a task -->
+<div class="modal hide fade" id="task-info-modal" tabindex="-1" role="dialog" aria-labelledby="task-info-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="task-info-title-text" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p><strong>Description: </strong><span id="task-info-description"></span></p>
+                <p><strong>Estimate: </strong><span id="task-info-estimate"></span> man hours</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
             </div>
         </div>
     </div>
@@ -330,8 +349,14 @@ $(document).ready(function()
 
     {% for story in board.stories %}
     
-    var tasks = [];
+    var tasks{{story.id}} = [];
     {% for task in story.tasks %}
+    
+    $("#task-{{task.id}}").click(function() {
+        $("#task-info-title-text").text("{{task.name}}");
+        $("#task-info-description").text("{{task.description}}");
+        $("#task-info-estimate").text("{{task.estimate}}");
+    });
     
     $(function() {
         $( "#task-{{task.id}}" ).draggable({
@@ -339,13 +364,12 @@ $(document).ready(function()
             containment: "#story-{{story.id}}-row"
         });
     });
-    tasks.push("task-{{task.id}}");
+    tasks{{story.id}}.push("task-{{task.id}}");
 
     {% endfor %}
-    
     $( "#trash-task-{{story.id}}" ).droppable({
         accept: function(elem) {
-            var index = $.inArray(elem.attr("id"), tasks);
+            var index = $.inArray(elem.attr("id"), tasks{{story.id}});
             if (index != -1) {
                 return true;
             }
@@ -353,8 +377,8 @@ $(document).ready(function()
         },
         activeClass: "trash-task-{{story.id}}",
         drop: function( event, ui ){
-            var index = $.inArray(ui.draggable.attr("id"), tasks);
-            tasks.splice(index, 1);
+            var index = $.inArray(ui.draggable.attr("id"), tasks{{story.id}});
+            tasks{{story.id}}.splice(index, 1);
             deleteTask( ui.draggable );
         }
     });   
