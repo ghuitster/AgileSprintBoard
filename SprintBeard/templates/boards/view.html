@@ -93,9 +93,14 @@ $('#check-rights')
                 <span>
                     {{story.name}}
                 </span>
-                <a type="submit" class="clickable pull-right" data-toggle="modal" data-target="#remove-story-modal" id="trash-story-{{story.id}}">
-                    <i class="icon-trash"></i>
-                </a>
+                <span class="pull-right">
+                    <a type="submit" class="clickable" data-toggle="modal" data-target="#story-info-modal" id="story-info-{{story.id}}">
+                        <i class="icon icon-info-sign"></i>
+                    </a>
+                    <a type="submit" class="clickable" data-toggle="modal" data-target="#remove-story-modal" id="trash-story-{{story.id}}">
+                        <i class="icon icon-trash"></i>
+                    </a>
+                </span>
             </td>
             <td id="tasks-cell-{{story.id}}" style="width: 435px;">
                 <a type="submit" class="btn btn-success" data-toggle="modal" data-target="#addTaskModal" id="add-task-{{story.id}}">
@@ -182,6 +187,25 @@ $('#check-rights')
             <div class="modal-footer">
                 <button id="cancel-add-story" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button id="add-story-button" type="button" class="btn btn-primary">Add Story</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal to show info about a story -->
+<div class="modal hide fade" id="story-info-modal" tabindex="-1" role="dialog" aria-labelledby="story-info-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="story-info-title-text" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p><strong>Description: </strong><span id="story-info-description"></span></p>
+                <p><strong>Estimate: </strong><span id="story-info-estimate"></span> story points</p>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-remove-story" type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
             </div>
         </div>
     </div>
@@ -348,6 +372,12 @@ $(document).ready(function()
     $("#add-task-{{story.id}}").click(function()
     {
         $('#add-task-modal').attr('story_id', '{{story.id}}');
+    });
+
+    $("#story-info-{{story.id}}").click(function() {
+        $("#story-info-title-text").text("{{story.name}}");
+        $("#story-info-description").text("{{story.description}}");
+        $("#story-info-estimate").text("{{story.estimate}}");
     });
 
     //remove the story
