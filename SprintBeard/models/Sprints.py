@@ -88,9 +88,9 @@ def get_current_sprint(board_id):
 	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `id`, `start`, `end`, `board_id` FROM `sprints`
-			WHERE `start` < %s AND `end` > %s
+			WHERE `start` < %s AND `end` > %s AND `board_id`=%s
 		''',
-		(now, now)
+		(now, now, board_id.bytes)
 	)
 
 	row = cursor.fetchone()

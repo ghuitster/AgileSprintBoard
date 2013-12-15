@@ -55,6 +55,12 @@ def create(user_id, name):
 
 	try:
 		db.commit()
+
+		#if that succeeded, we'll create a new sprint to start out with
+		now = datetime.datetime.now()
+		later = now + relativedelta(weeks=4)
+		Sprints.create(now, later, board.id.hex)
+
 		return board
 	except:
 		db.rollback()
