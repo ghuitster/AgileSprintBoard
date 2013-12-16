@@ -43,7 +43,8 @@ def create(board_id):
 def edit(story_id):
 	'''
 	Edits a story in the given board
-		arg: board_id - the id of the board on which the story is edited
+		arg: story_id - the id of the story to be edited
+		POST arg: board_id - the id of the board on which the story is edited
 		POST arg: name - the name of the story
 		POST arg: description - a description of the story
 		POST arg: estimate - an estimate of story points
