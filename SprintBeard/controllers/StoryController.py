@@ -64,7 +64,7 @@ def edit(story_id):
 		if sprint is not None:
 			sprint_id = sprint.id
 
-	result = Stories.create(story_id, name, description, estimate, board_id, sprint_id)
+	result = Stories.edit(story_id, name, description, estimate, board_id, sprint_id)
 
 	if type(result) != dict:
 		return '{"status": "success"}'
