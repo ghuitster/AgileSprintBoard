@@ -48,7 +48,7 @@ $('#check-rights')
         <li><a href="" id="remove-user">Remove User</a></li>
         <li class="divider"></li>
         <li><a href="" id="add-story" data-toggle="modal" data-target="#addStoryModal">Add Story</a></li>
-        <li><a href="" id="remove-story" data-toggle="modal" data-target="#remove-story-dropdown-modal">Remove Story</a></li>
+        <li><a href="" id="remove-story" data-toggle="modal" data-target="#remove-story-dropdown-modal">Delete Story</a></li>
     </ul>
 </li>
 {% endblock%}
@@ -223,14 +223,14 @@ $('#check-rights')
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Remove Story</h4>
+                <h4 class="modal-title">Delete Story</h4>
             </div>
             <div class="modal-body">
                 <p>Are you sure you really want to delete <span id="remove-story-modal-name"></span>?</p>
             </div>
             <div class="modal-footer">
                 <button id="cancel-remove-story" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="remove-story-button" type="button" class="btn btn-danger">Remove Story</button>
+                <button id="remove-story-button" type="button" class="btn btn-danger">Delete Story</button>
             </div>
         </div>
     </div>
