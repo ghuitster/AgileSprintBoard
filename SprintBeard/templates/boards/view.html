@@ -137,14 +137,14 @@ $('#check-rights')
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="rename">Renaming Board</h4>
+                <h4 class="modal-title" id="rename">Rename Board</h4>
             </div>
             <div class="modal-body">
                 <form role="form">
                     <div class="form-group">
                         {% if user is defined %}
                         <label for="board-name-input">New Board Name:</label>
-                        <input type="text" class="form-control" id="board-name-input" value="{{board.name}}">
+                        <input type="text" class="form-control" id="board-name-input" placeholder="{{board.name}}">
                         {% endif %}
                     </div>
                 </form>
