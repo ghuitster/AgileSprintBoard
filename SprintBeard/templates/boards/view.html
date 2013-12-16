@@ -48,7 +48,7 @@ $('#check-rights')
         <li><a href="" id="remove-user">Remove User</a></li>
         <li class="divider"></li>
         <li><a href="" id="add-story" data-toggle="modal" data-target="#addStoryModal">Add Story</a></li>
-        <li><a href="" id="remove-story">Remove Story</a></li>
+        <li><a href="" id="remove-story" data-toggle="modal" data-target="#remove-story-dropdown-modal">Remove Story</a></li>
     </ul>
 </li>
 {% endblock%}
@@ -232,6 +232,31 @@ $('#check-rights')
     </div>
 </div>
 
+<!--Modal for deleting a story from dropdown-->
+<div class="modal hide fade" id="remove-story-dropdown-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Remove Story</h4>
+            </div>
+            <div class="modal-body">    
+                <p>Select Modal:</p>
+                <select id="remove-story-dropdown-input">
+                    <option>-</option>
+                    {% for story in board.stories %}
+                        <option value="{{story.id}}">{{story.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-remove-story-dropdown" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="remove-story-button-dropdown" type="button" class="btn btn-danger">Remove Story</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal for adding a Task !-->
 <div class="modal hide fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -296,10 +321,18 @@ $(document).ready(function()
         $('#shareName').text("{{board.name}}");
     });
     
-    $(function()
+    $( "#start-datepicker-{{board.sprint.id}}" ).datepicker(
     {
-        $( "#start-datepicker-{{board.sprint.id}}" ).datepicker();
-        $( "#end-datepicker-{{board.sprint.id}}" ).datepicker();
+        onSelect: function(dateText, inst) {
+            var sprintDate = {{board.sprint.start.strftime('%m-%d-%Y')}};
+            var dateAsString = dateText;
+
+            console.log(dateAsString);
+            console.log(sprintDate.toString());
+            
+        }
+    });
+    $( "#end-datepicker-{{board.sprint.id}}" ).datepicker({
 
     });
 
@@ -431,6 +464,21 @@ $(document).ready(function()
             }
         });
     });
+
+    $("#remove-story-button-dropdown").click(function() {
+        var storyID = $("#remove-story-dropdown-input").val();
+        var url = "/stories/" + storyID;
+        
+        $.ajax({
+            url: url,
+            type: "DELETE",
+            success: function(result) {
+                location.reload();
+                $("#cancel-remove-story").trigger("click");
+            }
+        });
+    });
+
 
     $( "#add-task-modal" ).click(function()
     {
