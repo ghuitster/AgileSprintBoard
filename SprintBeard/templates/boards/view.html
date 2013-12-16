@@ -67,12 +67,12 @@ $('#check-rights')
             <td>
                 <span id="start-Date">
                     Start:
-                    <input class="input-small" type="text" id="start-datepicker" placeholder="{{board.sprint.start.strftime('%m-%d-%Y')}}">
+                    <input class="input-small" type="text" id="start-datepicker-{{board.sprint.id}}" placeholder="{{board.sprint.start.strftime('%m-%d-%Y')}}">
                      <i class="icon-calendar"></i>
                 </span>
                 <span id="end-Date">
                     End:
-                    <input class="input-small" type="text" id="end-datepicker" placeholder="{{board.sprint.end.strftime('%m-%d-%Y')}}">
+                    <input class="input-small" type="text" id="end-datepicker-{{board.sprint.id}}" placeholder="{{board.sprint.end.strftime('%m-%d-%Y')}}">
                     <i class="icon-calendar"></i>
                 </span>
             </td>
@@ -298,7 +298,9 @@ $(document).ready(function()
     
     $(function()
     {
-        $( "#datepicker" ).datepicker();
+        $( "#start-datepicker-{{board.sprint.id}}" ).datepicker();
+        $( "#end-datepicker-{{board.sprint.id}}" ).datepicker();
+
     });
 
     $("#change-name").click(function()
@@ -455,6 +457,7 @@ $(document).ready(function()
             }
         });
     });
+
 });
 </script>
 
