@@ -55,6 +55,36 @@ def create(name, description, estimate, board_id, sprint_id):
 		db.rollback()
 
 @check_uuid
+def edit(story_id, name, description, estimate, board_id, sprint_id):
+	'''
+	Create a new story in a board.
+		arg: name - the name of the new story
+		arg: description - a description for the new story
+		arg: estimate - an estimate for story points
+		arg: board_id - the id of the board to add to
+		arg: sprint_id - the id of the sprint to add to
+	'''
+
+	story_id = UUID(story_id)
+	board_id = UUID(board_id)
+	if sprint_id is not None:
+		sprint_id = UUID(sprint_id).bytes
+
+	cursor = db.cursor()
+	cursor.execute('''
+			UPDATE `users_stories`
+			SET `name`=%s, `description`=%s, `estimate`=%s, `board_id`=%s, `sprint_id`=%s
+			WHERE `story_id`=%s;
+		''',
+		(name, description, estimate, board_id.bytes, sprint_id, story_id.bytes)
+	)
+
+	try:
+		db.commit()
+	except:
+		db.rollback()
+
+@check_uuid
 def get(story_id):
 	'''
 	Get a story out of the database.
