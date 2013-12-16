@@ -166,9 +166,9 @@ $('#check-rights')
                     <div class="form-group">
                         {% if user is defined %}
                         <label for="add-story-title-input">New Story Title:</label>
-                        <input type="text" class="form-control" id="add-story-title-input" value="New Story">
+                        <input type="text" class="form-control" id="add-story-title-input" placeholder="New Story">
                         <label for="add-story-description-input">Description:</label>
-                        <input type="text" class="form-control" id="add-story-description-input" value="Default Description">
+                        <input type="text" class="form-control" id="add-story-description-input" placeholder="Default Description">
                         <label for="add-story-estimate-input">Estimate:</label>
                         <select id="add-story-estimate-input" class="span1">
                             <option>1</option>
@@ -245,9 +245,9 @@ $('#check-rights')
                     <div class="form-group">
                         {% if user is defined %}
                         <label for="add-task-title-input">New Task Title:</label>
-                        <input type="text" class="form-control" id="add-task-title-input" value="New Task">
+                        <input type="text" class="form-control" id="add-task-title-input" placeholder="New Task">
                         <label for="add-story-description-input">Description:</label>
-                        <input type="text" class="form-control" id="add-task-description-input" value="Default Description">
+                        <input type="text" class="form-control" id="add-task-description-input" placeholder="Default Description">
                         <label for="add-task-estimate-input">Estimate:</label>
                         <select id="add-task-estimate-input" class="span1">
                             <option>1</option>
@@ -370,6 +370,7 @@ $(document).ready(function()
 
     {% endfor %}
     $( "#trash-task-{{story.id}}" ).droppable({
+        hoverClass: "ui-state-active",
         accept: function(elem) {
             var index = $.inArray(elem.attr("id"), tasks{{story.id}});
             if (index != -1) {
@@ -378,6 +379,7 @@ $(document).ready(function()
             return false;
         },
         activeClass: "trash-task-{{story.id}}",
+        hoverClass: "ui-state-active",
         drop: function( event, ui ){
             var index = $.inArray(ui.draggable.attr("id"), tasks{{story.id}});
             tasks{{story.id}}.splice(index, 1);
