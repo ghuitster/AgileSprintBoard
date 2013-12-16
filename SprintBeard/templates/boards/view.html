@@ -95,6 +95,11 @@ $('#check-rights')
                 <span>
                     {{story.name}}
                 </span>
+                <span>
+                    <a type="submit" class="clickable" data-toggle="modal" data-target="#story-edit-modal" id="story-info-{{story.id}}">
+                        <i class="icon icon-pencil"></i>
+                    </a>
+                </span>
                 <span class="pull-right">
                     est: {{story.estimate}}
                     <a type="submit" class="clickable" data-toggle="modal" data-target="#story-info-modal" id="story-info-{{story.id}}">
@@ -212,6 +217,47 @@ $('#check-rights')
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal to edit info about a story -->
+<div class="modal hide fade" id="story-edit-modal" tabindex="-1" role="dialog" aria-labelledby="story-edit-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="story-info-title-text" class="modal-title">Edit Story</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        {% if user is defined %}
+                        <label for="add-story-title-input">Story Title:</label>
+                        <input type="text" class="form-control" id="add-story-title-input" placeholder="New Story">
+                        <label for="add-story-description-input">Description:</label>
+                        <input type="text" class="form-control" id="add-story-description-input" placeholder="Default Description">
+                        <label for="add-story-estimate-input">Estimate:</label>
+                        <select id="add-story-estimate-input" class="span1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                        <label for="add-story-sprint-input">Sprint:</label>
+                        <select id="add-story-sprint-input">
+                            <option>Current</option>
+                            <option>Backlog</option>
+                        </select>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-edit-story" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="edit-story-button" type="button" class="btn btn-danger">Save Changes</button>
             </div>
         </div>
     </div>
@@ -383,6 +429,36 @@ $(document).ready(function()
             {
                 location.reload();
                 $('#cancel-add-story').trigger('click');
+            }
+        });
+        {% endif %}
+    });
+    
+    $("#edit-story-button").click(function() {
+        {% if user is defined %}
+        var name = $('#add-story-title-input').val();
+        if (name == "") { name = "New Story";}
+        var description = $('#add-story-description-input').val();
+        var estimate = $('#add-story-estimate-input').val();
+        var sprint_id = $('#add-story-sprint-input').val();
+        var story_id = $("#edit-story-button").attr("story-id");
+        var url = "/stories/" + storyID;
+
+        $.ajax(
+        {
+            url: url,
+            type: 'POST',
+            data: {
+                'name': name,
+                'description': description,
+                'estimate': estimate,
+                'sprint_id': sprint_id
+                'board_id': board_id
+            },
+            success: function(result)
+            {
+                location.reload();
+                $('#cancel-edit-story').trigger('click');
             }
         });
         {% endif %}
