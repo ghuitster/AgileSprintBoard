@@ -61,23 +61,23 @@ $('#check-rights')
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<td>
+			<td style="vertical-align:middle;">
                 <span>Current Sprint</span>
             </td>
-            <td>
+            <td style="vertical-align:bottom;">
                 <span id="start-Date">
                     Start:
-                    <input class="input-small" type="text" id="start-datepicker-{{board.sprint.id}}" placeholder="{{board.sprint.start.strftime('%m-%d-%Y')}}">
+                    <input class="input-small" type="text" id="start-datepicker-{{board.sprint.id}}" placeholder="{{board.sprint.start.strftime('%m-%d-%Y')}}" style="margin-bottom: 0px;">
                      <i class="icon-calendar"></i>
                 </span>
                 <span id="end-Date">
                     End:
-                    <input class="input-small" type="text" id="end-datepicker-{{board.sprint.id}}" placeholder="{{board.sprint.end.strftime('%m-%d-%Y')}}">
+                    <input class="input-small" type="text" id="end-datepicker-{{board.sprint.id}}" placeholder="{{board.sprint.end.strftime('%m-%d-%Y')}}" style="margin-bottom: 0px;">
                     <i class="icon-calendar"></i>
                 </span>
             </td>
             {% for user in board.users %}
-            <td bgcolor="#19768e" style="width: 50px;">
+            <td bgcolor="#19768e" style="width: 50px; vertical-align:middle;">
                 <span> {{user.name.split(' ')[0]}} </span>
             </td>
             {% endfor %}
@@ -91,7 +91,7 @@ $('#check-rights')
     <tbody>
         {% for story in board.stories %}
         <tr id="story-{{story.id}}-row">
-            <td style="width: 50px;">
+            <td style="width: 30%; vertical-align:middle;">
                 <span>
                     {{story.name}}
                 </span>
@@ -105,22 +105,25 @@ $('#check-rights')
                     </a>
                 </span>
             </td>
-            <td id="tasks-cell-{{story.id}}" style="width: 435px;">
-                <a type="submit" class="btn btn-success" data-toggle="modal" data-target="#addTaskModal" id="add-task-{{story.id}}">
-                    <i class="icon-plus"></i>
-                </a>
+            <td style="width: 435px; vertical-align:middle;" id="tasks-cell-{{story.id}}">
+                <span>
+                    <a type="submit" class="btn btn-success" data-toggle="modal" data-target="#addTaskModal" id="add-task-{{story.id}}" style="height: 20;">
+                        <i class="icon-plus"></i>
+                    </a>
+                </span>
                 
                 {% for task in story.tasks %}
                 <a type="submit" class="btn btn-info" id="task-{{task.id}}" data-toggle="modal" data-target="#task-info-modal">
                     {{task.name}}
                 </a>
                 {% endfor %}
-                
-                <i class="icon-trash pull-right" id="trash-task-{{story.id}}"></i>
+                <span class="pull-right">
+                    <i class="icon-trash" id="trash-task-{{story.id}}"></i>
+                </span>
             </td>
             
             {% for user in board.users %}
-            <td>
+            <td style="vertical-align:middle;">
             </td>
             {% endfor %}
         </tr>
@@ -398,6 +401,8 @@ $(document).ready(function()
     
     $(function() {
         $( "#task-{{task.id}}" ).draggable({
+            hoverClass: "btn btn-danger",
+            activeClass: "btn btn-danger",
             revert: "invalid",
             containment: "#story-{{story.id}}-row"
         });
@@ -406,7 +411,6 @@ $(document).ready(function()
 
     {% endfor %}
     $( "#trash-task-{{story.id}}" ).droppable({
-        hoverClass: "ui-state-active",
         accept: function(elem) {
             var index = $.inArray(elem.attr("id"), tasks{{story.id}});
             if (index != -1) {
@@ -414,7 +418,6 @@ $(document).ready(function()
             }
             return false;
         },
-        activeClass: "trash-task-{{story.id}}",
         hoverClass: "ui-state-active",
         drop: function( event, ui ){
             var index = $.inArray(ui.draggable.attr("id"), tasks{{story.id}});

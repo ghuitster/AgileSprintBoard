@@ -113,6 +113,10 @@
 	float: right;
 }
 
+.dropped {
+	color: "red";
+}
+
 .clickable {
 	cursor: pointer;
 	cursor: hand;
