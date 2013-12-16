@@ -136,42 +136,42 @@ $('#check-rights')
     </tbody>
 </table>
 
-
+<!-- Modal to Rename a board !-->
 <div class="modal hide fade" id="renameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="rename">Rename Board</h4>
-            </div>
-            <div class="modal-body">
-                <form role="form">
+            <form role="modal-form" style="margin-bottom:0">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="rename">Renaming Board</h4>
+                </div>
+                <div class="modal-body">
                     <div class="form-group">
                         {% if user is defined %}
                         <label for="board-name-input">New Board Name:</label>
                         <input type="text" class="form-control" id="board-name-input" placeholder="{{board.name}}">
                         {% endif %}
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button id="close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="change-name" type="button" class="btn btn-primary">Save Changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+                </div>
+                <div class="modal-footer">
+                    <button id="close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="change-name" type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!-- Modal for adding a Story !-->
 <div class="modal hide fade" id="addStoryModal" tabindex="-1" role="dialog" aria-labelledby="addStoryModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="rename">Add Story</h4>
-            </div>
-            <div class="modal-body">
-                <form role="form">
+            <form role="modal-form" style="margin-bottom:0">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="rename">Add Story</h4>
+                </div>
+                <div class="modal-body">
                     <div class="form-group">
                         {% if user is defined %}
                         <label for="add-story-title-input">New Story Title:</label>
@@ -193,15 +193,15 @@ $('#check-rights')
                         </select>
                         {% endif %}
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button id="cancel-add-story" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="add-story-button" type="button" class="btn btn-primary">Add Story</button>
-            </div>
-        </div>
-    </div>
-</div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancel-add-story" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="add-story-button" type="submit" class="btn btn-primary">Add Story</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!-- Modal to show info about a story -->
 <div class="modal hide fade" id="story-info-modal" tabindex="-1" role="dialog" aria-labelledby="story-info-modal-label" aria-hidden="true">
@@ -218,20 +218,20 @@ $('#check-rights')
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
             </div>
-        </div>
-    </div>
-</div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!-- Modal to edit info about a story -->
 <div class="modal hide fade" id="story-edit-modal" tabindex="-1" role="dialog" aria-labelledby="story-edit-modal-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 id="story-edit-title-text" class="modal-title">Edit Story</h4>
-            </div>
-            <div class="modal-body">
-                <form role="form">
+            <form role="modal-form" style="margin-bottom:0">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="story-edit-title-text" class="modal-title">Edit Story</h4>
+                </div>
+                <div class="modal-body">
                     <div class="form-group">
                         {% if user is defined %}
                         <label for="edit-story-title-input">Story Title:</label>
@@ -253,15 +253,15 @@ $('#check-rights')
                         </select>
                         {% endif %}
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button id="cancel-edit-story" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="edit-story-button" type="button" class="btn btn-danger">Save Changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancel-edit-story" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="edit-story-button" type="submit" class="btn btn-danger">Save Changes</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!--Modal for confirming deleting a story -->
 <div class="modal hide fade" id="remove-story-modal" tabindex="-1" role="dialog" aria-labelledby="remove-story-modal-label" aria-hidden="true">
@@ -278,9 +278,9 @@ $('#check-rights')
                 <button id="cancel-remove-story" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button id="remove-story-button" type="button" class="btn btn-danger">Delete Story</button>
             </div>
-        </div>
-    </div>
-</div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!--Modal for deleting a story from dropdown-->
 <div class="modal hide fade" id="remove-story-dropdown-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -303,25 +303,25 @@ $('#check-rights')
                 <button id="cancel-remove-story-dropdown" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button id="remove-story-button-dropdown" type="button" class="btn btn-danger">Remove Story</button>
             </div>
-        </div>
-    </div>
-</div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!-- Modal for adding a Task !-->
 <div class="modal hide fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Add Task</h4>
-            </div>
-            <div class="modal-body">
-                <form role="form">
+            <form role="modal-form" style="margin-bottom:0">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Add Task</h4>
+                </div>
+                <div class="modal-body">
                     <div class="form-group">
                         {% if user is defined %}
                         <label for="add-task-title-input">New Task Title:</label>
                         <input type="text" class="form-control" id="add-task-title-input" placeholder="New Task">
-                        <label for="add-story-description-input">Description:</label>
+                        <label for="add-task-description-input">Description:</label>
                         <input type="text" class="form-control" id="add-task-description-input" placeholder="Default Description">
                         <label for="add-task-estimate-input">Estimate:</label>
                         <select id="add-task-estimate-input" class="span1">
@@ -333,15 +333,15 @@ $('#check-rights')
                         </select>
                         {% endif %}
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button id="cancel-add-task" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="add-task-modal" type="button" class="btn btn-primary">Add Task</button>
-            </div>
-        </div>
-    </div>
-</div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancel-add-task" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="add-task-modal" type="submit" class="btn btn-primary">Add Task</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!-- Modal to show info about a task -->
 <div class="modal hide fade" id="task-info-modal" tabindex="-1" role="dialog" aria-labelledby="task-info-modal-label" aria-hidden="true">
@@ -358,9 +358,9 @@ $('#check-rights')
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
             </div>
-        </div>
-    </div>
-</div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <script>
 $(document).ready(function()
