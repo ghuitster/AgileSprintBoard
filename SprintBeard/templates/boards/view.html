@@ -2,44 +2,8 @@
 {% block title %}{{board.name}}
 {% endblock %}
 
-<!-- The below javascript is neccessary to check user rights before the the page is loaded, to know whether to load the Board Admin dropdown. Currently the issue is that when it tries to use user_id, it hasn't been defined yet, because the page was set up to be accessible even when a user isn't logged in. The idea behind putting the code up here was to have the dropdown be conditional upon the success of this ajax call.-->
-<!--
-<script>
-$('#check-rights')
-{
-    {% if user_id is defined %}
-        var board_id = $('#submit-share').attr('board-id');
-        var user_id = user_id;
-        var urlBuild = "/boards/" + board_id + "/rights";
-
-        $.ajax(
-        {
-
-            url: urlBuild,
-            type: 'GET',
-            data: {
-                'board_id' : board_id,
-                'user_id' : user_id
-            },
-            success: function(result)
-            {
-                //called when successful
-                //$('#ajaxphp-results').html(data);
-                console.log("success");
-            },
-            error: function(e)
-            {
-            //called when there is an error
-            //console.log(e.message);
-                console.log("fail");
-            }
-        });
-    {% endif %}
-};
-</script>
--->
-
 {% block dropdown %}
+{% if isAdmin %}
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Board Admin<b class="caret"></b></a>
     <ul class="dropdown-menu">
@@ -51,6 +15,7 @@ $('#check-rights')
         <li><a href="" id="remove-story" data-toggle="modal" data-target="#remove-story-dropdown-modal">Delete Story</a></li>
     </ul>
 </li>
+{% endif %}
 {% endblock%}
 
 {% block content %}
