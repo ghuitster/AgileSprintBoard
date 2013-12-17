@@ -383,7 +383,8 @@ $(document).ready(function()
                 'description': description,
                 'estimate': estimate,
                 'sprint_id': sprint_id
-            }
+            },
+
             
         });
     });
@@ -439,15 +440,14 @@ $(document).ready(function()
     
     $(function() {
         $( "#task-{{task.id}}" ).draggable({
-            hoverClass: "ui-state-active",
-            activeClass: "btn btn-danger",
+            hoverClass: "deleteUI",
+            activeClass: "deleteUI",
             revert: "invalid",
             containment: "#story-{{story.id}}-row"
         });
     });
     tasks{{story.id}}.push("task-{{task.id}}");
 
-    {% endfor %}
     $( "#trash-task-{{story.id}}" ).droppable({
         accept: function(elem) {
             var index = $.inArray(elem.attr("id"), tasks{{story.id}});
@@ -456,14 +456,23 @@ $(document).ready(function()
             }
             return false;
         },
-        hoverClass: "deleteUI",
+        hoverClass: "ui-state-highlight",
         drop: function( event, ui ){
+
             var index = $.inArray(ui.draggable.attr("id"), tasks{{story.id}});
             tasks{{story.id}}.splice(index, 1);
             deleteTask( ui.draggable );
             location.reload();
+        },
+        over: function(){
+            $("#task-{{task.id}}").css("background-color", "red");
+        },
+        out: function(){
+            $("#task-{{task.id}}").css("background-color", "#49afcd");
         }
     });
+
+    {% endfor %}
 
     var deleteTask = function( item ) {
         $.ajax({
