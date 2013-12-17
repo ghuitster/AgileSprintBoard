@@ -194,3 +194,27 @@ def assign(task_id, user_id):
 		db.commit()
 	except:
 		db.rollback()
+
+@check_uuid
+def unassign(task_id, user_id):
+	'''
+	Unassign a particular user from a task in the database.
+		arg: task_id - the id of the task to unassign
+		arg: user_id - the id fo the user to unassign from the task
+	'''
+
+	task_id = UUID(task_id)
+	user_id = UUID(user_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+			DELETE FROM `users_tasks`
+			WHERE `task_id`=%s AND `user_id`=%s
+		''',
+		(task_id.bytes, user_id.bytes)
+	)
+
+	try:
+		db.commit()
+	except:
+		db.rollback()

@@ -52,3 +52,16 @@ def assign(task_id):
 	user_id = request.form['user_id']
 	Tasks.assign(task_id, user_id)
 	return '{"status": "success"}'
+
+@tasks.route('/assign/tasks/<task_id>', methods=['DELETE'])
+@Auth.authorized(Auth.TASK_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
+def unassign(task_id):
+	'''
+	Unassign a user from a task.
+		arg: task_id - the task to unassign from
+		POST arg: user_id - the id of the user to unassign from the task
+	'''
+
+	user_id = request.form['user_id']
+	Tasks.unassign(task_id, user_id)
+	return '{"status": "success"}'
