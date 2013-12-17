@@ -1,7 +1,7 @@
 from auth import Auth
 from custom_render.CustomRender import render_view
 from flask import Blueprint, render_template, request, session, redirect
-from models import Boards, Invitations, Users
+from models import AccessRules, Boards, Invitations, Users
 from uuid import UUID
 
 boards = Blueprint('boards', __name__)
