@@ -82,7 +82,7 @@
                 
                 {% for task in story.tasks %}
                 {% if task.users|count == 0%}
-                <a type="submit" class="btn btn-info" id="task-{{task.id}}" data-toggle="modal" data-target="#task-info-modal" user-id="">
+                <a type="submit" class="btn btn-info" id="task-{{task.id}}" data-toggle="modal" data-target="#edit-task-modal" user-id="">
                     {{task.name}}
                 </a>
                 {% endif %}
@@ -298,6 +298,7 @@
 </div><!-- /.modal -->
 
 <!-- Modal to show info about a task -->
+<!--
 <div class="modal hide fade" id="task-info-modal" tabindex="-1" role="dialog" aria-labelledby="task-info-modal-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -312,6 +313,36 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
             </div>
+        </div><!-- /.modal-content -->
+  <!--  </div><!-- /.modal-dialog -->
+<!--</div><!-- /.modal -->
+
+<!-- Modal for editing a Task !-->
+<div class="modal hide fade" id="edit-task-modal" tabindex="-1" role="dialog" aria-labelledby="edit-task-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form role="modal-form" style="margin-bottom:0">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Edit Task</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        {% if user is defined %}
+                        <label for="edit-task-title-input">Task Title:</label>
+                        <input type="text" class="form-control" id="edit-task-title-input" placeholder="New Task">
+                        <label for="edit-task-description-input">Description:</label>
+                        <input type="text" class="form-control" id="edit-task-description-input" placeholder="Default Description">
+                        <label for="edit-task-estimate-input">Estimate:</label>
+                        <input type="number" min="0.0" max="99.0" step="0.25" class="form-control" style="height:30px;" id="edit-task-estimate-input">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancel-add-task" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="add-task-modal" type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -416,10 +447,18 @@ $(document).ready(function()
     var tasks{{story.id}} = [];
     {% for task in story.tasks %}
     
+    // $("#task-{{task.id}}").click(function() {
+    //     $("#task-info-title-text").text("{{task.name}}");
+    //     $("#task-info-description").text("{{task.description}}");
+    //     $("#task-info-estimate").text("{{task.estimate}}");
+    // });
+
     $("#task-{{task.id}}").click(function() {
-        $("#task-info-title-text").text("{{task.name}}");
-        $("#task-info-description").text("{{task.description}}");
-        $("#task-info-estimate").text("{{task.estimate}}");
+        $(".modal-body #edit-task-title-input").val("{{task.name}}");
+        $(".modal-body #edit-task-description-input").val("{{task.description}}");
+        $(".modal-body #edit-task-estimate-input").val("{{task.estimate}}");
+        $('#edit-task-modal').attr('task_id', '{{task.id}}');
+        $('#edit-task-modal').attr('task_name', '{{task.name}}');
     });
     
     $(function() {
@@ -580,6 +619,32 @@ $(document).ready(function()
         var description = $('#add-task-description-input').val();
         var estimate = $('#add-task-estimate-input').val();
         var urlBuild = "/stories/" + storyID + "/tasks";
+
+        $.ajax(
+        {
+            url: urlBuild,
+            type: 'POST',
+            data: {
+                'name': name,
+                'description': description,
+                'estimate': estimate,
+            },
+            success: function(result)
+            {
+                location.reload();
+                $('#cancel-add-task').trigger('click');
+            }
+        });
+    });
+
+$( "#edit-task-modal" ).click(function()
+    {
+        var taskID = $('#edit-task-modal').attr('task_id');
+        var name = $('#edit-task-title-input').val();
+        if (name == "") { name = $('#edit-task-modal').attr('task_name');}
+        var description = $('#add-task-description-input').val();
+        var estimate = $('#add-task-estimate-input').val();
+        var urlBuild = "/tasks/" + taskID + "/edit";
 
         $.ajax(
         {
