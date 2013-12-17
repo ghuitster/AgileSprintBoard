@@ -3,6 +3,9 @@ from custom_render.CustomRender import render_view
 from flask import Blueprint, request
 import json
 from models import Sprints, Stories
+from signal import signal, SIGPIPE, SIG_DFL
+
+
 
 stories = Blueprint('stories', __name__)
 
@@ -32,7 +35,7 @@ def create(board_id):
 			sprint_id = sprint.id
 
 	result = Stories.create(name, description, estimate, board_id, sprint_id)
-
+	
 	if type(result) != dict:
 		return '{"status": "success"}'
 	else:

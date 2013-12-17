@@ -100,11 +100,6 @@
 	float: right;
 }
 
-#add-task-button{
-	
-}
-
-
 #start-Date{
 	float: left;
 }
@@ -125,4 +120,8 @@
 .icon {
 	padding-left: 2px;
 	padding-right: 2px;
+}
+
+.deleteUI {
+	background-color: "red" !important; 
 }

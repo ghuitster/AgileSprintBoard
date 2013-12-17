@@ -387,29 +387,25 @@ $(document).ready(function()
 
     $("#add-story-button").click(function()
     {
-        {% if user is defined %}
         var name = $('#add-story-title-input').val();
         if (name == "") { name = "New Story";}
         var description = $('#add-story-description-input').val();
         var estimate = $('#add-story-estimate-input').val();
         var sprint_id = $('#add-story-sprint-input').val();
+        var urlBuild = "/boards/" + "{{board.id}}" + "/stories"
+
         $.ajax(
         {
-            url: '/boards/{{board.id}}/stories',
+            url: urlBuild,
             type: 'POST',
             data: {
                 'name': name,
                 'description': description,
                 'estimate': estimate,
                 'sprint_id': sprint_id
-            },
-            success: function(result)
-            {
-                location.reload();
-                $('#cancel-add-story').trigger('click');
             }
+            
         });
-        {% endif %}
     });
     
     $("#edit-story-button").click(function() {
@@ -480,7 +476,7 @@ $(document).ready(function()
             }
             return false;
         },
-        hoverClass: "ui-state-active",
+        hoverClass: "deleteUI",
         drop: function( event, ui ){
             var index = $.inArray(ui.draggable.attr("id"), tasks{{story.id}});
             tasks{{story.id}}.splice(index, 1);
