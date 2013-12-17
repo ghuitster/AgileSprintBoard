@@ -17,7 +17,11 @@ def create(story_id):
 		POST arg: estimate - the estimated hours for the task
 	'''
 	name = request.form['name']
-	estimate = int(request.form['estimate'])
+	estimate = 1.0
+	try:
+		estimate = float(request.form['estimate'])
+	except e:
+		estimate = 1.0
 	description = ''
 	if 'description' in request.form:
 		description = request.form['description']
