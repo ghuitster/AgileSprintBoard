@@ -33,6 +33,31 @@ def create(story_id):
 	else:
 		return json.dumps(result)
 
+@tasks.route('/tasks/<task_id>/edit', methods=['POST'])
+@Auth.authorized(Auth.TASK_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
+def edit(task_id):
+	'''
+	Edits a task in the given board
+		arg: task - the id of the task to be edited
+		POST arg: name - the name of the task
+		POST arg: description - a description of the task
+		POST arg: estimate - an estimate of task's man hours to completion
+	'''
+	name = request.form['name']
+	description = request.form['description']
+	estimate = 1.0
+	try:
+		estimate = float(request.form['estimate'])
+	except ValueError:
+		estimate = 1.0
+
+	result = Tasks.edit(task_id, name, description, estimate)
+
+	if type(result) != dict:
+		return '{"status": "success"}'
+	else:
+		return json.dumps(result)
+
 @tasks.route('/tasks/<task_id>', methods=['DELETE'])
 @Auth.authorized(Auth.TASK_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
 def delete(task_id):

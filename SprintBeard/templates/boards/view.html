@@ -638,8 +638,8 @@ $( "#edit-task-modal" ).click(function()
         var taskID = $('#edit-task-modal').attr('task_id');
         var name = $('#edit-task-title-input').val();
         if (name == "") { name = $('#edit-task-modal').attr('task_name');}
-        var description = $('#add-task-description-input').val();
-        var estimate = $('#add-task-estimate-input').val();
+        var description = $('#edit-task-description-input').val();
+        var estimate = $('#edit-task-estimate-input').val();
         var urlBuild = "/tasks/" + taskID + "/edit";
 
         $.ajax(

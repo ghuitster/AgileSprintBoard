@@ -52,6 +52,33 @@ def create(story_id, name, description, estimate):
 		db.rollback()
 
 @check_uuid
+def edit(task_id, name, description, estimate):
+	'''
+	Edit a task in a story.
+		arg: name - the new name of the task
+		arg: description - the new description for the task
+		arg: estimate - the new estimate for task man hours
+	'''
+
+	print "task_id: " + str(task_id) + "\nname: " + name + "\ndescription: " + description + "\nestimate: " + str(estimate)
+
+	task_id = UUID(task_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+			UPDATE `tasks`
+			SET `name`=%s, `description`=%s, `estimate`=%s
+			WHERE `id`=%s;
+		''',
+		(name, description, estimate, task_id.bytes)
+	)
+
+	try:
+		db.commit()
+	except:
+		db.rollback()
+
+@check_uuid
 def get(task_id):
 	'''
 	Get a task by its id
