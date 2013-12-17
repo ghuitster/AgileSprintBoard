@@ -454,6 +454,7 @@ $(document).ready(function()
             var index = $.inArray(ui.draggable.attr("id"), tasks{{story.id}});
             tasks{{story.id}}.splice(index, 1);
             deleteTask( ui.draggable );
+            location.reload();
         }
     });
 
