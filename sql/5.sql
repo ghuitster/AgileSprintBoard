@@ -1,0 +1,6 @@
+ALTER TABLE `stories`
+MODIFY COLUMN `estimate` DECIMAL(4, 2) NOT NULL;
+
+ALTER TABLE `tasks`
+MODIFY COLUMN `estimate` DECIMAL(4, 2) NOT NULL;
+
