@@ -1,8 +1,10 @@
+import encodings
 from functools import wraps
 import MySQLdb
 from uuid import UUID
 
-db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile')
+encodings._aliases["utf8mb4"] = "utf_8"
+db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile', charset='utf8mb4')
 
 def check_uuid(handler):
 	'''
