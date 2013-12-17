@@ -335,10 +335,8 @@ $(document).ready(function()
     
     $( "#start-datepicker-{{board.sprint.id}}" ).datepicker(
     {
-        onSelect: function(dateText, inst) {
-            var sprintDate = {{board.sprint.start.strftime('%m-%d-%Y')}};
-            var dateAsString = dateText;
-        });
+        
+    });
     $( "#end-datepicker-{{board.sprint.id}}" ).datepicker({
 
     });
