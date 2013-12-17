@@ -20,7 +20,7 @@ def create(story_id):
 	estimate = 1.0
 	try:
 		estimate = float(request.form['estimate'])
-	except e:
+	except ValueError:
 		estimate = 1.0
 	description = ''
 	if 'description' in request.form:
