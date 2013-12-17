@@ -214,18 +214,19 @@ def getRights(board_id, user_id):
 	Get the rights of a user for a board. This will be used to determine whether to 
 	display the Board Admin menu on screen.
 		arg: board_id - The board to check
-		arg: user_id - The user to be check
+		arg: user_id - The user to be checked
 		return: The right associated with the user id AND board id
 	'''
+	user_id = UUID(user_id)
 	board_id = UUID(board_id)
 	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `privileges`
 			FROM `users_boards`
-			WHERE 'board_id`=%s
+			WHERE `board_id`=%s
 			AND `user_id`=%s
 		''',
 		(board_id.bytes, user_id.bytes)
 	)
-	rights = cursor.fetchall()
+	rights = cursor.fetchone()
 	return rights[0]
