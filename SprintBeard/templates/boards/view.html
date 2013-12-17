@@ -622,7 +622,8 @@ $(document).ready(function()
         });
     });
 
-$( "#edit-task-modal" ).click(function()
+    //function for submitting edit task modal information to server
+    $( "#edit-task-modal" ).click(function()
     {
         var taskID = $('#edit-task-modal').attr('task_id');
         var name = $('#edit-task-title-input').val();
@@ -642,7 +643,6 @@ $( "#edit-task-modal" ).click(function()
             },
             success: function(result)
             {
-                // location.reload();
                 $('#cancel-add-task').trigger('click');
             }
         });
