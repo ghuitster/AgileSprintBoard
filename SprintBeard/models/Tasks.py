@@ -15,7 +15,7 @@ class Task:
 		field: datetime completion_date - the time when the task was completed
 	'''
 	def __init__(self, id, story_id, name, description, estimate, completed = False, \
-			completion_date = None):
+			completion_date = None, users = []):
 		self.id = id
 		self.story_id = story_id
 		self.name = name
@@ -23,6 +23,7 @@ class Task:
 		self.estimate = estimate
 		self.completed = completed
 		self.completion_date = completion_date
+		self.users = users
 
 
 @check_uuid
@@ -137,7 +138,59 @@ def get_by_story(story_id):
 				row[3],
 				float(row[4]),
 				bool(row[5]),
-				row[6]
+				row[6],
+				get_users(binascii.b2a_hex(row[0]))
 			)
 		)
 	return tasks
+
+def get_users(task_id):
+	'''
+	Get all user ids for users assigned to a particular task.
+		arg: task_id - the id of the task to search for
+
+		return: a List of String uuids
+	'''
+
+	task_id = UUID(task_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+			SELECT `user_id`
+			FROM `users_tasks`
+			WHERE `task_id`=%s
+		''',
+		(task_id.bytes)
+	)
+
+	rows = cursor.fetchall()
+	users = []
+	for row in rows:
+		users.append(binascii.b2a_hex(row[0]))
+
+	return users
+
+@check_uuid
+def assign(task_id, user_id):
+	'''
+	Assign a task to a particular user in the database
+		arg: task_id - the id of the task to assign
+		arg: user_id - the id of the user to assign to the task
+	'''
+
+	task_id = UUID(task_id)
+	user_id = UUID(user_id)
+
+	cursor = db.cursor()
+	cursor.execute('''
+			INSERT INTO `users_tasks` (`task_id`, `user_id`)
+			VALUES (%s, %s)
+			ON DUPLICATE KEY UPDATE `task_id`=%s
+		''',
+		(task_id.bytes, user_id.bytes, task_id.bytes)
+	)
+
+	try:
+		db.commit()
+	except:
+		db.rollback()

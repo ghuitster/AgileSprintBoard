@@ -32,5 +32,23 @@ def create(story_id):
 @tasks.route('/tasks/<task_id>', methods=['DELETE'])
 @Auth.authorized(Auth.TASK_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
 def delete(task_id):
+	'''
+	Delete a task from the database
+		arg: task_id - the id of the task to delete
+	'''
+
 	Tasks.delete(task_id)
+	return '{"status": "success"}'
+
+@tasks.route('/assign/tasks/<task_id>', methods=['POST'])
+@Auth.authorized(Auth.TASK_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
+def assign(task_id):
+	'''
+	Assign a user to a task.
+		arg: task_id - the id of the task to assign
+		POST arg: user_id - the id of the user to assign to the task
+	'''
+	
+	user_id = request.form['user_id']
+	result = Tasks.assign(task_id, user_id)
 	return '{"status": "success"}'

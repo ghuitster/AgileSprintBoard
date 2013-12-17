@@ -545,6 +545,7 @@ $(document).ready(function()
         }
     });
     {% endfor %}
+    {% endfor %}
 
     var reassignTaskToUser = function (item, user_id){
         console.log("function");
@@ -552,7 +553,7 @@ $(document).ready(function()
         console.log(taskid);
 
         $.ajax({
-            url: "/assign/task/" + taskid,
+            url: "/assign/tasks/" + taskid,
             type: "POST",
             data: {
                 'user_id' : user_id
