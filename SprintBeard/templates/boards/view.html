@@ -84,7 +84,7 @@
                 
                 {% for task in story.tasks %}
                 {% if task.users|count == 0%}
-                <a type="submit" class="btn btn-info" id="task-{{task.id}}" data-toggle="modal" data-target="#task-info-modal">
+                <a type="submit" class="btn btn-info" id="task-{{task.id}}" data-toggle="modal" data-target="#task-info-modal" user-id="">
                     {{task.name}}
                 </a>
                 {% endif %}
@@ -98,7 +98,7 @@
             <td style="vertical-align:middle;" id="assign-to-user-{{story.id}}-{{user.id}}">
                 {% for task in story.tasks %}
                 {% if user.id in task.users %}
-                <a type="submit" class="btn btn-info" id="task-{{task.id}}" data-toggle="modal" data-target="#task-info-modal">
+                <a type="submit" class="btn btn-info" id="task-{{task.id}}" data-toggle="modal" data-target="#task-info-modal" user-id="{{user.id}}">
                     {{task.name}}
                 </a>
                 {% endif %}
@@ -338,12 +338,7 @@ $(document).ready(function()
         onSelect: function(dateText, inst) {
             var sprintDate = {{board.sprint.start.strftime('%m-%d-%Y')}};
             var dateAsString = dateText;
-
-            console.log(dateAsString);
-            console.log(sprintDate.toString());
-            
-        }
-    });
+        });
     $( "#end-datepicker-{{board.sprint.id}}" ).datepicker({
 
     });
@@ -462,7 +457,7 @@ $(document).ready(function()
             tasks{{story.id}}.splice(index, 1);
             deleteTask( ui.draggable );
         }
-    });   
+    });
 
     var deleteTask = function( item ) {
         $.ajax({
@@ -473,6 +468,20 @@ $(document).ready(function()
             }
         })
     }
+
+    $("#tasks-cell-{{story.id}}").droppable({
+        accept: function(elem) {
+            var index = $.inArray(elem.attr("id"), tasks{{story.id}});
+            if (index != -1) {
+                return true;
+            }
+            return false;
+        },
+        hoverClass: "ui-state-active",
+        drop: function( event, ui ){
+            reassignTaskToUser(ui.draggable, "");
+        }
+    });
 
     $("#add-task-{{story.id}}").click(function()
     {
@@ -502,7 +511,6 @@ $(document).ready(function()
         },
         hoverClass: "ui-state-active",
         drop: function( event, ui ){
-            console.log("dropped");
             reassignTaskToUser( ui.draggable, "{{user.id}}" );
         }
     });
@@ -512,13 +520,29 @@ $(document).ready(function()
     var reassignTaskToUser = function (item, user_id){
         var taskid = item.attr("id").substring(5);
 
-        $.ajax({
-            url: "/assign/tasks/" + taskid,
-            type: "POST",
-            data: {
-                'user_id' : user_id
+        //if the old id was an actual user id, delete it
+        if (item.attr("user-id") != "") {
+            $.ajax({
+                url: "/assign/tasks/" + taskid,
+                type: "DELETE",
+                data: {
+                    'user_id' : item.attr("user-id")
+                    }
+                });
+        }
+
+        //if we have an actual user id to assign to assign it
+        if (user_id != "") {
+            $.ajax({
+                url: "/assign/tasks/" + taskid,
+                type: "POST",
+                data: {
+                    'user_id' : user_id
+                    }
+                });
             }
-        });
+
+        item.attr("user-id", user_id);
     }
 
     $("#remove-story-button").click(function() {
