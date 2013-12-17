@@ -89,8 +89,8 @@
                 </a>
                 {% endif %}
                 {% endfor %}
-                <span class="pull-right">
-                    <i class="icon-trash" id="trash-task-{{story.id}}"></i>
+                <span class="btn btn-danger pull-right" style="height:20px;" id="trash-task-{{story.id}}">
+                    <i class="icon-trash"></i>
                 </span>
             </td>
             
@@ -335,7 +335,7 @@ $(document).ready(function()
     
     $( "#start-datepicker-{{board.sprint.id}}" ).datepicker(
     {
-        
+
     });
     $( "#end-datepicker-{{board.sprint.id}}" ).datepicker({
 
@@ -432,7 +432,7 @@ $(document).ready(function()
     
     $(function() {
         $( "#task-{{task.id}}" ).draggable({
-            hoverClass: "btn btn-danger",
+            hoverClass: "ui-state-active",
             activeClass: "btn btn-danger",
             revert: "invalid",
             containment: "#story-{{story.id}}-row"
