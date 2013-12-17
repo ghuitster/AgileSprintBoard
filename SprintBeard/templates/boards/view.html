@@ -128,7 +128,7 @@ $('#check-rights')
             </td>
             
             {% for user in board.users %}
-            <td style="vertical-align:middle;">
+            <td style="vertical-align:middle;" id="assign-to-user-{{story.id}}-{{user.id}}">
             </td>
             {% endfor %}
         </tr>
@@ -529,7 +529,39 @@ $(document).ready(function()
         $("#remove-story-modal-name").text("{{story.name}}");
     });
 
+    {% for user in board.users %}
+    $( "#assign-to-user-{{story.id}}-{{user.id}}" ).droppable({
+        accept: function(elem) {
+            var index = $.inArray(elem.attr("id"), tasks{{story.id}});
+            if (index != -1) {
+                return true;
+            }
+            return false;
+        },
+        hoverClass: "ui-state-active",
+        drop: function( event, ui ){
+            console.log("dropped");
+            reassignTaskToUser( ui.draggable, "{{user.id}}" );
+        }
+    });
     {% endfor %}
+
+    var reassignTaskToUser = function (item, user_id){
+        console.log("function");
+        var taskid = item.attr("id").substring(5);
+        console.log(taskid);
+
+        $.ajax({
+            url: "/assign/task/" + taskid,
+            type: "POST",
+            data: {
+                'user_id' : user_id
+            },
+            success: function() {
+                console.log("Good");
+            }
+        });
+    }
 
     $("#remove-story-button").click(function() {
         var storyID = $("#remove-story-button").attr("story-id");
