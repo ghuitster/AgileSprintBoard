@@ -118,9 +118,11 @@ $('#check-rights')
                 </span>
                 
                 {% for task in story.tasks %}
+                {% if task.users|count == 0%}
                 <a type="submit" class="btn btn-info" id="task-{{task.id}}" data-toggle="modal" data-target="#task-info-modal">
                     {{task.name}}
                 </a>
+                {% endif %}
                 {% endfor %}
                 <span class="pull-right">
                     <i class="icon-trash" id="trash-task-{{story.id}}"></i>
@@ -129,6 +131,13 @@ $('#check-rights')
             
             {% for user in board.users %}
             <td style="vertical-align:middle;" id="assign-to-user-{{story.id}}-{{user.id}}">
+                {% for task in story.tasks %}
+                {% if user.id in task.users %}
+                <a type="submit" class="btn btn-info" id="task-{{task.id}}" data-toggle="modal" data-target="#task-info-modal">
+                    {{task.name}}
+                </a>
+                {% endif %}
+                {% endfor %}
             </td>
             {% endfor %}
         </tr>
@@ -536,18 +545,13 @@ $(document).ready(function()
     {% endfor %}
 
     var reassignTaskToUser = function (item, user_id){
-        console.log("function");
         var taskid = item.attr("id").substring(5);
-        console.log(taskid);
 
         $.ajax({
             url: "/assign/tasks/" + taskid,
             type: "POST",
             data: {
                 'user_id' : user_id
-            },
-            success: function() {
-                console.log("Good");
             }
         });
     }

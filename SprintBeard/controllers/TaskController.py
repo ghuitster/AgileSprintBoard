@@ -50,5 +50,5 @@ def assign(task_id):
 	'''
 	
 	user_id = request.form['user_id']
-	result = Tasks.assign(task_id, user_id)
+	Tasks.assign(task_id, user_id)
 	return '{"status": "success"}'
