@@ -125,10 +125,76 @@ def delete(board_id):
 		''',
 		(board_id.bytes)
 	)
+	cursor.execute('''
+			DELETE FROM `invitations` 
+			WHERE `board_id`=%s
+		''',
+		(board_id.bytes)
+	)
+	cursor.execute('''
+			DELETE FROM `sprints` 
+			WHERE `board_id`=%s
+		''',
+		(board_id.bytes)
+	)
 	try:
 		db.commit()
 	except:
 		db.rollback()
+
+	cursor.execute('''
+			SELECT `id` FROM `stories` 
+			WHERE `board_id`=%s
+		''',
+		(board_id.bytes)
+	)
+
+	story_ids = cursor.fetchall()
+
+	for story in story_ids:
+		cursor.execute('''
+				DELETE FROM `users_stories` 
+				WHERE `story_id`=%s
+			''',
+			(story[0])
+		)
+		cursor.execute('''
+				DELETE FROM `stories` 
+				WHERE `id`=%s
+			''',
+			(story[0])
+		)
+		try:
+			db.commit()
+		except:
+			db.rollback()
+
+		cursor.execute('''
+				SELECT `id` FROM `tasks` 
+				WHERE `story_id`=%s
+			''',
+			(story[0])
+		)
+
+		task_ids = cursor.fetchall()
+
+		for task in task_ids:
+			cursor.execute('''
+					DELETE FROM `users_tasks` 
+					WHERE `task_id`=%s
+				''',
+				(task[0])
+			)
+			cursor.execute('''
+					DELETE FROM `tasks` 
+					WHERE `id`=%s
+				''',
+				(task[0])
+			)
+			try:
+				db.commit()
+			except:
+				db.rollback()
 
 @check_uuid
 def changeName(board_id, new_name):

@@ -118,12 +118,17 @@ def delete(task_id):
 	task_id = UUID(task_id)
 
 	cursor.execute('''
-			DELETE FROM `tasks`
+			DELETE FROM `users_tasks` 
+			WHERE `task_id`=%s
+		''',
+		(task_id.bytes)
+	)
+	cursor.execute('''
+			DELETE FROM `tasks` 
 			WHERE `id`=%s
 		''',
 		(task_id.bytes)
 	)
-
 	try:
 		db.commit()
 	except:
