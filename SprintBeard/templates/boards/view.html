@@ -461,11 +461,11 @@ $(document).ready(function()
     // });
 
 $("#task-{{task.id}}").click(function() {
-    $(".modal-body #edit-task-title-input").val("{{task.name}}");
-    $(".modal-body #edit-task-description-input").val("{{task.description}}");
+    $(".modal-body #edit-task-title-input").val($('<div />').html("{{task.name}}").text());
+    $(".modal-body #edit-task-description-input").val($('<div />').html("{{task.description}}").text());
     $(".modal-body #edit-task-estimate-input").val("{{task.estimate}}");
     $('#edit-task-modal').attr('task_id', '{{task.id}}');
-    $('#edit-task-modal').attr('task_name', '{{task.name}}');
+    $('#edit-task-modal').attr('task_name', $('<div />').html('{{task.name}}').text());
 });
 
 $(function() {
@@ -534,18 +534,18 @@ $("#add-task-{{story.id}}").click(function()
 });
 
 $("#story-info-{{story.id}}").click(function() {
-    $("#story-info-title-text").text("{{story.name}}");
-    $("#story-info-description").text("{{story.description}}");
+    $("#story-info-title-text").text($('<div />').html("{{story.name}}").text());
+    $("#story-info-description").text($('<div />').html("{{story.description}}").text());
     $("#story-info-estimate").text("{{story.estimate}}");
 });
 
 $("#story-edit-{{story.id}}").click(function() {
-    $("#edit-story-title-input").val("{{story.name}}");
-    $("#edit-story-description-input").val("{{story.description}}");
+    $("#edit-story-title-input").val($('<div />').html("{{story.name}}").text());
+    $("#edit-story-description-input").val($('<div />').html("{{story.description}}").text());
     $("#edit-story-estimate-input").val("{{story.estimate}}");
     $("#edit-story-sprint-input").val("{{story.sprint}}");
     $("#edit-story-button").attr("story-id", "{{story.id}}");
-    $("#edit-story-button").attr("story-name", "{{story.name}}");
+    $("#edit-story-button").attr("story-name", $('<div />').html("{{story.name}}").text());
 });
 
     //remove the story
