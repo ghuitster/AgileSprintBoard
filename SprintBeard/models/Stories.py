@@ -69,9 +69,9 @@ def edit(story_id, name, description, estimate, sprint_id):
 		sprint_id = UUID(sprint_id).bytes
 
 	cursor.execute('''
-			UPDATE `users_stories`
+			UPDATE `stories`
 			SET `name`=%s, `description`=%s, `estimate`=%s, `sprint_id`=%s
-			WHERE `story_id`=%s;
+			WHERE `id`=%s;
 		''',
 		(name, description, estimate, sprint_id, story_id.bytes)
 	)

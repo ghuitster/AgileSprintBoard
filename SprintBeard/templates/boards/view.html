@@ -209,8 +209,8 @@
                         <input type="number" min="0.0" max="99.0" step="0.25" class="form-control" style="height:30px;" id="edit-story-estimate-input">
                         <label for="edit-story-sprint-input">Sprint:</label>
                         <select id="edit-story-sprint-input">
-                            <option>Current</option>
-                            <option>Backlog</option>
+                            <option value="current" selected="selected">Current</option>
+                            <option value="backlog">Backlog</option>
                         </select>
                         {% endif %}
                     </div>
@@ -426,9 +426,9 @@ $(document).ready(function()
         if (name == "") { name = "New Story";}
         var description = $('#edit-story-description-input').val();
         var estimate = $('#edit-story-estimate-input').val();
-        var sprint_id = $('#edit-story-sprint-input').val();
+        var sprint_id = $('#edit-story-sprint-input').find(":selected").text();
         var story_id = $('#edit-story-button').attr("story-id");
-        var url = "/stories/" + story_id + "/edit";
+        var url = "/stories/" + story_id;
 
         $.ajax(
         {
@@ -543,7 +543,6 @@ $("#story-edit-{{story.id}}").click(function() {
     $("#edit-story-title-input").val($('<div />').html("{{story.name}}").text());
     $("#edit-story-description-input").val($('<div />').html("{{story.description}}").text());
     $("#edit-story-estimate-input").val("{{story.estimate}}");
-    $("#edit-story-sprint-input").val("{{story.sprint}}");
     $("#edit-story-button").attr("story-id", "{{story.id}}");
     $("#edit-story-button").attr("story-name", $('<div />').html("{{story.name}}").text());
 });

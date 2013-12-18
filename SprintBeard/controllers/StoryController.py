@@ -45,19 +45,18 @@ def create(board_id):
 	else:
 		return json.dumps(result)
 		
-@stories.route('/stories/<story_id>/edit', methods=['POST'])
+@stories.route('/stories/<story_id>', methods=['POST'])
 @Auth.authorized(Auth.STORY_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
 def edit(story_id):
 	'''
 	Edits a story in the given board
 		arg: story_id - the id of the story to be edited
-		POST arg: board_id - the id of the board on which the story is edited
 		POST arg: name - the name of the story
 		POST arg: description - a description of the story
 		POST arg: estimate - an estimate of story points
 		POST arg: sprint_id - the id of the sprint to edit, 'backlog' for backlog,
 			or 'current' for the current sprint
-	'''
+	'''	
 	name = request.form['name']
 	description = request.form['description']
 	estimate = 1.0
@@ -70,6 +69,9 @@ def edit(story_id):
 	#get the correct sprint id if one of the options is specified
 	if sprint_id == 'backlog':
 		sprint_id = None
+	else:
+		story = Stories.get(story_id)
+		sprint_id = Sprints.get_current_sprint(story.board_id).id
 
 	result = Stories.edit(story_id, name, description, estimate, sprint_id)
 
