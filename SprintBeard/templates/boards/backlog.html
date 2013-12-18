@@ -91,8 +91,8 @@ $(document).ready(function()
     	$("#story-modal-submit").attr("change", "edit");
     	$("#story-modal-submit").attr("story_id_attr", "{{story.id}}");
     	$("#story-title-label").text("Story Title");
-    	$("#story-title-input").val("{{story.name}}");
-    	$("#story-description-input").val("{{story.description}}");
+    	$("#story-title-input").val($('<div />').html("{{story.name}}").text());
+    	$("#story-description-input").val($('<div />').html("{{story.description}}").text());
     	$("#story-estimate-input").val("{{story.estimate}}");
     });
 
