@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="BeardLogo_master.svg"
-   inkscape:export-filename="/home/michael/repos/AgileSprintBoard/SprintBeard/static/img/logo.png"
+   inkscape:export-filename="/home/michael/repos/AgileSprintBoard/SprintBeard/static/img/invalidlogo_large.png"
    inkscape:export-xdpi="99.985779"
    inkscape:export-ydpi="99.985779">
   <defs
@@ -260,11 +260,15 @@
     <linearGradient
        id="linearGradient3839-7">
       <stop
-         style="stop-color:#006680;stop-opacity:1;"
+         style="stop-color:#510000;stop-opacity:1;"
          offset="0"
          id="stop3841-4" />
       <stop
-         style="stop-color:#d5f6ff;stop-opacity:0;"
+         id="stop4002"
+         offset="0.5"
+         style="stop-color:#fd0000;stop-opacity:1;" />
+      <stop
+         style="stop-color:#630000;stop-opacity:1;"
          offset="1"
          id="stop3843-0" />
     </linearGradient>
@@ -286,15 +290,15 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.70710678"
-     inkscape:cx="119.99467"
+     inkscape:cx="95.245933"
      inkscape:cy="269.42799"
      inkscape:document-units="px"
-     inkscape:current-layer="layer6"
+     inkscape:current-layer="g3228"
      showgrid="true"
      inkscape:snap-global="true"
-     inkscape:window-width="1313"
+     inkscape:window-width="1317"
      inkscape:window-height="744"
-     inkscape:window-x="53"
+     inkscape:window-x="49"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
      inkscape:snap-grids="true"
@@ -550,11 +554,11 @@
      transform="translate(-261.00704,-133.99294)">
     <path
        sodipodi:nodetypes="cccccccccc"
-       transform="translate(118.50704,33.507042)"
        inkscape:connector-curvature="0"
        id="path3892"
        d="m 350,272.9859 0,30 c -10,60 -95,70 -95,70 -90,5 -105,-45 -75,-70 21.53488,-17.67442 30,11 15,11 6,-7 -3,-8 -5,-4 0,0 -3,5 1,13 7,15 39,-15 64,-50 0,0 15,-25 50,-25 0,0 30,-5 45,25 z"
-       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(118.50704,33.507042)" />
     <path
        sodipodi:nodetypes="cccccccccc"
        inkscape:connector-curvature="0"
@@ -616,7 +620,8 @@
      inkscape:groupmode="layer"
      id="layer10"
      inkscape:label="Monocle"
-     transform="translate(-142.5,-100.4859)">
+     transform="translate(-142.5,-100.4859)"
+     style="display:none">
     <path
        sodipodi:type="arc"
        style="fill:url(#linearGradient3864);fill-opacity:1;stroke:#000000;stroke-width:5.83333349;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
@@ -625,13 +630,34 @@
        sodipodi:cy="172.9859"
        sodipodi:rx="70"
        sodipodi:ry="70"
-       d="m 280,172.9859 c 0,38.65993 -31.34007,70 -70,70 -38.65993,0 -70,-31.34007 -70,-70 0,-38.65993 31.34007,-70 70,-70 38.65993,0 70,31.34007 70,70 z"
+       d="m 280,172.9859 a 70,70 0 1 1 -140,0 70,70 0 1 1 140,0 z"
        transform="matrix(0.85714286,0,0,0.85714286,99.999999,14.712271)" />
     <path
        style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 220,162.9859 -35,0 -40,165"
        id="path3884"
        inkscape:connector-curvature="0" />
+  </g>
+  <g
+     transform="translate(-142.5,-100.4859)"
+     inkscape:label="Monocle Red"
+     id="g3228"
+     inkscape:groupmode="layer">
+    <path
+       transform="matrix(0.85714286,0,0,0.85714286,99.999999,14.712271)"
+       d="m 280,172.9859 c 0,38.65993 -31.34007,70 -70,70 -38.65993,0 -70,-31.34007 -70,-70 0,-38.65993 31.34007,-70 70,-70 38.65993,0 70,31.34007 70,70 z"
+       sodipodi:ry="70"
+       sodipodi:rx="70"
+       sodipodi:cy="172.9859"
+       sodipodi:cx="210"
+       id="path3230"
+       style="fill:url(#linearGradient3864);fill-opacity:1;stroke:#000000;stroke-width:5.83333349;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline"
+       sodipodi:type="arc" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3232"
+       d="m 220,162.9859 -35,0 -40,165"
+       style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
   </g>
   <g
      inkscape:label="Monocle - flat fill"

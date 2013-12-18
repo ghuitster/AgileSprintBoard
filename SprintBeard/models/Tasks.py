@@ -59,8 +59,6 @@ def edit(task_id, name, description, estimate):
 		arg: estimate - the new estimate for task man hours
 	'''
 
-	print "task_id: " + str(task_id) + "\nname: " + name + "\ndescription: " + description + "\nestimate: " + str(estimate)
-
 	task_id = UUID(task_id)
 
 	cursor.execute('''
