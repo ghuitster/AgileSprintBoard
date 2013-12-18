@@ -101,19 +101,26 @@ $(document).ready(function()
     });
 
     $("#assign-story-{{story.id}}").click(function()
-    {
-    	var = urlBuild = "/stories/{{story.id}}"
+    {    	
     	$.ajax({
-
-    	});
-    		
+    		url: "/stories/{{story.id}}",
+    		type: "POST",
+    		data: {
+    			name : "{{story.name}}",
+    			description : "{{story.description}}",
+    			estimate : "{{story.estimate}}",
+    			sprint_id : "{{current}}"
+    		},
+    		success: function(result) {
+    			location.reload();
+    		}
+    	});		
     });
 
     $("#trash-story-{{story.id}}").click(function()
-    {
-        var urlBuild = "/stories/" + "{{story.id}}";
+    {        
         $.ajax({
-            url: urlBuild,
+            url: "/stories/{{story.id}}",
             type: "DELETE",
             success: function(result) {
             	location.reload();
