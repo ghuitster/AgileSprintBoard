@@ -453,12 +453,6 @@ $(document).ready(function()
     
     var tasks{{story.id}} = [];
     {% for task in story.tasks %}
-    
-    // $("#task-{{task.id}}").click(function() {
-    //     $("#task-info-title-text").text("{{task.name}}");
-    //     $("#task-info-description").text("{{task.description}}");
-    //     $("#task-info-estimate").text("{{task.estimate}}");
-    // });
 
 $("#task-{{task.id}}").click(function() {
     $(".modal-body #edit-task-title-input").val($('<div />').html("{{task.name}}").text());
