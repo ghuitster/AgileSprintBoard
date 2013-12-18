@@ -124,39 +124,28 @@ $(document).ready(function()
         var estimate = $('#story-estimate-input').val();
         var sprint_id = "Backlog";
         var change_new = $("#story-modal-submit").attr("change");
-
+        var urlBuild = "";
         if(change_new == "new")
         {
-        	var urlBuild = "/boards/" + "{{board.id}}" + "/stories"
-	        $.ajax(
-	        {
-	            url: urlBuild,
-	            type: 'POST',
-	            data: {
-	                'name': name,
-	                'description': description,
-	                'estimate': estimate,
-	                'sprint_id': sprint_id
-	            }
-	        });
+        	urlBuild = "/boards/" + "{{board.id}}" + "/stories"
        	}
        	if(change_new == "edit")
-        {
+       	{
         	var story_id = $("#story-modal-submit").attr("story_id_attr");
-        	var urlBuild = "/stories/" + story_id;
-	        $.ajax(
-	        {
-	            url: urlBuild,
-	            type: 'POST',
-	            data: {
-	                'name': name,
-	                'description': description,
-	                'estimate': estimate,
-	                'sprint_id': sprint_id
-	            }
-	        });
+        	urlBuild = "/stories/" + story_id;
        	}
-    });
+       	$.ajax(
+       	{
+            url: urlBuild,
+            type: 'POST',
+            data: {
+                'name': name,
+                'description': description,
+                'estimate': estimate,
+                'sprint_id': sprint_id
+            }
+        });
+    });    
 });
 </script>
 
