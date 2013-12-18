@@ -1,0 +1,59 @@
+{% extends "helpers/invites.html" %}
+{% block title %}{{board.name}}
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+<table class="table table-bordered table-striped" id="backlogtable">
+	<thead>
+		<tr>
+			<td>
+				<span>Task:</span>
+			</td>
+			<td>
+				<span>Descrition:</span>
+			</td>
+			<td width="10%" style="text-align:center;">
+				<span>Estimate:</span>
+			</td>
+			<td width="10%" style="text-align:center;">
+				<span>Assign:</span>
+			</td>
+			<td width="10%" style="text-align:center;">
+				<span>Delete:</span>
+			</td>
+		</tr>
+	</thead>	
+	<tbody>
+		{% for story in board.stories %}
+		{% for task in story.tasks %}
+		{% if task.users|count == 0%}
+		<tr>
+			<td>
+				{{task.name}}
+			</td>
+			<td>
+				{{task.description}}
+			</td>
+			<td width="10%" style="text-align:center;">
+				{{task.estimate}}
+			</td>
+			<td width="10%">
+				<span class="btn btn-success pull-center" id="add-task-{{task.id}}">
+					<i class="icon-plus"></i>
+				</span>
+			</td>
+			<td width="10%">
+				<span class="btn btn-danger pull-center" id="trash-task-{{task.id}}">
+					<i class="icon-trash"></i>
+				</span>
+			</td>
+		</tr>
+		{% endif %}
+		{% endfor %}
+		{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}

@@ -13,6 +13,7 @@
         <li class="divider"></li>
         <li><a href="" id="add-story" data-toggle="modal" data-target="#addStoryModal">Add Story</a></li>
         <li><a href="" id="remove-story" data-toggle="modal" data-target="#remove-story-dropdown-modal">Delete Story</a></li>
+        <li><a href="/boards/{{board.id}}/backlog" id="go-backlog">View Backlog</a></li>
     </ul>
 </li>
 {% endif %}
@@ -33,7 +34,7 @@
                 <span id="start-Date">
                     Start:
                     <input class="input-small" type="text" id="start-datepicker-{{board.sprint.id}}" placeholder="{{board.sprint.start.strftime('%m-%d-%Y')}}" style="margin-bottom: 0px;">
-                     <i class="icon-calendar"></i>
+                    <i class="icon-calendar"></i>
                 </span>
                 <span id="end-Date">
                     End:
@@ -255,7 +256,7 @@
                 <select id="remove-story-dropdown-input">
                     <option>-</option>
                     {% for story in board.stories %}
-                        <option value="{{story.id}}">{{story.name}}</option>
+                    <option value="{{story.id}}">{{story.name}}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -460,91 +461,91 @@ $(document).ready(function()
     //     $("#task-info-estimate").text("{{task.estimate}}");
     // });
 
-    $("#task-{{task.id}}").click(function() {
-        $(".modal-body #edit-task-title-input").val("{{task.name}}");
-        $(".modal-body #edit-task-description-input").val("{{task.description}}");
-        $(".modal-body #edit-task-estimate-input").val("{{task.estimate}}");
-        $('#edit-task-modal').attr('task_id', '{{task.id}}');
-        $('#edit-task-modal').attr('task_name', '{{task.name}}');
-    });
-    
-    $(function() {
-        $( "#task-{{task.id}}" ).draggable({
-            hoverClass: "deleteUI",
-            activeClass: "deleteUI",
-            revert: "invalid",
-            containment: "#story-{{story.id}}-row"
-        });
-    });
-    tasks{{story.id}}.push("task-{{task.id}}");
+$("#task-{{task.id}}").click(function() {
+    $(".modal-body #edit-task-title-input").val("{{task.name}}");
+    $(".modal-body #edit-task-description-input").val("{{task.description}}");
+    $(".modal-body #edit-task-estimate-input").val("{{task.estimate}}");
+    $('#edit-task-modal').attr('task_id', '{{task.id}}');
+    $('#edit-task-modal').attr('task_name', '{{task.name}}');
+});
 
-    $( "#trash-task-{{story.id}}" ).droppable({
-        accept: function(elem) {
-            var index = $.inArray(elem.attr("id"), tasks{{story.id}});
-            if (index != -1) {
-                return true;
-            }
-            return false;
-        },
-        hoverClass: "ui-state-highlight",
-        drop: function( event, ui ){
+$(function() {
+    $( "#task-{{task.id}}" ).draggable({
+        hoverClass: "deleteUI",
+        activeClass: "deleteUI",
+        revert: "invalid",
+        containment: "#story-{{story.id}}-row"
+    });
+});
+tasks{{story.id}}.push("task-{{task.id}}");
 
-            var index = $.inArray(ui.draggable.attr("id"), tasks{{story.id}});
-            tasks{{story.id}}.splice(index, 1);
-            deleteTask( ui.draggable );
-            location.reload();
-        },
-        over: function(){
-            $("#task-{{task.id}}").css("background-color", "red");
-        },
-        out: function(){
-            $("#task-{{task.id}}").css("background-color", "#49afcd");
+$( "#trash-task-{{story.id}}" ).droppable({
+    accept: function(elem) {
+        var index = $.inArray(elem.attr("id"), tasks{{story.id}});
+        if (index != -1) {
+            return true;
         }
-    });
+        return false;
+    },
+    hoverClass: "ui-state-highlight",
+    drop: function( event, ui ){
 
-    {% endfor %}
-
-    var deleteTask = function( item ) {
-        $.ajax({
-            url: "/tasks/" + item.attr("id").substring(5),
-            type: "DELETE",
-            success: function() {
-                item.remove().end();
-            }
-        })
+        var index = $.inArray(ui.draggable.attr("id"), tasks{{story.id}});
+        tasks{{story.id}}.splice(index, 1);
+        deleteTask( ui.draggable );
+        location.reload();
+    },
+    over: function(){
+        $("#task-{{task.id}}").css("background-color", "red");
+    },
+    out: function(){
+        $("#task-{{task.id}}").css("background-color", "#49afcd");
     }
+});
 
-    $("#tasks-cell-{{story.id}}").droppable({
-        accept: function(elem) {
-            var index = $.inArray(elem.attr("id"), tasks{{story.id}});
-            if (index != -1) {
-                return true;
-            }
-            return false;
-        },
-        hoverClass: "ui-state-active",
-        drop: function( event, ui ){
-            reassignTaskToUser(ui.draggable, "");
+{% endfor %}
+
+var deleteTask = function( item ) {
+    $.ajax({
+        url: "/tasks/" + item.attr("id").substring(5),
+        type: "DELETE",
+        success: function() {
+            item.remove().end();
         }
-    });
+    })
+}
 
-    $("#add-task-{{story.id}}").click(function()
-    {
-        $('#add-task-modal').attr('story_id', '{{story.id}}');
-    });
+$("#tasks-cell-{{story.id}}").droppable({
+    accept: function(elem) {
+        var index = $.inArray(elem.attr("id"), tasks{{story.id}});
+        if (index != -1) {
+            return true;
+        }
+        return false;
+    },
+    hoverClass: "ui-state-active",
+    drop: function( event, ui ){
+        reassignTaskToUser(ui.draggable, "");
+    }
+});
 
-    $("#story-info-{{story.id}}").click(function() {
-        $("#story-info-title-text").text("{{story.name}}");
-        $("#story-info-description").text("{{story.description}}");
-        $("#story-info-estimate").text("{{story.estimate}}");
-    });
-    
-    $("#story-edit-{{story.id}}").click(function() {
-        $("#edit-story-title-input").val("{{story.name}}");
-        $("#edit-story-description-input").val("{{story.description}}");
-        $("#edit-story-estimate-input").val("{{story.estimate}}");
-        $("#edit-story-button").attr("story-id", "{{story.id}}");
-    });
+$("#add-task-{{story.id}}").click(function()
+{
+    $('#add-task-modal').attr('story_id', '{{story.id}}');
+});
+
+$("#story-info-{{story.id}}").click(function() {
+    $("#story-info-title-text").text("{{story.name}}");
+    $("#story-info-description").text("{{story.description}}");
+    $("#story-info-estimate").text("{{story.estimate}}");
+});
+
+$("#story-edit-{{story.id}}").click(function() {
+    $("#edit-story-title-input").val("{{story.name}}");
+    $("#edit-story-description-input").val("{{story.description}}");
+    $("#edit-story-estimate-input").val("{{story.estimate}}");
+    $("#edit-story-button").attr("story-id", "{{story.id}}");
+});
 
     //remove the story
     $("#trash-story-{{story.id}}").click(function() {
@@ -579,8 +580,8 @@ $(document).ready(function()
                 type: "DELETE",
                 data: {
                     'user_id' : item.attr("user-id")
-                    }
-                });
+                }
+            });
         }
 
         //if we have an actual user id to assign to assign it
@@ -590,9 +591,9 @@ $(document).ready(function()
                 type: "POST",
                 data: {
                     'user_id' : user_id
-                    }
-                });
-            }
+                }
+            });
+        }
 
         item.attr("user-id", user_id);
     }

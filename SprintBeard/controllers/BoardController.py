@@ -78,3 +78,20 @@ def rename(board_id):
 	name = request.form['name']
 	Boards.changeName(board_id, name)
 	return '{"status":"success"}'
+
+
+@boards.route('/boards/<board_id>/backlog', methods=['GET'])
+@Auth.authorized(Auth.BOARD_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
+def view_backlog(board_id):
+	'''
+		Render the Backlog for a given board.
+		arg: board_id - the ID of board to wich the backlog belongs
+	'''
+	board = Boards.view(board_id)
+	privileges = Boards.getRights(board_id, session['user'].id)
+	isAdmin = False
+	if privileges == AccessRules.OWNER_PRIVILEGES or privileges == AccessRules.ADMIN_PRIVILEGES:
+		isAdmin = True
+	return render_view('boards/backlog.html', board=board, isAdmin=isAdmin)
+
+
