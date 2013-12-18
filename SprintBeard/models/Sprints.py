@@ -1,6 +1,7 @@
 import binascii
 import datetime
 from Model import check_uuid, cursor, db
+import time
 import uuid
 from uuid import UUID
 
@@ -95,3 +96,29 @@ def get_current_sprint(board_id):
 	if row is not None:
 		sprint = Sprint(binascii.b2a_hex(row[0]), row[1], row[2], row[3])
 	return sprint
+
+@check_uuid
+def change_dates(sprint_id, start, end):
+	'''
+	Change the start and end date of the sprint.
+		arg: sprint_id - the id of the sprint
+		arg: start - the start date of the sprint (MM-DD-YYYY)
+		arg: end - the end date of the sprint (MM-DD-YYYY)
+	'''
+
+	sprint_id = UUID(sprint_id)
+	start = datetime.datetime(*time.strptime(start, '%m-%d-%Y')[0:6])
+	end = datetime.datetime(*time.strptime(end, '%m-%d-%Y')[0:6])
+
+	cursor.execute('''
+			UPDATE `sprints`
+			SET `start`=%s, `end`=%s
+			WHERE `id`=%s
+		''',
+		(start, end, sprint_id.bytes)
+	)
+
+	try:
+		db.commit()
+	except:
+		db.rollback()

@@ -338,11 +338,41 @@ $(document).ready(function()
     
     $( "#start-datepicker-{{board.sprint.id}}" ).datepicker(
     {
+        onSelect: function(date, picker) {
+            $("#end-datepicker-{{board.sprint.id}}").datepicker('option', 'minDate', date);
+            var endDate =  $( "#end-datepicker-{{board.sprint.id}}" ).datepicker().val();
 
+            $.ajax({
+                url: "/boards/{{board.id}}/sprints/{{board.sprint.id}}/dates",
+                type: "POST",
+                data: {
+                    start: date,
+                    end: endDate
+                }
+            });
+        },
+        dateFormat: 'mm-dd-yy'
     });
+    $("#start-datepicker-{{board.sprint.id}}").datepicker('setDate', "{{board.sprint.start.strftime('%m-%d-%Y')}}");
+    $("#start-datepicker-{{board.sprint.id}}").datepicker('option', 'setDate', "{{board.sprint.end.strftime('%m-%d-%Y')}}");
     $( "#end-datepicker-{{board.sprint.id}}" ).datepicker({
+        onSelect: function(date, picker) {
+            $("#start-datepicker-{{board.sprint.id}}").datepicker('option', 'maxDate', date);
+            var startDate =  $( "#start-datepicker-{{board.sprint.id}}" ).datepicker().val();
 
+            $.ajax({
+                url: "/boards/{{board.id}}/sprints/{{board.sprint.id}}/dates",
+                type: "POST",
+                data: {
+                    start: startDate,
+                    end: date
+                }
+            });
+        },
+        dateFormat: 'mm-dd-yy'
     });
+    $("#end-datepicker-{{board.sprint.id}}").datepicker('setDate', "{{board.sprint.end.strftime('%m-%d-%Y')}}");
+    $("#end-datepicker-{{board.sprint.id}}").datepicker('option', 'minDate', "{{board.sprint.start.strftime('%m-%d-%Y')}}");
 
     $("#change-name").click(function()
     {
