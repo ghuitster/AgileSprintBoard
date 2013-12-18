@@ -544,7 +544,7 @@ $("#story-edit-{{story.id}}").click(function() {
     //remove the story
     $("#trash-story-{{story.id}}").click(function() {
         $("#remove-story-button").attr("story-id", "{{story.id}}");
-        $("#remove-story-modal-name").text("{{story.name}}");
+        $("#remove-story-modal-name").text($('<div />').html("{{story.name}}").text());
     });
 
     {% for user in board.users %}
