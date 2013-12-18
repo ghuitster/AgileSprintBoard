@@ -109,7 +109,7 @@ def get(story_id):
 			row[2],
 			float(row[3]),
 			binascii.b2a_hex(row[4]),
-			binascii.b2a_hex(row[5])
+			binascii.b2a_hex(row[5]) if row[5] is not None else row[5]
 		)
 
 	return story
