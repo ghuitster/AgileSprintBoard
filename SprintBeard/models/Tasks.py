@@ -1,5 +1,5 @@
 import binascii
-from Model import check_uuid, db
+from Model import check_uuid, cursor, db
 import uuid
 from uuid import UUID
 
@@ -38,7 +38,6 @@ def create(story_id, name, description, estimate):
 	task_id = uuid.uuid4()
 	story_id = UUID(story_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			INSERT INTO `tasks` (`id`, `story_id`, `name`, `description`, `estimate`)
 			VALUES (%s, %s, %s, %s, %s)
@@ -64,7 +63,6 @@ def edit(task_id, name, description, estimate):
 
 	task_id = UUID(task_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			UPDATE `tasks`
 			SET `name`=%s, `description`=%s, `estimate`=%s
@@ -89,7 +87,6 @@ def get(task_id):
 	
 	task_id = UUID(task_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `id`, `story_id`, `name`, `description`, `estimate`, `completed`, `completion_date`
 			FROM `tasks`
@@ -122,7 +119,6 @@ def delete(task_id):
 
 	task_id = UUID(task_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			DELETE FROM `tasks`
 			WHERE `id`=%s
@@ -146,7 +142,6 @@ def get_by_story(story_id):
 
 	story_id = UUID(story_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `id`, `story_id`, `name`, `description`, `estimate`, `completed`, `completion_date`
 			FROM `tasks`
@@ -181,7 +176,6 @@ def get_users(task_id):
 
 	task_id = UUID(task_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `user_id`
 			FROM `users_tasks`
@@ -208,7 +202,6 @@ def assign(task_id, user_id):
 	task_id = UUID(task_id)
 	user_id = UUID(user_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			INSERT INTO `users_tasks` (`task_id`, `user_id`)
 			VALUES (%s, %s)
@@ -233,7 +226,6 @@ def unassign(task_id, user_id):
 	task_id = UUID(task_id)
 	user_id = UUID(user_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			DELETE FROM `users_tasks`
 			WHERE `task_id`=%s AND `user_id`=%s

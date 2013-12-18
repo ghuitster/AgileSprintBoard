@@ -1,6 +1,6 @@
 import binascii
 import datetime
-from Model import check_uuid, db
+from Model import check_uuid, cursor, db
 import uuid
 from uuid import UUID
 
@@ -32,7 +32,6 @@ def create(start, end, board_id):
 	#start = start.strftime('%Y-%m-%d')
 	#end = end.strftime('%Y-%m-%d')
 
-	cursor = db.cursor()
 	cursor.execute('''
 			INSERT INTO `sprints` (`id`, `start`, `end`, `board_id`)
 			VALUES (%s, %s, %s, %s)
@@ -58,7 +57,6 @@ def get(sprint_id):
 
 	sprint_id = UUID(sprint_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `id`, `start`, `end`, `board_id`
 			FROM `sprints`
@@ -85,7 +83,6 @@ def get_current_sprint(board_id):
 	now = datetime.datetime.now()#.strftime('%Y-%m-%d')
 	board_id = UUID(board_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `id`, `start`, `end`, `board_id` FROM `sprints`
 			WHERE `start` < %s AND `end` > %s AND `board_id`=%s

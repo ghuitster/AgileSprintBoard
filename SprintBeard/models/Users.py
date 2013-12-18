@@ -1,5 +1,5 @@
 import binascii
-from Model import check_uuid, db
+from Model import check_uuid, cursor, db
 import uuid
 from uuid import UUID
 
@@ -38,7 +38,6 @@ def create(name, email):
 
 	user = User(name, email, uuid.uuid4())
 
-	cursor = db.cursor()
 	cursor.execute('''
 			INSERT INTO `users` (id, name, email)
 			VALUES (%s, %s, %s)
@@ -62,7 +61,6 @@ def get(user_id):
 	'''
 	user_id = UUID(user_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `id`, `name`, `email`
 			FROM `users`
@@ -85,7 +83,6 @@ def create_openid_association(userid, openid):
 		arg: openid - the openid to associate
 	'''
 	userid = UUID(userid)
-	cursor = db.cursor()
 	cursor.execute('''
 			INSERT INTO `users_openids` (`user_id`, `openid`)
 			VALUES(%s, %s)
@@ -106,7 +103,6 @@ def get_by_openid(openid):
 		return: an User object representing the found user or None if not found
 	'''
 
-	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `user_id`
 			FROM `users_openids`
@@ -132,7 +128,6 @@ def get_by_board(board_id):
 
 	board_id = UUID(board_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 		SELECT `name`, `email`, `id`
 		FROM `users` INNER JOIN `users_boards`
@@ -156,7 +151,6 @@ def update(id, name, email):
 		arg: email - the email of the user to updated
 	'''
 
-	cursor = db.cursor()
 	cursor.execute('''
 			UPDATE `users`
 			SET `name`=%s,`email`=%s

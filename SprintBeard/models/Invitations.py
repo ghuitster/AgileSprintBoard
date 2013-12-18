@@ -1,6 +1,6 @@
 import binascii
 import Boards
-from Model import check_uuid, db
+from Model import check_uuid, cursor, db
 import uuid
 from uuid import UUID
 import AccessRules
@@ -34,7 +34,6 @@ def get(invite_id):
 		return: an Invitation containing the data about the invitation
 	'''
 	id = UUID(invite_id)
-	cursor = db.cursor()
 	cursor.execute('''
 			SELECT * FROM `invitations`
 			WHERE `id`=%s
@@ -67,7 +66,6 @@ def invite(user_email, board_id, privileges):
 	'''
 	invite_id = uuid.uuid4()
 	board_id = UUID(board_id)
-	cursor = db.cursor()
 
 	cursor.execute('''
 			SELECT `id` 
@@ -103,8 +101,6 @@ def respond_to_invite(invite_id, accept):
 		arg: invite_id - the id of the invitation as a string
 		arg: accept - whether to accept the invitation
 	'''
-	
-	cursor = db.cursor()
 
 	if accept:
 		invitation = get(invite_id)
@@ -138,7 +134,6 @@ def get_by_user(user_id):
 
 	user_id = UUID(user_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `invitations`.`id`, `user_id`, `board_id`, `privileges`, `active`, `name`
 			FROM `invitations` INNER JOIN `boards` ON `boards`.`id` = `invitations`.`board_id`

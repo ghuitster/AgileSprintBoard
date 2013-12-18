@@ -1,5 +1,5 @@
 import binascii
-from Model import check_uuid, db
+from Model import check_uuid, cursor, db
 import Tasks
 import uuid
 from uuid import UUID
@@ -40,7 +40,6 @@ def create(name, description, estimate, board_id, sprint_id):
 	if sprint_id is not None:
 		sprint_id = UUID(sprint_id).bytes
 
-	cursor = db.cursor()
 	cursor.execute('''
 			INSERT INTO `stories` (`id`, `name`, `description`, `estimate`, `board_id`, `sprint_id`)
 			VALUES (%s, %s, %s, %s, %s, %s)
@@ -70,7 +69,6 @@ def edit(story_id, name, description, estimate, board_id, sprint_id):
 	if sprint_id is not None:
 		sprint_id = UUID(sprint_id).bytes
 
-	cursor = db.cursor()
 	cursor.execute('''
 			UPDATE `users_stories`
 			SET `name`=%s, `description`=%s, `estimate`=%s, `board_id`=%s, `sprint_id`=%s
@@ -95,7 +93,6 @@ def get(story_id):
 
 	story_id = UUID(story_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `id`, `name`, `description`, `estimate`, `board_id`, `sprint_id`
 			FROM `stories`
@@ -127,7 +124,6 @@ def delete(story_id):
 
 	story_id = UUID(story_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			DELETE FROM `stories`
 			WHERE `id`=%s
@@ -165,7 +161,6 @@ def get_by_board(board_id, sprint_id = None):
 		else:
 			sql_tuple = (board_id.bytes, UUID(sprint_id).bytes)
 
-	cursor = db.cursor()
 	cursor.execute(sql_str, sql_tuple)
 	
 	rows = cursor.fetchall()

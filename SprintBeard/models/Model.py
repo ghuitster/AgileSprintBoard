@@ -5,6 +5,7 @@ from uuid import UUID
 
 encodings._aliases["utf8mb4"] = "utf_8"
 db = MySQLdb.connect(host='localhost', user='dev', passwd='dev', db='agile', charset='utf8mb4')
+cursor = db.cursor()
 
 def check_uuid(handler):
 	'''

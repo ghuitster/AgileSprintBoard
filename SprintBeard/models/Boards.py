@@ -2,7 +2,7 @@ import AccessRules
 import binascii
 import datetime
 from dateutil.relativedelta import relativedelta
-from Model import check_uuid, db
+from Model import check_uuid, cursor, db
 import Sprints
 import Stories
 import Users
@@ -38,7 +38,6 @@ def create(user_id, name):
 
 	user_id = UUID(user_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			INSERT INTO `boards` (`id`, `name`) 
 			VALUES (%s, %s)
@@ -92,7 +91,6 @@ def view(board_id, sprint_id='current'):
 		sprint_id = UUID(sprint_id).hex
 		sprint = Sprints.get(sprint_id)
 
-	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `name`, `id`
 			FROM `boards`
@@ -115,7 +113,6 @@ def delete(board_id):
 		arg: board_id - the id of the board to be deleted
 	'''
 	board_id = UUID(board_id)
-	cursor = db.cursor()
 	cursor.execute('''
 			DELETE FROM `boards` 
 			WHERE `id`=%s
@@ -141,7 +138,6 @@ def changeName(board_id, new_name):
 		arg: new_name - the new Name of the Board
 	'''
 	board_id = UUID(board_id)
-	cursor = db.cursor()
 	cursor.execute('''
 			UPDATE `boards` 
 			SET `name`=%s 
@@ -164,7 +160,6 @@ def get_user_boards(user_id):
 	'''
 
 	user_id = UUID(user_id)
-	cursor = db.cursor()
 	cursor.execute(
 		'''
 			SELECT `user_id`, `board_id`, `privileges`, `name` 
@@ -192,7 +187,6 @@ def get(board_id):
 	'''
 
 	board_id = UUID(board_id)
-	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `id`, `name`
 			FROM `boards`
@@ -219,7 +213,6 @@ def getRights(board_id, user_id):
 	'''
 	user_id = UUID(user_id)
 	board_id = UUID(board_id)
-	cursor = db.cursor()
 	cursor.execute('''
 			SELECT `privileges`
 			FROM `users_boards`
