@@ -51,10 +51,24 @@ def view(board_id):
 	'''
 	board = Boards.view(board_id)
 	privileges = Boards.getRights(board_id, session['user'].id)
-	isAdmin = False
+	is_admin = False
 	if privileges == AccessRules.OWNER_PRIVILEGES or privileges == AccessRules.ADMIN_PRIVILEGES:
-		isAdmin = True
-	return render_view('boards/view.html', board=board, isAdmin=isAdmin)
+		is_admin = True
+	return render_view('boards/view.html', board=board, isAdmin=is_admin)
+
+@boards.route('/boards/<board_id>/backlog', methods=['GET'])
+@Auth.authorized(Auth.BOARD_AUTHORIZATION, Auth.MALFORMED_UUID_HTML)
+def view_backlog(board_id):
+	'''
+	Render the Backlog for a given board.
+		arg: board_id - the ID of board to which the backlog belongs
+	'''
+	board = Boards.view(board_id, 'backlog')
+	privileges = Boards.getRights(board_id, session['user'].id)
+	is_admin = False
+	if privileges == AccessRules.OWNER_PRIVILEGES or privileges == AccessRules.ADMIN_PRIVILEGES:
+		is_admin = True
+	return render_view('boards/backlog.html', board=board, isAdmin=is_admin)
 
 @boards.route('/boards/<board_id>', methods=['DELETE'])
 @Auth.authorized(Auth.BOARD_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
@@ -78,20 +92,3 @@ def rename(board_id):
 	name = request.form['name']
 	Boards.changeName(board_id, name)
 	return '{"status":"success"}'
-
-
-@boards.route('/boards/<board_id>/backlog', methods=['GET'])
-@Auth.authorized(Auth.BOARD_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
-def view_backlog(board_id):
-	'''
-		Render the Backlog for a given board.
-		arg: board_id - the ID of board to wich the backlog belongs
-	'''
-	board = Boards.view(board_id)
-	privileges = Boards.getRights(board_id, session['user'].id)
-	isAdmin = False
-	if privileges == AccessRules.OWNER_PRIVILEGES or privileges == AccessRules.ADMIN_PRIVILEGES:
-		isAdmin = True
-	return render_view('boards/backlog.html', board=board, isAdmin=isAdmin)
-
-

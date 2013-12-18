@@ -9,10 +9,10 @@
 	<thead>
 		<tr>
 			<td>
-				<span>Task:</span>
+				<span>Story:</span>
 			</td>
 			<td>
-				<span>Descrition:</span>
+				<span>Description:</span>
 			</td>
 			<td width="10%" style="text-align:center;">
 				<span>Estimate:</span>
@@ -27,31 +27,27 @@
 	</thead>	
 	<tbody>
 		{% for story in board.stories %}
-		{% for task in story.tasks %}
-		{% if task.users|count == 0%}
 		<tr>
 			<td>
-				{{task.name}}
+				{{story.name}}
 			</td>
 			<td>
-				{{task.description}}
+				{{story.description}}
 			</td>
 			<td width="10%" style="text-align:center;">
-				{{task.estimate}}
+				{{story.estimate}}
 			</td>
 			<td width="10%">
-				<span class="btn btn-success pull-center" id="add-task-{{task.id}}">
+				<span class="btn btn-success pull-center" id="add-task-{{story.id}}">
 					<i class="icon-plus"></i>
 				</span>
 			</td>
 			<td width="10%">
-				<span class="btn btn-danger pull-center" id="trash-task-{{task.id}}">
+				<span class="btn btn-danger pull-center" id="trash-task-{{story.id}}">
 					<i class="icon-trash"></i>
 				</span>
 			</td>
 		</tr>
-		{% endif %}
-		{% endfor %}
 		{% endfor %}
 	</tbody>
 </table>

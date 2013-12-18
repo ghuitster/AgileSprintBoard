@@ -153,11 +153,11 @@ def get_by_board(board_id, sprint_id = None):
 	'''
 	sql_tuple = (board_id.bytes)
 	if sprint_id != 'all':
-		sql_str += ' AND `sprint_id`=%s'
 
 		if sprint_id == 'backlog':
-			sql_tuple = (board_id.bytes, None)
+			sql_str += ' AND `sprint_id` is NULL'
 		else:
+			sql_str += ' AND `sprint_id`=%s'
 			sql_tuple = (board_id.bytes, UUID(sprint_id).bytes)
 
 	cursor.execute(sql_str, sql_tuple)
@@ -171,7 +171,7 @@ def get_by_board(board_id, sprint_id = None):
 				row[2],
 				float(row[3]),
 				binascii.b2a_hex(row[4]),
-				binascii.b2a_hex(row[5]),
+				binascii.b2a_hex(row[5]) if row[5] is not None else row[5],
 				Tasks.get_by_story(binascii.b2a_hex(row[0]))
 			)
 		)
