@@ -98,6 +98,7 @@ $(document).ready(function()
     	$("#story-modal-title").text("Edit Story");
     	$("#story-modal-submit").text("Update Story");
     	$("#story-modal-submit").attr("change", "edit");
+    	$("#story-modal-submit").attr("story_id_attr", "{{story.id}}");
     	$("#story-title-label").text("Story Title");
     	$("#story-title-input").val("{{story.name}}");
     	$("#story-description-input").val("{{story.description}}");
@@ -122,11 +123,11 @@ $(document).ready(function()
         var description = $("#story-description-input").val();
         var estimate = $('#story-estimate-input').val();
         var sprint_id = "Backlog";
-        var urlBuild = "/boards/" + "{{board.id}}" + "/stories"
         var change_new = $("#story-modal-submit").attr("change");
 
         if(change_new == "new")
         {
+        	var urlBuild = "/boards/" + "{{board.id}}" + "/stories"
 	        $.ajax(
 	        {
 	            url: urlBuild,
@@ -141,6 +142,8 @@ $(document).ready(function()
        	}
        	if(change_new == "edit")
         {
+        	var story_id = $("#story-modal-submit").attr("story_id_attr");
+        	var urlBuild = "/stories/" + story_id;
 	        $.ajax(
 	        {
 	            url: urlBuild,
