@@ -5,6 +5,10 @@
 {% block content %}
 {{ super() }}
 
+
+<a type class="btn btn-primary min" id="return-board" type="button" href="/boards/{{board.id}}" >
+	Return To Board
+</a>
 <table class="table table-bordered table-striped" id="backlogtable">
 	<thead>
 		<tr>
@@ -153,7 +157,7 @@ $(document).ready(function()
                 'sprint_id': sprint_id
             }
         });
-    });  
+    });
 });
 </script>
 
