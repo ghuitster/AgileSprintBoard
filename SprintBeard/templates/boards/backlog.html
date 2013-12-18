@@ -12,12 +12,8 @@
 			<td> <span>Story:</span> </td>
 			<td> <span>Description:</span> </td>
 			<td width="10%" style="text-align:center;"> <span>Estimate:</span> </td> 
-			<td width="10%" style="text-align:center;">
-				<span>Assign:</span>
-			</td>
-			<td width="10%" style="text-align:center;">
-				<span>Delete:</span>
-			</td>
+			<td width="10%" style="text-align:center;"> <span>Assign:</span> </td>
+			<td width="10%" style="text-align:center;"> <span>Delete:</span> </td>
 		</tr>
 	</thead>	
 	<tbody>
@@ -28,15 +24,9 @@
 					<i class="icon icon-info-sign"></i>
 				</span>
 			</td>
-			<td>
-				{{story.name}}
-			</td>
-			<td>
-				{{story.description}}
-			</td>
-			<td width="10%" style="text-align:center;">
-				{{story.estimate}}
-			</td>
+			<td> {{story.name}} </td>
+			<td> {{story.description}} </td>
+			<td width="10%" style="text-align:center;"> {{story.estimate}} </td>
 			<td width="10%">
 				<span class="btn btn-success" style="width:65%;" id="assign-story-{{story.id}}">
 					<i class="icon-plus"></i>
@@ -55,6 +45,7 @@
 					<i class="icon-plus"></i>
 				</span>
 			</td>
+			<td colspan="5"></td>
 		</tr>
 	</tbody>
 </table>
@@ -104,6 +95,23 @@ $(document).ready(function()
     	$("#story-description-input").val("{{story.description}}");
     	$("#story-estimate-input").val("{{story.estimate}}");
     });
+
+    $("#assign-story-{{story.id}}").click(function()
+    {
+    	
+    });
+
+    $("#trash-story-{{story.id}}").click(function()
+    {
+        var urlBuild = "/stories/" + "{{story.id}}";
+        $.ajax({
+            url: urlBuild,
+            type: "DELETE",
+            success: function(result) {
+            	location.reload();
+            }
+        });
+    });
     {% endfor %}
 
     $("#add-story-modal").click(function()
@@ -145,7 +153,7 @@ $(document).ready(function()
                 'sprint_id': sprint_id
             }
         });
-    });    
+    });  
 });
 </script>
 
