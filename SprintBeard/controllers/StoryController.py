@@ -66,17 +66,12 @@ def edit(story_id):
 	except ValueError:
 		estimate = 1.0
 	sprint_id = (request.form['sprint_id']).lower()
-	board_id = request.form['board_id']
 
 	#get the correct sprint id if one of the options is specified
 	if sprint_id == 'backlog':
 		sprint_id = None
-	elif sprint_id == 'current':
-		sprint = Sprints.get_current_sprint(board_id)
-		if sprint is not None:
-			sprint_id = sprint.id
 
-	result = Stories.edit(story_id, name, description, estimate, board_id, sprint_id)
+	result = Stories.edit(story_id, name, description, estimate, sprint_id)
 
 	if type(result) != dict:
 		return '{"status": "success"}'

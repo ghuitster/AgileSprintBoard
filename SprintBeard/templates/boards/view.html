@@ -63,7 +63,7 @@
                     {{story.name}}
                 </span>
                 <span class="pull-right">
-                    <a type="submit" class="clickable" data-toggle="modal" data-target="#story-edit-modal" id="story-info-{{story.id}}">
+                    <a type="submit" class="clickable" data-toggle="modal" data-target="#story-edit-modal" id="story-edit-{{story.id}}">
                         <i class="icon icon-pencil"></i>
                     </a>
                     <a type="submit" class="clickable" data-toggle="modal" data-target="#story-info-modal" id="story-info-{{story.id}}">
@@ -427,7 +427,7 @@ $(document).ready(function()
         var description = $('#edit-story-description-input').val();
         var estimate = $('#edit-story-estimate-input').val();
         var sprint_id = $('#edit-story-sprint-input').val();
-        var story_id = $("#edit-story-button").attr("story-id");
+        var story_id = $('#edit-story-button').attr("story-id");
         var url = "/stories/" + story_id + "/edit";
 
         $.ajax(
@@ -438,8 +438,7 @@ $(document).ready(function()
                 'name': name,
                 'description': description,
                 'estimate': estimate,
-                'sprint_id': sprint_id,
-                'board_id': board_id
+                'sprint_id': sprint_id
             },
             success: function(result)
             {
@@ -544,7 +543,9 @@ $("#story-edit-{{story.id}}").click(function() {
     $("#edit-story-title-input").val("{{story.name}}");
     $("#edit-story-description-input").val("{{story.description}}");
     $("#edit-story-estimate-input").val("{{story.estimate}}");
+    $("#edit-story-sprint-input").val("{{story.sprint}}");
     $("#edit-story-button").attr("story-id", "{{story.id}}");
+    $("#edit-story-button").attr("story-name", "{{story.name}}");
 });
 
     //remove the story
