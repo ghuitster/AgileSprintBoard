@@ -8,15 +8,10 @@
 <table class="table table-bordered table-striped" id="backlogtable">
 	<thead>
 		<tr>
-			<td>
-				<span>Story:</span>
-			</td>
-			<td>
-				<span>Description:</span>
-			</td>
-			<td width="10%" style="text-align:center;">
-				<span>Estimate:</span>
-			</td>
+			<td style="text-align: center; vertical-align: middle;" width="5%"> <i class="icon icon-info-sign"></i> </td>
+			<td> <span>Story:</span> </td>
+			<td> <span>Description:</span> </td>
+			<td width="10%" style="text-align:center;"> <span>Estimate:</span> </td> 
 			<td width="10%" style="text-align:center;">
 				<span>Assign:</span>
 			</td>
@@ -28,6 +23,11 @@
 	<tbody>
 		{% for story in board.stories %}
 		<tr>
+			<td width="5%">
+				<span class="btn btn-info" id="edit-story-{{story.id}}-modal" data-toggle="modal" data-target="#story-modal">
+					<i class="icon icon-info-sign"></i>
+				</span>
+			</td>
 			<td>
 				{{story.name}}
 			</td>
@@ -38,18 +38,123 @@
 				{{story.estimate}}
 			</td>
 			<td width="10%">
-				<span class="btn btn-success pull-center" id="add-task-{{story.id}}">
+				<span class="btn btn-success" style="width:65%;" id="assign-story-{{story.id}}">
 					<i class="icon-plus"></i>
 				</span>
 			</td>
 			<td width="10%">
-				<span class="btn btn-danger pull-center" id="trash-task-{{story.id}}">
+				<span class="btn btn-danger" style="width:65%;" id="trash-story-{{story.id}}">
 					<i class="icon-trash"></i>
 				</span>
 			</td>
 		</tr>
 		{% endfor %}
+		<tr>
+			<td>
+				<span class="btn btn-success" id="add-story-modal" data-toggle="modal" data-target="#story-modal">
+					<i class="icon-plus"></i>
+				</span>
+			</td>
+		</tr>
 	</tbody>
 </table>
+
+<!-- Modal for Stories (add and edit) !-->
+<div class="modal hide fade" id="story-modal" tabindex="-1" role="dialog" aria-labelledby="add-story-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form role="modal-form" style="margin-bottom:0">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="story-modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        {% if user is defined %}
+                        <label for="story-title-input" id="story-title-label"></label>
+                        <input type="text" class="form-control" id="story-title-input">
+                        <label for="story-description-input">Description:</label>
+                        <input type="text" class="form-control" id="story-description-input">
+                        <label for="story-estimate-input">Estimate:</label>
+                        <input type="number" min="0.0" max="99.0" step="0.25" class="form-control" style="height:30px;" id="story-estimate-input">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="story-modal-cancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="story-modal-submit" type="submit" class="btn btn-primary"></button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+$(document).ready(function()
+{
+	{% for story in board.stories %}
+    $("#edit-story-{{story.id}}-modal").click(function()
+    {    	
+    	$("#story-modal-title").text("Edit Story");
+    	$("#story-modal-submit").text("Update Story");
+    	$("#story-modal-submit").attr("change", "edit");
+    	$("#story-title-label").text("Story Title");
+    	$("#story-title-input").val("{{story.name}}");
+    	$("#story-description-input").val("{{story.description}}");
+    	$("#story-estimate-input").val("{{story.estimate}}");
+    });
+    {% endfor %}
+
+    $("#add-story-modal").click(function()
+    {
+    	$("#story-modal-title").text("Add Story");
+    	$("#story-modal-submit").text("Add Story");
+    	$("#story-modal-submit").attr("change", "new");
+    	$("#story-title-label").text("New Story Title");
+    	$("#story-title-input").attr("placeholder", "Add a Title");
+    	$("#story-description-input").attr("placeholder", "Add a Description");
+    	$("#story-estimate-input").attr("placeholder", "1.0");    	
+    });
+
+    $("#story-modal-submit").click(function()
+    {
+    	var name = $("#story-title-input").val();
+        var description = $("#story-description-input").val();
+        var estimate = $('#story-estimate-input').val();
+        var sprint_id = "Backlog";
+        var urlBuild = "/boards/" + "{{board.id}}" + "/stories"
+        var change_new = $("#story-modal-submit").attr("change");
+
+        if(change_new == "new")
+        {
+	        $.ajax(
+	        {
+	            url: urlBuild,
+	            type: 'POST',
+	            data: {
+	                'name': name,
+	                'description': description,
+	                'estimate': estimate,
+	                'sprint_id': sprint_id
+	            }
+	        });
+       	}
+       	if(change_new == "edit")
+        {
+	        $.ajax(
+	        {
+	            url: urlBuild,
+	            type: 'POST',
+	            data: {
+	                'name': name,
+	                'description': description,
+	                'estimate': estimate,
+	                'sprint_id': sprint_id
+	            }
+	        });
+       	}
+    });
+});
+</script>
 
 {% endblock %}
