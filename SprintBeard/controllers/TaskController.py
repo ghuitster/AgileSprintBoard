@@ -94,3 +94,25 @@ def unassign(task_id):
 	user_id = request.form['user_id']
 	Tasks.unassign(task_id, user_id)
 	return '{"status": "success"}'
+
+@tasks.route('/tasks/completed/<task_id>', methods=['POST'])
+@Auth.authorized(Auth.TASK_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
+def complete(task_id):
+	'''
+	Mark a task completed.
+		arg: task_id - the task to mark as completed
+	'''
+
+	Tasks.change_complete(task_id)
+	return '{"status": "success"}'
+
+@tasks.route('/tasks/completed/<task_id>', methods=['DELETE'])
+@Auth.authorized(Auth.TASK_AUTHORIZATION, Auth.MALFORMED_UUID_JSON)
+def uncomplete(task_id):
+	'''
+	Mark a task as not completed
+		arg: task_id - the task to mark as not completed
+	'''
+
+	Tasks.change_complete(task_id, False)
+	return '{"status": "success"}'

@@ -47,6 +47,9 @@
                 <span> {{user.name.split(' ')[0]}} </span>
             </td>
             {% endfor %}
+            <td bgcolor="#2EC8F0" style="width: 50px; vertical-align:middle;">
+                Completed
+            </td>
         </tr>
     </thead>
     <tfoot>
@@ -82,7 +85,7 @@
                 </span>
                 
                 {% for task in story.tasks %}
-                {% if task.users|count == 0%}
+                {% if task.users|count == 0 and task.completed == False %}
                 <a type="submit" class="btn btn-info" id="task-{{task.id}}" data-toggle="modal" data-target="#edit-task-modal" user-id="">
                     {{task.name}}
                 </a>
@@ -96,7 +99,7 @@
             {% for user in board.users %}
             <td style="vertical-align:middle;" id="assign-to-user-{{story.id}}-{{user.id}}">
                 {% for task in story.tasks %}
-                {% if user.id in task.users %}
+                {% if user.id in task.users and task.completed == False %}
                 <a type="submit" class="btn btn-info" id="task-{{task.id}}" data-toggle="modal" data-target="#task-info-modal" user-id="{{user.id}}">
                     {{task.name}}
                 </a>
@@ -104,6 +107,15 @@
                 {% endfor %}
             </td>
             {% endfor %}
+            <td id="completed-{{story.id}}">
+                {% for task in story.tasks %}
+                {% if task.completed %}
+                    <a type="submit" class="btn btn-info" id="task-{{task.id}}" data-toggle="modal" data-target="#task-info-modal" user-id="completed">
+                        {{task.name}}
+                    </a>
+                {% endif %}
+                {% endfor %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>
@@ -522,6 +534,20 @@ $("#tasks-cell-{{story.id}}").droppable({
     }
 });
 
+$("#completed-{{story.id}}").droppable({
+    accept: function(elem) {
+        var index = $.inArray(elem.attr("id"), tasks{{story.id}});
+        if (index != -1) {
+            return true;
+        }
+        return false;
+    },
+    hoverClass: "ui-state-active",
+    drop: function(event, ui) {
+        reassignTaskToUser(ui.draggable, "completed");
+    }
+});
+
 $("#add-task-{{story.id}}").click(function()
 {
     $('#add-task-modal').attr('story_id', '{{story.id}}');
@@ -566,9 +592,9 @@ $("#story-edit-{{story.id}}").click(function() {
 
     var reassignTaskToUser = function (item, user_id){
         var taskid = item.attr("id").substring(5);
-
+        var oldId = item.attr("user-id");
         //if the old id was an actual user id, delete it
-        if (item.attr("user-id") != "") {
+        if  (oldId != "completed" && oldId != "") {
             $.ajax({
                 url: "/assign/tasks/" + taskid,
                 type: "DELETE",
@@ -577,9 +603,25 @@ $("#story-edit-{{story.id}}").click(function() {
                 }
             });
         }
+        if (oldId == "completed" && user_id != "completed") {
+            $.ajax({
+                url: "/tasks/completed/" + taskid,
+                type: "DELETE",
+                data: {
+                    'user_id' : item.attr("user-id")
+                }
+            });
+        }
 
+        //if the new id is completed, mark it completed
+        if (user_id == "completed") {
+            $.ajax({
+                url: "/tasks/completed/" + taskid,
+                type: "POST"
+            });
+        }
         //if we have an actual user id to assign to assign it
-        if (user_id != "") {
+        else if  (user_id != "") {
             $.ajax({
                 url: "/assign/tasks/" + taskid,
                 type: "POST",

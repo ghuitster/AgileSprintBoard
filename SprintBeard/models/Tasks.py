@@ -240,3 +240,25 @@ def unassign(task_id, user_id):
 		db.commit()
 	except:
 		db.rollback()
+
+@check_uuid
+def change_complete(task_id, status=True):
+	'''
+	Mark a task as completed.
+		arg: task_id - the id of the task to mark complete
+	'''
+
+	task_id = UUID(task_id)
+
+	cursor.execute('''
+			UPDATE `tasks`
+			SET `completed`=%r
+			WHERE `id`=%s
+		''',
+		(status, task_id.bytes)
+	)
+
+	try:
+		db.commit()
+	except:
+		db.rollback()
