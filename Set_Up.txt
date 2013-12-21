@@ -67,7 +67,29 @@ I also found these pieces of Flask output interesting. They came when I hit refr
 76.8.214.91 - - [21/Dec/2013 15:51:53] "GET /boards/47f006aae818454f9942908b01ec723e? HTTP/1.1" 200 -
 
 
-I did this entire process with localhost and I get a broken pipe from both Firefox and Chrome when I try to add a story.
+I did this entire process with localhost and I get a broken pipe from both Firefox and Chrome when I try to add a story. Here's the printout from Flask below.
+
+127.0.0.1 - - [21/Dec/2013 14:24:58] "POST /boards/773de4c392324cc3a274f3c00a8e2fe5/stories HTTP/1.1" 200 -
+----------------------------------------
+Exception happened during processing of request from ('127.0.0.1', 40886)
+Traceback (most recent call last):
+  File "/usr/lib/python2.7/SocketServer.py", line 295, in _handle_request_noblock
+    self.process_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 321, in process_request
+    self.finish_request(request, client_address)
+  File "/usr/lib/python2.7/SocketServer.py", line 334, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python2.7/SocketServer.py", line 651, in __init__
+    self.finish()
+  File "/usr/lib/python2.7/SocketServer.py", line 710, in finish
+    self.wfile.close()
+  File "/usr/lib/python2.7/socket.py", line 279, in close
+    self.flush()
+  File "/usr/lib/python2.7/socket.py", line 303, in flush
+    self._sock.sendall(view[write_offset:write_offset+buffer_size])
+error: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [21/Dec/2013 14:24:58] "GET /boards/773de4c392324cc3a274f3c00a8e2fe5? HTTP/1.1" 200 -
 
 boards, sprints, users, users_boards, stories, and users_openids have stuff in them and seem correct.
 invitations, tasks, and users_tasks are empty and should be.
