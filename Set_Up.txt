@@ -28,7 +28,7 @@ Created a board fine in both Firefox and Chrome.
 Viewed that board in Chrome and Firefox just fine.
 Tried to create a story in Firefox and Chrome, it didn't error but nothing actually got added.
 
-boards, sprints, users, users_boards, and users_openids have stuff in them and are correct.
+boards, sprints, users, users_boards, and users_openids have stuff in them and seem correct.
 invitations, tasks, and users_tasks are empty and should be.
 stories and users_stories are empty and shouldn't be.
 
@@ -65,3 +65,10 @@ I also found these pieces of Flask output interesting. They came when I hit refr
 76.8.214.91 - - [21/Dec/2013 15:49:53] "GET /static/css/images/ui-bg_flat_75_ffffff_40x100.png HTTP/1.1" 200 -
 76.8.214.91 - - [21/Dec/2013 15:50:42] "GET /boards/e4359867e36a449d929380ceda42bae3 HTTP/1.1" 200 -
 76.8.214.91 - - [21/Dec/2013 15:51:53] "GET /boards/47f006aae818454f9942908b01ec723e? HTTP/1.1" 200 -
+
+
+I did this entire process with localhost and I get a broken pipe from both Firefox and Chrome when I try to add a story.
+
+boards, sprints, users, users_boards, stories, and users_openids have stuff in them and seem correct.
+invitations, tasks, and users_tasks are empty and should be.
+users_stories is empty and shouldn't be?
