@@ -1,0 +1,67 @@
+**********************************
+********** SERVER SETUP **********
+**********************************
+
+user@ubuntu1204:~/AgileSprintBoard$ sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoremove && sudo apt-get autoclean && sudo apt-get clean
+user@ubuntu1204:~/AgileSprintBoard$ sudo apt-get install git git-core python python-pip python-flask python-numpy python-scipy python-matplotlib mysql-server mysql-client python-mysqldb
+user@ubuntu1204:~/AgileSprintBoard$ sudo pip install flask-openid
+Set up mysql root user password
+mysql> CREATE USER 'dev'@'localhost' IDENTIFIED BY 'dev';
+mysql> CREATE USER 'dev'@'%' IDENTIFIED BY 'dev';
+mysql> GRANT ALL PRIVILEGES ON * . * TO 'dev'@'localhost';
+mysql> GRANT ALL PRIVILEGES ON * . * TO 'dev'@'%';
+mysql> FLUSH PRIVILEGES;
+Executed files 1-6 in the sql folder
+user@ubuntu1204:~/AgileSprintBoard$ git config --global user.name "David Barley"
+user@ubuntu1204:~/AgileSprintBoard$ git config --global user.email "ghuitster@gmail.com"
+user@ubuntu1204:~/AgileSprintBoard$ git clone https://github.com/gitNate/AgileSprintBoard.git
+Changed SprintBeard/SprintBeard.py to say app.run('0.0.0.0')
+user@ubuntu1204:~/AgileSprintBoard$ python SprintBeard/SprintBeard.py
+
+*****************************
+********** TESTING **********
+*****************************
+
+The site pulls up fine in Firefox and Chrome, I haven't tried to do anything yet.
+Logged in fine on Firefox and Chrome.
+Created a board fine in both Firefox and Chrome.
+Viewed that board in Chrome and Firefox just fine.
+Tried to create a story in Firefox and Chrome, it didn't error but nothing actually got added.
+
+boards, sprints, users, users_boards, and users_openids have stuff in them and are correct.
+invitations, tasks, and users_tasks are empty and should be.
+stories and users_stories are empty and shouldn't be.
+
+Here's the output from Flask when I tried to create a story with Firefox.
+
+76.8.214.91 - - [21/Dec/2013 15:49:00] "POST /user/f7ebcc267fbf4465861e1f1cd43d37e8/boards HTTP/1.1" 200 -
+76.8.214.91 - - [21/Dec/2013 15:49:00] "GET /user/f7ebcc267fbf4465861e1f1cd43d37e8/boards HTTP/1.1" 200 -
+76.8.214.91 - - [21/Dec/2013 15:49:00] "GET /static/css/bootstrap.css HTTP/1.1" 304 -
+76.8.214.91 - - [21/Dec/2013 15:49:00] "GET /static/css/main.css HTTP/1.1" 304 -
+76.8.214.91 - - [21/Dec/2013 15:49:00] "GET /static/js/bootstrap.min.js HTTP/1.1" 304 -
+76.8.214.91 - - [21/Dec/2013 15:49:00] "GET /static/css/jquery-ui.css HTTP/1.1" 304 -
+76.8.214.91 - - [21/Dec/2013 15:49:00] "GET /static/js/jquery-ui.js HTTP/1.1" 304 -
+76.8.214.91 - - [21/Dec/2013 15:49:00] "GET /static/js/jquery.min.js HTTP/1.1" 304 -
+76.8.214.91 - - [21/Dec/2013 15:49:00] "GET /static/img/glyphicons-halflings.png HTTP/1.1" 200 -
+76.8.214.91 - - [21/Dec/2013 15:49:00] "GET /static/img/logo_small.png HTTP/1.1" 304 -
+
+Here's the output from Flask when I tried to create a story with Chrome.
+
+76.8.214.91 - - [21/Dec/2013 15:49:07] "POST /user/27c4941d143d421792125713fa988024/boards HTTP/1.1" 200 -
+76.8.214.91 - - [21/Dec/2013 15:49:08] "GET /user/27c4941d143d421792125713fa988024/boards HTTP/1.1" 200 -
+76.8.214.91 - - [21/Dec/2013 15:49:08] "GET /static/css/bootstrap.css HTTP/1.1" 304 -
+76.8.214.91 - - [21/Dec/2013 15:49:08] "GET /static/css/main.css HTTP/1.1" 304 -
+76.8.214.91 - - [21/Dec/2013 15:49:08] "GET /static/css/jquery-ui.css HTTP/1.1" 304 -
+76.8.214.91 - - [21/Dec/2013 15:49:08] "GET /static/js/bootstrap.min.js HTTP/1.1" 304 -
+76.8.214.91 - - [21/Dec/2013 15:49:08] "GET /static/js/jquery-ui.js HTTP/1.1" 304 -
+76.8.214.91 - - [21/Dec/2013 15:49:08] "GET /static/js/jquery.min.js HTTP/1.1" 304 -
+76.8.214.91 - - [21/Dec/2013 15:49:08] "GET /static/img/logo_small.png HTTP/1.1" 304 -
+76.8.214.91 - - [21/Dec/2013 15:49:08] "GET /static/img/glyphicons-halflings.png HTTP/1.1" 200 -
+
+I also found these pieces of Flask output interesting. They came when I hit refresh on the page.
+
+76.8.214.91 - - [21/Dec/2013 15:49:47] "GET /boards/e4359867e36a449d929380ceda42bae3 HTTP/1.1" 200 -
+76.8.214.91 - - [21/Dec/2013 15:49:53] "GET /boards/47f006aae818454f9942908b01ec723e HTTP/1.1" 200 -
+76.8.214.91 - - [21/Dec/2013 15:49:53] "GET /static/css/images/ui-bg_flat_75_ffffff_40x100.png HTTP/1.1" 200 -
+76.8.214.91 - - [21/Dec/2013 15:50:42] "GET /boards/e4359867e36a449d929380ceda42bae3 HTTP/1.1" 200 -
+76.8.214.91 - - [21/Dec/2013 15:51:53] "GET /boards/47f006aae818454f9942908b01ec723e? HTTP/1.1" 200 -
