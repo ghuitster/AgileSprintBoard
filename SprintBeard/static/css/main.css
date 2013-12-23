@@ -75,19 +75,12 @@
 	width: 90%;
 }
 
-#homeScreenMain {
+#home-screen-main {
 	text-align: center;
+ 	white-space: nowrap;
+ 	display: inline-block;
 }
 
-#homeScreenLeftColumn {	
-	width: 35%;
-	text-align: center;
-}
-
-#homeScreenRightColumn {
-	width: 35%;
-	text-align: center;
-}
 #homeScreenLogo {	
 	margin-right: 3%;
 	margin-left: 3%;
@@ -124,4 +117,13 @@
 
 .deleteUI {
 	background-color: "red" !important; 
+}
+
+#homepage-intro-carousel {
+	width: 50%;
+	float: left;
+}
+
+#homepage-login {
+	float: right;
 }

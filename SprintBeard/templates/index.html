@@ -5,23 +5,40 @@
 {% block content %}
 <div class="container-fluid">
 	<div class="row-fluid">
-		<div class="row">
-			<p class="text-center">
-				<div class="span12">
-					<div class="span6" id="homeScreenLeftColumn">
-						<img src="{{ url_for('static', filename='img/logo.png') }}" class="text-left" id="homeScreenLogo" alt="Sprint Beard" align="right">
+		<div id="home-screen-main">
+			<div id="homepage-intro-carousel" class="carousel slide" data-ride="carousel">
+				<!-- Indicators -->
+				<ol class="carousel-indicators">
+					<li data-target="#" data-slide-to="0" class="active"></li>
+					<li data-target="#" data-slide-to="1"></li>
+					<li data-target="#" data-slide-to="2"></li>
+				</ol>
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner">
+					<div class="item active">
+						<img src="{{ url_for('static', filename='img/logo.png') }}">
 					</div>
-					<div class="span6" id="rightColumnHomePage">
-						<h1>
-							<p class="text-center">Sprint Beard</p>
-						</h1>
+					<div class="item">
+						<img src="{{ url_for('static', filename='img/main1.png') }}">
 					</div>
-					<div class="span6" id="rightColumnHomePage">
-						<button type="button" id="homeScreenButton" class="btn btn-large btn-block btn-success" onclick="location.href='dashboard'">Log In</button>
-						<button type="button" id="homeScreenButton" class="btn btn-large btn-block btn-primary" onclick="location.href='dashboard'">Sign Up</button>
+					<div class="item">
+						<img src="{{ url_for('static', filename='img/main2.png') }}">
 					</div>
 				</div>
-			</p>
+				<a class="left carousel-control" href="#homepage-intro-carousel" data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+				</a>
+				<a class="right carousel-control" href="#homepage-intro-carousel" data-slide="next">
+					<span class="glyphicon glyphicon-chevron-right"></span>
+				</a>
+			</div>
+			<div class="span4">
+				<h1>
+					<p class="text-center">Sprint Beard</p>
+					<button type="button" id="homeScreenButton" class="btn btn-large btn-block btn-success" onclick="location.href='dashboard'">Log In</button>
+					<button type="button" id="homeScreenButton" class="btn btn-large btn-block btn-primary" onclick="location.href='dashboard'">Sign Up</button>
+				</h1>
+			</div>
 		</div>
 	</div>
 </div>
